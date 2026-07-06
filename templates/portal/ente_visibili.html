@@ -6,16 +6,17 @@
     <div class="visibili-card-header">
       <h3>Schede Scuola</h3>
     </div>
-    <ul class="visibili-list">
+    
+    <ul>
       {% for s in scuole %}
-        <li class="visibili-item">
-          <a href="{% url 'scuola_detail' s.pk %}" class="visibili-link">
-            {{ s.nome|default:"Nuova Scuola (Profilo da completare)" }} 
-            {% if s.indirizzo %} — {{ s.indirizzo }}{% endif %}
-          </a>
-        </li>
+        {% if s.nome %}
+          <li>
+            <a href="{% url 'scuola_detail' s.pk %}" class="visibili-link">
+              {{ s.nome }} </a>
+          </li>
+        {% endif %}
       {% empty %}
-        <li class="visibili-item text-muted">Nessuna scuola disponibile.</li>
+        <li class="text-muted">Nessuna scuola disponibile.</li>
       {% endfor %}
     </ul>
   </div>
