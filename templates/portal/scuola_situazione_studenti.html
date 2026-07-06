@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="page-form">
+  <h1>Situazione studenti con certificazione</h1>
+
+  <form method="post" class="card form-card">
+    {% csrf_token %}
+    
+    <table class="table">
+      <!-- 1. Пятый курс -->
+      <tr>
+        <th>{{ form.numero_studenti_quinto.label_tag }}</th>
+        <td>{{ form.numero_studenti_quinto }}</td>
+      </tr>
+      
+      <!-- 2. Четвертый курс -->
+      <tr>
+        <th>{{ form.numero_studenti_quarto.label_tag }}</th>
+        <td>{{ form.numero_studenti_quarto }}</td>
+      </tr>
+      
+      <!-- 3. Первые три курса -->
+      <tr>
+        <th>{{ form.numero_studenti_triennio.label_tag }}</th>
+        <td>{{ form.numero_studenti_triennio }}</td>
+      </tr>
+      
+      <!-- 4. АВТОМАТИЧЕСКОЕ ПОЛЕ ИЗ МАКУПА (Вычисляемый остаток FSL) -->
+      <tr>
+        <th><label>Numero FSL ancora da attivare:</label></th>
+        <td>
+          <input type="text" class="input" value="{{ scuola.numero_fsl_ancora_da_attivare }}" readonly style="background-color: #f9ebeb; color: #555; cursor: not-allowed;">
+        </td>
+      </tr>
+
+      <!-- 5. Сколько нужно активировать -->
+      <tr>
+        <th>{{ form.numero_fsl_da_attivare.label_tag }}</th>
+        <td>{{ form.numero_fsl_da_attivare }}</td>
+      </tr>
+      
+      <!-- 6. Сколько уже активировано -->
+      <tr>
+        <th>{{ form.numero_fsl_attivati.label_tag }}</th>
+        <td>{{ form.numero_fsl_attivati }}</td>
+      </tr>
+    </table>
+
+    <div class="btn-row">
+      <button class="btn" type="submit">Salva</button>
+      <a class="btn back-btn" href="{% url 'scuola_hub' %}">Annulla</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

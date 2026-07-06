@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Il mio ente</h1>
+
+<!-- ФУНКЦИИ -->
+<div class="grid grid2">
+
+  <a class="card_block" href="{% url 'ente_dati' %}">
+    <div class="card">
+      <h3>Scheda ente</h3>
+      <div class="small muted">Inserisci o modifica</div>
+    </div>
+  </a>
+
+  <a class="card_block" href="{% url 'ente_aziende_list' %}">
+    <div class="card">
+      <h3>Le mie aziende</h3>
+      <div class="small muted">Elenco, inserisci o modifica</div>
+    </div>
+  </a>
+  
+  <a class="card_block" href="{% url 'ente_visibili' %}">
+    <div class="card">
+      <h3>Contenuti visibili</h3>
+      <div class="small muted">Schede scuola Schede aziende</div>
+    </div>
+  </a>
+
+  <a class="card_block" href="{% url 'ente_istruzioni' %}">
+    <div class="card">
+      <h3>Istruzioni</h3>
+      <div class="small muted">Guida rapida</div>
+    </div>
+  </a>
+</div>
+
+<a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
+
+{% endblock %}

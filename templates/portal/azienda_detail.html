@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <h2 style="text-align:center; margin-bottom:25px;">
+        {{ azienda.nome }}
+    </h2>
+    <div>
+    <div style="padding:12px; border-bottom:1px solid #ccc;">
+        <strong>Settore:</strong> {{ azienda.settore }}
+    </div>
+    <div style="padding:12px; border-bottom:1px solid #ccc;">
+        <strong>Referente:</strong> {{ azienda.referente_contatti }}
+    </div>
+    <div style="padding:12px; border-bottom:1px solid #ccc;">
+        <strong>Numero scoperture:</strong> {{ azienda.numero_scoperture }}
+    </div>
+    <div style="padding:12px; border-bottom:1px solid #ccc;">
+        <strong>PCTO attivati (anni):</strong> {{ azienda.pcto_attivati_anni }}
+    </div>
+    {% if azienda.foto %}
+    <div style="padding:12px; border-bottom:1px solid #ccc;">
+        <strong>Foto:</strong> <a href="{{ azienda.foto.url }}" target="_blank">Vedi foto</a>
+    </div>
+    {% endif %}
+    {% if azienda.video %}
+    <div style="padding:12px; border-bottom:1px solid #ccc;">
+        <strong>Video:</strong> <a href="{{ azienda.video }}" target="_blank">Vedi video</a>
+    </div>
+    {% endif %}
+</div>
+    
+
+</div>
+<div >
+    <a class="btn back-btn" href="{% url 'ente_aziende_list' %}">← Torna alla lista aziende</a>
+    <a class="btn back-btn" href="{% url 'ente_azienda_update' azienda.pk %}">Modifica</a>
+    <a class="btn back-btn" href="{% url 'ente_azienda_delete' azienda.pk %}">Elimina</a>
+</div>
+
+{% endblock %}
+
+
+
+
+
+

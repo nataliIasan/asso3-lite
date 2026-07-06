@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card" style="max-width:700px; margin:auto; padding:20px; border-radius:8px;
+                        box-shadow:0 2px 6px rgba(0,0,0,0.15); background:#212842; color:#fff;">
+
+    <!-- Заголовок карточки -->
+    <h2 style="text-align:center; margin-bottom:20px;">
+        {{ studente.cognome }} {{ studente.nome }}
+    </h2>
+
+    <div style="padding:12px; border-bottom:1px solid #eee;">
+        <strong>Data di nascita:</strong> {{ studente.data_nascita }}
+    </div>
+
+    <div style="padding:12px; border-bottom:1px solid #eee;">
+        <strong>Nazionalità:</strong> {{ studente.nazionalita }}
+    </div>
+
+    <div style="padding:12px; border-bottom:1px solid #eee;">
+        <strong>Classe:</strong> {{ studente.classe }}
+    </div>
+
+    <div style="padding:12px; border-bottom:1px solid #eee;">
+        <strong>Indirizzo corso di studi:</strong> {{ studente.indirizzo_corso }}
+    </div>
+
+    <div style="padding:12px; border-bottom:1px solid #eee;">
+        <strong>Note:</strong> {{ studente.note }}
+    </div>
+
+    <div style="padding:12px; border-bottom:1px solid #eee;">
+        <strong>Scuola di appartenenza:</strong> {{ studente.scuola.nome }}
+    </div>
+
+    <div class="btn-group">
+        <a class="btn" href="{% url 'studente_update' pk=studente.pk %}">Modifica</a>
+        <a class="btn btn-danger" href="{% url 'studente_delete' pk=studente.pk %}">Elimina</a>
+        <a class="btn" href="{% url 'scuola_visibili' %}">← Torna indietro</a>
+      </div>
+</div>
+
+{% endblock %}
+

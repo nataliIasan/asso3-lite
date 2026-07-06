@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-form">
+<h1>Registrazione SCUOLA</h1>
+
+<form method="post" class="card form-card">
+  {% csrf_token %}
+  <table class="table">
+    {{ form.as_table }}
+  </table>
+  <div style="margin-top:12px; margin-left: 10px;">
+    <button class="btn" type="submit">Registrati</button>
+    <a class="btn" href="/accounts/login/">Annulla</a>
+  </div>
+</form>
+
+
+<p class="small">Hai già un account? <a href="/accounts/login/">Accedi</a>.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Le mie aziende</h1>
+
+<div class="grid">
+  <a class="card" href="{% url 'ente_azienda_create' %}">
+    <h3>+ Nuova azienda</h3>
+    <p class="small">Crea una nuova azienda</p>
+  </a>
+</div>
+
+<table class="table">
+  <thead>
+    <tr><th>Nome</th><th>Settore</th><th></th></tr>
+  </thead>
+  <tbody>
+  {% for a in aziende %}
+    <tr>
+      <td><a href="{% url 'azienda_detail' a.pk %}">{{ a.nome }}</a></td>
+      <td>{{ a.settore|default:"—" }}</td>
+      <td style="text-align:right;">
+        <a class="btn back-btn" href="{% url 'ente_azienda_update' a.pk %}">Modifica</a>
+        <a class="btn back-btn" href="{% url 'ente_azienda_delete' a.pk %}">Elimina</a>
+      </td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="3">Ancora nessuna azienda.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+  <a href="{% url 'ente_hub' %}" class="btn back-btn">⬅ Torna al pannello Ente</a>
+
+
+{% endblock %}
+

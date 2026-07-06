@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="scuola-detail-card">
+    <h2 class="scuola-title">{{ scuola.nome }}</h2>
+
+    <div class="info-row">
+        <strong>Codice meccanografico:</strong> {{ scuola.codice_meccanografico }}
+    </div>
+
+    <div class="info-row">
+        <strong>Email:</strong> {{ scuola.email }}
+    </div>
+
+    <div class="info-row">
+        <strong>Telefono:</strong> {{ scuola.telefono }}
+    </div>
+
+    <div class="info-row">
+        <strong>Indirizzo:</strong> {{ scuola.indirizzo }}
+    </div>
+
+    <!-- Общий итог студентов оставляем, разбивку по годам стёрли -->
+    <div class="info-row highlight-blue">
+        <strong>Numero studenti con certificazione nell'AS :</strong> {{ scuola.numero_studenti_certificati }}
+    </div>
+
+    <div class="info-row">
+        <strong>Numero FSL da attivare nell'AS:</strong> {{ scuola.numero_fsl_da_attivare }}
+    </div>
+
+    <div class="info-row">
+        <strong>Numero FSL attivati nell'AS:</strong> {{ scuola.numero_fsl_attivati }}
+    </div>
+
+    <div class="btn-container">
+        <a href="{% url 'ente_visibili' %}" class="btn back-btn">← Torna indietro</a>
+    </div>
+</div>
+
+{% endblock %}

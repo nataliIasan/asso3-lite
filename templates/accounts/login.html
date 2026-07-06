@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Accedi</h1>
+
+<div class="card form-card">
+<form method="post">{% csrf_token %}{{ form.as_p }}
+  
+  <button class="btn back-btn">Entra</button>
+  <a href="{% url 'landing' %}" class="btn back-btn">Annulla</a>
+  <p class="small" style="margin-top: 8px;">
+    <a href="{% url 'password_reset' %}">Hai dimenticato la password?</a>
+  </p>
+</form>
+<p class="small" style="margin-top:8px">
+    Non hai un account?
+    <a href="/accounts/auth/choose/"><b>Registrati</b></a>
+    (demo con attivazione via link).
+  </p>
+</div>
+  
+{% endblock %}

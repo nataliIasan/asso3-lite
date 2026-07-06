@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<h1>Log In / Registrazione</h1>
+
+<!-- 2 карточки входа -->
+<div class="landing-grid">
+  <a class="card" href="{% url 'login' %}?next=/accounts/post-login">
+    <h3>Come Scuola</h3>
+    <p class="small">Accedi come SCUOLA</p>
+  </a>
+
+  <a class="card" href="{% url 'login' %}?next=/accounts/post-login">
+    <h3>Come Ente</h3>
+    <p class="small">Accedi come ENTE</p>
+  </a>
+
+  <a class="card" href="{% url 'signup_scuola_full' %}">
+    <h3>Registrati come Scuola</h3>
+    <p class="small">Crea un nuovo account SCUOLA</p>
+  </a>
+
+  <a class="card" href="{% url 'signup_ente_full' %}">
+    <h3>Registrati come Ente</h3>
+    <p class="small">Crea un nuovo account ENTE</p>
+  </a>
+</div>
+
+<a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
+{% endblock %}
+
+
+
+
+
+<!--
+<h1>Login / registrazione</h1>
+<div class="grid2">
+  <a class="card" href="/accounts/login/?next=/post-login"><h3>Come Scuola</h3><p class="small">Accedi come SCUOLA</p></a>
+  <a class="card" href="/accounts/login/?next=/post-login"><h3>Come Ente</h3><p class="small">Accedi come ENTE</p></a>
+</div>
+-->

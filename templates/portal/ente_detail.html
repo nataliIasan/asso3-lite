@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Название Ente -->
+<h2 style="text-align:center; margin-bottom:20px;">
+    {{ ente.nome }}
+</h2>
+
+<div>
+
+    <div>
+        <strong>Codice Fiscale:</strong> {{ ente.codice_fiscale }}
+    </div>
+
+    <div >
+        <strong>Telefono:</strong> {{ ente.telefono }}
+    </div>
+
+    <div >
+        <strong>Email:</strong> {{ ente.email }}
+    </div>
+
+    <div>
+        <strong>Doti disponibili:</strong> {{ ente.doti_disponibili }}
+    </div>
+
+    <div >
+        <strong>Servizi extra:</strong> {{ ente.servizi_extra }}
+    </div>
+</div>
+
+    <a href="{% url 'scuola_visibili' %}" class="btn back-btn">← Torna indietro</a>
+
+
+{% endblock %}

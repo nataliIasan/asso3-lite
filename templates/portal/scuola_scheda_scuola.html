@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-form">
+  <h1>Inserisci scheda SCUOLA</h1>
+
+  <form method="post" class="card form-card">
+    {% csrf_token %}
+    <table class="table">
+      <!-- Выводим основные редактируемые поля (Nome, Codice, Email, Telefono, Indirizzo) -->
+      {{ form.as_table }}
+
+      <!-- ВРУЧНУЮ ДОБАВЛЯЕМ ПОЛЯ ИЗ МАКУПА СТРАНИЦЫ 15 -->
+      <tr>
+        <th><label>Numero studenti con certificazione nell' AS:</label></th>
+        <td>
+          <input type="text" class="input" value="{{ scuola.numero_studenti_certificati }}" readonly style="background-color: #f9ebeb; color: #555; cursor: not-allowed;">
+        </td>
+      </tr>
+      <tr>
+        <th><label>Numero FSL da attivare nell' AS:</label></th>
+        <td>
+          <input type="text" class="input" value="{{ scuola.numero_fsl_da_attivare }}" readonly style="background-color: #f9ebeb; color: #555; cursor: not-allowed;">
+        </td>
+      </tr>
+      <tr>
+        <th><label>Numero FSL attivati nell' AS:</label></th>
+        <td>
+          <input type="text" class="input" value="{{ scuola.numero_fsl_attivati }}" readonly style="background-color: #f9ebeb; color: #555; cursor: not-allowed;">
+        </td>
+      </tr>
+    </table>
+
+    <div class="btn-row">
+      <button class="btn" type="submit">Salva</button>
+      <a class="btn back-btn" href="{% url 'scuola_hub' %}">← Torna indietro</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Contenuti visibili all'ente</h1>
+
+  <div class="visibili-card">
+    <div class="visibili-card-header">
+      <h3>Schede Scuola</h3>
+    </div>
+    <ul class="visibili-list">
+      {% for s in scuole %}
+        <li class="visibili-item">
+          <a href="{% url 'scuola_detail' s.pk %}" class="visibili-link">
+            {{ s.nome|default:"Nuova Scuola (Profilo da completare)" }} 
+            {% if s.indirizzo %} — {{ s.indirizzo }}{% endif %}
+          </a>
+        </li>
+      {% empty %}
+        <li class="visibili-item text-muted">Nessuna scuola disponibile.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+<a href="{% url 'ente_hub' %}" class="btn back-btn">← Torna indietro</a>
+{% endblock %}

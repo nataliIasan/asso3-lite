@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-form">
+  <h1>Inserisci scheda azienda</h1>
+  <form method="post" class="card form-card" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table">
+      {{ form.as_table }}
+    </table>
+    <div class="btn-row">
+      <button class="btn" type="submit">Salva</button>
+      <a class="btn back-btn" href="{% url 'ente_aziende_list' %}">Annulla</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

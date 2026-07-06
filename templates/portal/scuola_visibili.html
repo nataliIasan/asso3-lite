@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Elenco enti</h1>
+<p class="description">Clicca sul ente per maggiori informazioni</p>
+
+<div class="visibili-grid">
+
+    <!-- Card Enti -->
+    <div>
+        <ul class="list-group list-group-flush">
+            {% for e in enti %}
+            <li class="list-group-item">
+                <a href="{% url 'ente_detail' e.pk %}">
+                    {{ e.nome }}
+                </a>
+                {% if e.contatti %} — {{ e.contatti }}{% endif %}
+            </li>
+            {% empty %}
+            <li class="list-group-item text-muted">Nessun ente disponibile.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    
+</div>
+
+<a class="btn back-btn" href="{% url 'scuola_hub' %}">← Torna indietro</a>
+{% endblock %}
+

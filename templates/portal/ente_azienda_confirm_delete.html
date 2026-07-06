@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Elimina azienda</h1>
+  <p>Sei sicuro di voler eliminare l'azienda "{{ azienda.nome }}"?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">Conferma eliminazione</button>
+    <a href="{% url 'ente_aziende_list' %}" class="btn secondary">Annulla</a>
+  </form>
+{% endblock %}
