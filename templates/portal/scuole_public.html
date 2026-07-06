@@ -6,9 +6,11 @@
 <div>
   <ul>
     {% for scuola in items %}
-      <li>
-        {{ scuola.nome }}
-      </li>
+      {% if scuola.nome %} <!-- ДОБАВИЛИ ПРОВЕРКУ: если имя существует -->
+        <li>
+          {{ scuola.nome }}
+        </li>
+      {% endif %}
     {% empty %}
       <li>Nessuna scuola registrata.</li>
     {% endfor %}
