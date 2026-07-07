@@ -338,7 +338,44 @@ input[readonly] {
   font-style: italic;
 }
 
-/* --- АДАПТИВНОСТЬ (RESPONSIVE) --- */
+/* Контейнер для выравнивания текста и кнопки в шапке */
+.header-user-zone {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Ссылка на имя пользователя (убираем подчеркивание, делаем жирным) */
+.user-hub-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: inherit;
+}
+
+.user-hub-link:hover {
+  text-decoration: underline; /* Подчеркивание только при наведении */
+}
+
+/* Цветовые акценты для кнопок при наведении */
+.btn-logout:hover {
+  background-color: #b30000 !important;
+  color: #ffffff !important;
+  border-color: #b30000 !important;
+}
+
+.btn-login:hover {
+  background-color: #b30000 !important;
+  color: #ffffff !important;
+  border-color: #b30000 !important;
+}
+
+.nav-auth {
+  display: flex;
+  align-items: center; 
+  gap: 25px;           
+}
+
+/* --- (RESPONSIVE) --- */
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

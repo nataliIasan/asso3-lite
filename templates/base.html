@@ -5,32 +5,44 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ASSO 3 </title>
+  <title>ASSO 3</title>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'assets/style.css' %}?v=12">
 </head>
-<body >
-<div class="nav">
-  <div><a class="brand" href="/">
-    <img src="{% static 'assets/img/logo_asso_colore.png' %}" alt="ASSO" class="nav-logo">
-</a>
-  </div>
-<div>
-    {% if user.is_authenticated %}
-    <span class="small">
-        Ciao, {{ user.username }} 
-        {% if user.role %} ({{ user.role }}){% endif %}
-    </span>
-    <a class="btn btn-log" href="{% url 'logout' %}">Log Out</a>
-{% else %}
-    <a class="btn btn-log" href="{% url 'login_options' %}">Log In</a>
-{% endif %}
+<body>
 
+<div class="nav">
+  <div>
+    <a class="brand" href="/">
+      <img src="{% static 'assets/img/logo_asso_colore.png' %}" alt="ASSO" class="nav-logo">
+    </a>
+  </div>
+
+  <div class="nav-auth">
+    {% if user.is_authenticated %}
+      <span class="small">
+        Ciao, 
+        {% if user.role|lower == 'ente' %}
+          <a href="{% url 'ente_hub' %}" class="user-hub-link">{{ user.username }}</a>
+        {% elif user.role|lower == 'scuola' %}
+          <a href="{% url 'scuola_hub' %}" class="user-hub-link">{{ user.username }}</a>
+        {% else %}
+          <strong>{{ user.username }}</strong>
+        {% endif %}
+      </span>
+      <a class="btn btn-log" href="{% url 'logout' %}">Log Out</a>
+
+    {% else %}
+      <span class="small"><a href="{% url 'login_options' %}" class="user-nav-text-link">Ciao, Ospite</a></span>
+      <a class="btn btn-log" href="{% url 'login_options' %}">Log In</a>
+    {% endif %}
   </div>
 </div>
+
 <div class="container">
   {% for m in messages %}<div class="msg">{{ m }}</div>{% endfor %}
   {% block content %}{% endblock %}
 </div>
 
-</body></html>
+</body>
+</html>

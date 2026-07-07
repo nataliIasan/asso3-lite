@@ -63,7 +63,8 @@ class Ente(models.Model):
     servizi_extra = models.TextField(blank=True, max_length=2000)
 
     def __str__(self): 
-        return self.nome
+        # Если имя есть — выводим его, если пусто — выводим красивую заглушку с ID
+        return self.nome if self.nome else f"Ente senza nome (ID: {self.pk})"
 
 
 class Azienda(models.Model):
