@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h1>FAQ</h1>
-<p>Domande frequenti.</p>
 
-<a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
+<div class="page-form">
+  
+  <h1>FAQ</h1>
+  <p class="page-subtitle">Domande frequenti e risposte utili</p>
+
+  <div class="card form-card-custom">
+    
+    <p>Domande frequenti.</p>
+
+    <div class="btn-row custom-form-buttons">
+      <a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
+    </div>
+
+  </div>
+</div>
+
 {% endblock %}

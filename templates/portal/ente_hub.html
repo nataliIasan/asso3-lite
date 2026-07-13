@@ -2,7 +2,6 @@
 {% block content %}
 <h1>Il mio ente</h1>
 
-<!-- ФУНКЦИИ -->
 <div class="grid grid2">
 
   <a class="card_block" href="{% url 'ente_dati' %}">
@@ -21,8 +20,8 @@
   
   <a class="card_block" href="{% url 'ente_visibili' %}">
     <div class="card">
-      <h3>Contenuti visibili</h3>
-      <div class="small muted">Schede scuola Schede aziende</div>
+      <h3>Le scuole</h3>
+      <div class="small muted">Schede scuola</div>
     </div>
   </a>
 
@@ -34,6 +33,37 @@
   </a>
 </div>
 
-<a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
+<!-- Используем твои готовые классы для идеального ряда кнопок -->
+<div class="btn-row custom-form-buttons">
+  <a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
+  <button type="button" class="btn" id="openModalBtn">Elimina account</button>
+</div>
+
+<!-- КАСТОМНОЕ МОДАЛЬНОЕ ОКНО -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-window">
+    <h3>Richiesta di cancellazione</h3>
+    <p>Sei sicuro di voler richiedere la cancellazione del tuo account? Verrà inviata una notifica all'amministratore del sistema per l'elaborazione della richiesta.</p>
+    
+    <!-- И здесь для кнопок внутри окна тоже работают твои классы -->
+    <div class="btn-row custom-form-buttons">
+      <form action="{% url 'richiedi_cancellazione' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-log">Sì, conferma</button>
+      </form>
+      <button type="button" class="btn back-btn" id="closeModalBtn">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('deleteModal');
+  const openBtn = document.getElementById('openModalBtn');
+  const closeBtn = document.getElementById('closeModalBtn');
+
+  openBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
+  closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+  window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+</script>
 
 {% endblock %}

@@ -1,25 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Contenuti visibili all'ente</h1>
+<div class="page-form">
+  
+  <h1>Le scuole</h1>
+  <p class="page-subtitle">Schede Scuola</p>
 
-  <div class="visibili-card">
-    <div class="visibili-card-header">
-      <h3>Schede Scuola</h3>
-    </div>
+  <div class="card form-card-custom">
     
-    <ul>
+    <div class="custom-list-group">
       {% for s in scuole %}
         {% if s.nome %}
-          <li>
-            <a href="{% url 'scuola_detail' s.pk %}" class="visibili-link">
-              {{ s.nome }} </a>
-          </li>
+          <a href="{% url 'scuola_detail' s.pk %}" class="list-item-bar">
+            <div class="list-item-title-wrapper">
+              <span class="list-item-name">{{ s.nome }}</span>
+            </div>
+          </a>
         {% endif %}
       {% empty %}
-        <li class="text-muted">Nessuna scuola disponibile.</li>
+        <p class="text-muted">Nessuna scuola disponibile.</p>
       {% endfor %}
-    </ul>
-  </div>
+    </div>
 
-<a href="{% url 'ente_hub' %}" class="btn back-btn">← Torna indietro</a>
+    <div class="btn-row custom-form-buttons">
+      <a href="{% url 'ente_hub' %}" class="btn back-btn">← Torna indietro</a>
+    </div>
+
+  </div>
+</div>
 {% endblock %}

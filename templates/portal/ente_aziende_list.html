@@ -1,36 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Le mie aziende</h1>
+<div class="content-wrapper aziende-list-page">
+  
+  <div class="page-header-flex">
+    <div class="header-spacer"></div> 
 
-<div class="grid">
-  <a class="card" href="{% url 'ente_azienda_create' %}">
-    <h3>+ Nuova azienda</h3>
-    <p class="small">Crea una nuova azienda</p>
-  </a>
+    <div class="header-titles">
+      <h1>Le mie aziende</h1>
+      <p class="text-muted">Clicca sulla azienda per maggiori informazioni</p>
+    </div>
+
+    <div class="header-action">
+      <a class="btn-outline-red" href="{% url 'ente_azienda_create' %}">
+        + Inserisci azienda
+      </a>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Settore</th>
+          <th></th> 
+        </tr>
+      </thead>
+      <tbody>
+      {% for a in aziende %}
+        <tr>
+          <td class="table-cell-name">
+            <a href="{% url 'azienda_detail' a.pk %}">{{ a.nome }}</a>
+          </td>
+          <td class="table-cell-settore">
+            {{ a.settore|default:"—" }}
+          </td>
+          <td style="text-align: right; padding-right: 20px;">
+            <a href="{% url 'ente_azienda_delete' a.pk %}" class="btn-list-delete">Elimina</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3" class="table-empty">
+            Ancora nessuna azienda.
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer-actions">
+    <a href="{% url 'ente_hub' %}" class="btn back-btn-round">
+      ⬅ Torna indietro
+    </a>
+  </div>
+
 </div>
-
-<table class="table">
-  <thead>
-    <tr><th>Nome</th><th>Settore</th><th></th></tr>
-  </thead>
-  <tbody>
-  {% for a in aziende %}
-    <tr>
-      <td><a href="{% url 'azienda_detail' a.pk %}">{{ a.nome }}</a></td>
-      <td>{{ a.settore|default:"—" }}</td>
-      <td style="text-align:right;">
-        <a class="btn back-btn" href="{% url 'ente_azienda_update' a.pk %}">Modifica</a>
-        <a class="btn back-btn" href="{% url 'ente_azienda_delete' a.pk %}">Elimina</a>
-      </td>
-    </tr>
-  {% empty %}
-    <tr><td colspan="3">Ancora nessuna azienda.</td></tr>
-  {% endfor %}
-  </tbody>
-</table>
-
-  <a href="{% url 'ente_hub' %}" class="btn back-btn">⬅ Torna al pannello Ente</a>
-
-
 {% endblock %}
 

@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="page-form">
+  
   <h1>Elimina azienda</h1>
-  <p>Sei sicuro di voler eliminare l'azienda "{{ azienda.nome }}"?</p>
 
-  <form method="post">
+  <form method="post" class="card form-card-custom">
     {% csrf_token %}
-    <button type="submit" class="btn">Conferma eliminazione</button>
-    <a href="{% url 'ente_aziende_list' %}" class="btn secondary">Annulla</a>
+    
+    <p class="confirm-text">
+      Sei sicuro di voler eliminare l'azienda <br><strong>"{{ azienda.nome }}"</strong>?
+    </p>
+
+    <div class="btn-row custom-form-buttons custom-form-buttons-center">
+      <button type="submit" class="btn btn-danger-custom">Conferma eliminazione</button>
+      <a href="{% url 'ente_aziende_list' %}" class="btn back-btn">Annulla</a>
+    </div>
   </form>
+
+</div>
 {% endblock %}

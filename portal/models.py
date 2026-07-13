@@ -72,8 +72,15 @@ class Azienda(models.Model):
     nome = models.CharField(max_length=200)
     settore = models.CharField(max_length=120, blank=True)
     referente_contatti = models.CharField(max_length=255, blank=True)
+    
+    # === НОВЫЕ ПОЛЯ ДЛЯ СЧЁТЧИКОВ ИЗ МАКЕТА ===
+    fsl_attivati_anno_in_corso = models.PositiveIntegerField(default=0)  # Наш счётчик "X"
+    fsl_attivati_totale = models.PositiveIntegerField(default=0)         # Наш архивный итог "Y"
+    note = models.TextField(blank=True, max_length=2000)                 # Большое поле для заметок (scoperture и др.)
+
+    # === СТАРЫЕ ПОЛЯ (Оставляем для сохранности текущей базы данных) ===
     numero_scoperture = models.PositiveIntegerField(default=0)
-    fsl_attivati_anni = models.CharField(max_length=120, blank=True) # Переименовали под формат FSL
+    fsl_attivati_anni = models.CharField(max_length=120, blank=True) 
     foto = models.FileField(upload_to='aziende_foto/', blank=True, null=True)
     video = models.URLField(blank=True, null=True)
 

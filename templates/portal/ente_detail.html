@@ -1,36 +1,50 @@
 {% extends 'base.html' %}
-
 {% block content %}
+<div class="page-form">
+  
+  <h1>{{ ente.nome }}</h1>
 
-<!-- Название Ente -->
-<h2 style="text-align:center; margin-bottom:20px;">
-    {{ ente.nome }}
-</h2>
-
-<div>
-
-    <div>
-        <strong>Codice Fiscale:</strong> {{ ente.codice_fiscale }}
+  <div class="card form-card-custom">
+    
+    <div class="form-group-flex">
+      <label class="form-label">Codice Fiscale:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ ente.codice_fiscale|default:'—' }}" readonly>
+      </div>
     </div>
 
-    <div >
-        <strong>Telefono:</strong> {{ ente.telefono }}
+    <div class="form-group-flex">
+      <label class="form-label">Telefono:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ ente.telefono|default:'—' }}" readonly>
+      </div>
     </div>
 
-    <div >
-        <strong>Email:</strong> {{ ente.email }}
+    <div class="form-group-flex">
+      <label class="form-label">Email:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ ente.email|default:'—' }}" readonly>
+      </div>
     </div>
 
-    <div>
-        <strong>Doti disponibili:</strong> {{ ente.doti_disponibili }}
+    <div class="form-group-flex">
+      <label class="form-label">Doti disponibili:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ ente.doti_disponibili }}" readonly>
+      </div>
     </div>
 
-    <div >
-        <strong>Servizi extra:</strong> {{ ente.servizi_extra }}
+    <div class="form-group-flex">
+      <label class="form-label">Servizi extra:</label>
+      <div class="form-input-wrapper">
+        <textarea class="input" rows="4" readonly>{{ ente.servizi_extra|default:'' }}</textarea>
+      </div>
     </div>
+    
+    <div class="btn-row custom-form-buttons">
+      <a href="{% url 'scuola_visibili' %}" class="btn back-btn">← Torna indietro</a>
+    </div>
+
+  </div>
 </div>
-
-    <a href="{% url 'scuola_visibili' %}" class="btn back-btn">← Torna indietro</a>
-
-
 {% endblock %}

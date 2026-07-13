@@ -1,38 +1,54 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="page-form">
+  
   <h1>Inserisci scheda SCUOLA</h1>
 
-  <form method="post" class="card form-card">
+  {% if form.errors %}
+  <div class="alert alert-danger custom-form-errors">
+    <strong>Per favore, correggi i seguenti errori:</strong>
+  </div>
+  {% endif %}
+
+  <form method="post" class="card form-card-custom">
     {% csrf_token %}
-    <table class="table">
-      <!-- Выводим основные редактируемые поля (Nome, Codice, Email, Telefono, Indirizzo) -->
-      {{ form.as_table }}
+    
+    {% for field in form %}
+    <div class="form-group-flex">
+      <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <div class="form-input-wrapper">
+        {{ field }}
+        {% if field.errors %}
+          <div class="field-error-text">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
 
-      <!-- ВРУЧНУЮ ДОБАВЛЯЕМ ПОЛЯ ИЗ МАКУПА СТРАНИЦЫ 15 -->
-      <tr>
-        <th><label>Numero studenti con certificazione nell' AS:</label></th>
-        <td>
-          <input type="text" class="input" value="{{ scuola.numero_studenti_certificati }}" readonly style="background-color: #f9ebeb; color: #555; cursor: not-allowed;">
-        </td>
-      </tr>
-      <tr>
-        <th><label>Numero FSL da attivare nell' AS:</label></th>
-        <td>
-          <input type="text" class="input" value="{{ scuola.numero_fsl_da_attivare }}" readonly style="background-color: #f9ebeb; color: #555; cursor: not-allowed;">
-        </td>
-      </tr>
-      <tr>
-        <th><label>Numero FSL attivati nell' AS:</label></th>
-        <td>
-          <input type="text" class="input" value="{{ scuola.numero_fsl_attivati }}" readonly style="background-color: #f9ebeb; color: #555; cursor: not-allowed;">
-        </td>
-      </tr>
-    </table>
+    <div class="form-group-flex">
+      <label class="form-label">Numero studenti con certificazione nell'AS:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_studenti_certificati }}" readonly>
+      </div>
+    </div>
 
-    <div class="btn-row">
+    <div class="form-group-flex">
+      <label class="form-label">Numero FSL da attivare nell'AS:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_fsl_da_attivare }}" readonly>
+      </div>
+    </div>
+
+    <div class="form-group-flex">
+      <label class="form-label">Numero FSL attivati nell'AS:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_fsl_attivati }}" readonly>
+      </div>
+    </div>
+    
+    <div class="btn-row custom-form-buttons">
       <button class="btn" type="submit">Salva</button>
-      <a class="btn back-btn" href="{% url 'scuola_hub' %}">← Torna indietro</a>
+      <a class="btn back-btn" href="{% url 'scuola_hub' %}">Annulla</a>
     </div>
   </form>
 </div>

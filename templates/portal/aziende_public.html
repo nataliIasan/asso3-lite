@@ -1,18 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Le aziende</h1>
 
-<div>
-  <ul class="list-group list-group-flush">
-    {% for a in items %}
-      <li class="list-group-item">
-        {{ a.nome }}
-      </li>
-    {% empty %}
-      <li class="list-group-item text-muted">Nessuna azienda disponibile.</li>
-    {% endfor %}
-  </ul>
+<div class="page-form">
+  
+  <h1>Le aziende</h1>
+  <p class="page-subtitle">Elenco delle aziende partner</p>
+
+  <div class="card form-card-custom">
+    
+    <div class="custom-list-group">
+      {% for a in items %}
+        {% if a.nome %}
+          <div class="list-item-bar">
+            <div class="list-item-title-wrapper">
+              <span class="list-item-name">{{ a.nome }}</span>
+            </div>
+          </div>
+        {% endif %}
+      {% empty %}
+        <p class="text-muted">Nessuna azienda disponibile.</p>
+      {% endfor %}
+    </div>
+
+    <div class="btn-row custom-form-buttons">
+      <a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
+    </div>
+
+  </div>
 </div>
 
-<a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
 {% endblock %}

@@ -1,41 +1,62 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="page-form">
+  <h1>{{ scuola.nome }}</h1>
 
-<div class="scuola-detail-card">
-    <h2 class="scuola-title">{{ scuola.nome }}</h2>
-
-    <div class="info-row">
-        <strong>Codice meccanografico:</strong> {{ scuola.codice_meccanografico }}
+  <div class="card form-card-custom">
+    
+    <div class="form-group-flex">
+      <label class="form-label">Codice meccanografico:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.codice_meccanografico|default:'—' }}" readonly>
+      </div>
     </div>
 
-    <div class="info-row">
-        <strong>Email:</strong> {{ scuola.email }}
+    <div class="form-group-flex">
+      <label class="form-label">Email:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.email|default:'—' }}" readonly>
+      </div>
     </div>
 
-    <div class="info-row">
-        <strong>Telefono:</strong> {{ scuola.telefono }}
+    <div class="form-group-flex">
+      <label class="form-label">Telefono:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.telefono|default:'—' }}" readonly>
+      </div>
     </div>
 
-    <div class="info-row">
-        <strong>Indirizzo:</strong> {{ scuola.indirizzo }}
+    <div class="form-group-flex">
+      <label class="form-label">Indirizzo:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.indirizzo|default:'—' }}" readonly>
+      </div>
     </div>
 
-    <!-- Общий итог студентов оставляем, разбивку по годам стёрли -->
-    <div class="info-row highlight-blue">
-        <strong>Numero studenti con certificazione nell'AS :</strong> {{ scuola.numero_studenti_certificati }}
+    <div class="form-group-flex">
+      <label class="form-label">Numero studenti con certificazione nell'AS:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_studenti_certificati }}" readonly>
+      </div>
     </div>
 
-    <div class="info-row">
-        <strong>Numero FSL da attivare nell'AS:</strong> {{ scuola.numero_fsl_da_attivare }}
+    <div class="form-group-flex">
+      <label class="form-label">Numero FSL da attivare nell'AS:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_fsl_da_attivare }}" readonly>
+      </div>
     </div>
 
-    <div class="info-row">
-        <strong>Numero FSL attivati nell'AS:</strong> {{ scuola.numero_fsl_attivati }}
+    <div class="form-group-flex">
+      <label class="form-label">Numero FSL attivati nell'AS:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_fsl_attivati }}" readonly>
+      </div>
     </div>
-
-    <div class="btn-container">
-        <a href="{% url 'ente_visibili' %}" class="btn back-btn">← Torna indietro</a>
+    
+    <div class="btn-row custom-form-buttons">
+      <a class="btn back-btn" href="{% url 'ente_hub' %}">← Torna indietro</a>
     </div>
+  </div>
 </div>
-
 {% endblock %}

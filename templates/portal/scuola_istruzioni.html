@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Istruzioni per  la Scuola</h1>
-<p>Istruzioni per scuola</p>
-<a class="btn back-btn" href="{% url 'scuola_hub' %}">← Torna indietro</a>
+
+<div class="page-form">
+  
+  <h1>Istruzioni per la Scuola</h1>
+  <p class="page-subtitle">Guida all'utilizzo della piattaforma per gli Istituti Scolastici</p>
+
+  <div class="card form-card-custom">
+    
+    <p>Istruzioni per scuola</p>
+
+    <div class="btn-row custom-form-buttons">
+      <a class="btn back-btn" href="{% url 'scuola_hub' %}">← Torna indietro</a>
+    </div>
+
+  </div>
+</div>
+
 {% endblock %}

@@ -1,46 +1,60 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="page-form">
+  <h1>{{ azienda.nome }}</h1>
 
-
-    <h2 style="text-align:center; margin-bottom:25px;">
-        {{ azienda.nome }}
-    </h2>
-    <div>
-    <div style="padding:12px; border-bottom:1px solid #ccc;">
-        <strong>Settore:</strong> {{ azienda.settore }}
-    </div>
-    <div style="padding:12px; border-bottom:1px solid #ccc;">
-        <strong>Referente:</strong> {{ azienda.referente_contatti }}
-    </div>
-    <div style="padding:12px; border-bottom:1px solid #ccc;">
-        <strong>Numero scoperture:</strong> {{ azienda.numero_scoperture }}
-    </div>
-    <div style="padding:12px; border-bottom:1px solid #ccc;">
-        <strong>PCTO attivati (anni):</strong> {{ azienda.pcto_attivati_anni }}
-    </div>
-    {% if azienda.foto %}
-    <div style="padding:12px; border-bottom:1px solid #ccc;">
-        <strong>Foto:</strong> <a href="{{ azienda.foto.url }}" target="_blank">Vedi foto</a>
-    </div>
-    {% endif %}
-    {% if azienda.video %}
-    <div style="padding:12px; border-bottom:1px solid #ccc;">
-        <strong>Video:</strong> <a href="{{ azienda.video }}" target="_blank">Vedi video</a>
-    </div>
-    {% endif %}
-</div>
+  <div class="card form-card-custom">
     
+    <div class="form-group-flex">
+      <label class="form-label">Nome azienda:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ azienda.nome }}" readonly>
+      </div>
+    </div>
 
-</div>
-<div >
-    <a class="btn back-btn" href="{% url 'ente_aziende_list' %}">← Torna alla lista aziende</a>
-    <a class="btn back-btn" href="{% url 'ente_azienda_update' azienda.pk %}">Modifica</a>
-    <a class="btn back-btn" href="{% url 'ente_azienda_delete' azienda.pk %}">Elimina</a>
-</div>
+    <div class="form-group-flex">
+      <label class="form-label">Contatto referente:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ azienda.referente_contatti|default:'—' }}" readonly>
+      </div>
+    </div>
 
+    <div class="form-group-flex">
+      <label class="form-label">Settore:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ azienda.settore|default:'—' }}" readonly>
+      </div>
+    </div>
+
+    <div class="form-group-flex">
+      <label class="form-label">FSL attivati nell'anno in corso:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ azienda.fsl_attivati_anno_in_corso }}" readonly>
+      </div>
+    </div>
+
+    <div class="form-group-flex">
+      <label class="form-label">FSL attivati in totale:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ azienda.fsl_attivati_totale }}" readonly>
+      </div>
+    </div>
+
+    <div class="form-group-flex">
+      <label class="form-label">Note:</label>
+      <div class="form-input-wrapper">
+        <textarea class="input" rows="4" readonly>{{ azienda.note|default:'' }}</textarea>
+      </div>
+    </div>
+    
+    <div class="btn-row custom-form-buttons">
+      <a class="btn back-btn" href="{% url 'ente_aziende_list' %}">⬅ Torna indetro</a>
+      <a class="btn back-btn" href="{% url 'ente_aziende_list' %}">Annulla</a>
+      <a class="btn back-btn" href="{% url 'ente_azienda_update' azienda.pk %}">Modifica</a>
+    </div>
+  </div>
+</div>
 {% endblock %}
-
-
 
 
 

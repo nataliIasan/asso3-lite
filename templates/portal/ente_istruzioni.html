@@ -1,7 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Istruzioni per gli ENTI</h1>
-<p>Qui ci saranno le istruzioni per gli utenti di tipo ENTE.</p>
-<a href="{% url 'ente_hub' %}" class="btn back-btn">← Torna indietro</a>
-{% endblock %}
 
+<div class="page-form">
+  
+  <h1>Istruzioni</h1>
+  <p class="page-subtitle">Guida all'utilizzo della piattaforma per gli Enti</p>
+
+  <div class="card form-card-custom">
+    
+    <p>Qui ci saranno le istruzioni per gli utenti di tipo ENTE.</p>
+
+    <div class="btn-row custom-form-buttons">
+      <a href="{% url 'ente_hub' %}" class="btn back-btn">← Torna indietro</a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

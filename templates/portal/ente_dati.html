@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="page-form">
-  <h1>Scheda ente</h1>
-  <form method="post" class="card form-card">
+  <h1>I dati del mio Ente</h1>
+
+  <form method="post" class="card form-card-custom">
     {% csrf_token %}
-    <table class="table">
-      {{ form.as_table }}
-    </table>
-    <div class="btn-row">
+    
+    {% for field in form %}
+    <div class="form-group-flex">
+      <label class="form-label">{{ field.label }}</label>
+      <div class="form-input-wrapper">
+        {{ field }}
+      </div>
+    </div>
+    {% endfor %}
+    
+    <div class="btn-row custom-form-buttons">
       <button class="btn" type="submit">Salva</button>
       <a class="btn back-btn" href="{% url 'ente_hub' %}">Annulla</a>
     </div>

@@ -22,28 +22,44 @@ class EnteForm(forms.ModelForm):
                                                    'placeholder': 'Descrizione (max 2000)'}),
         }
 
+    # ВАЛИДАЦИЯ ИМЕНИ: Находится строго НА УРОВНЕ класса Meta (4 пробела от края)
+    def clean_nome(self):
+        nome = self.cleaned_data.get('nome')
+        
+        # Если имя состоит ТОЛЬКО из цифр, выкидываем ошибку
+        if nome and nome.isdigit():
+            raise forms.ValidationError("Il nome dell'ente non può essere composto solo da numeri.")
+            
+        return nome
 
-# --- AZIENDA (СТРАНИЦЫ 25, 31) ---
+
 class AziendaForm(forms.ModelForm):
     class Meta:
         model = Azienda
-        # Поменяли поле pcto_attivati_anni на fsl_attivati_anni
-        fields = ['nome', 'settore', 'referente_contatti', 'fsl_attivati_anni', 'foto', 'video']
+        # Выводим новые поля из макета. Старые поля (foto, video, scoperture) пока прячем, 
+        # так как в новых макетах их нет, либо они ушли в "Note".
+        fields = ['nome', 'referente_contatti', 'settore', 'fsl_attivati_anno_in_corso', 'fsl_attivati_totale', 'note']
+        
         labels = {   
-            'nome': 'Nome azienda',
-            'settore': 'Settore',
-            'referente_contatti': 'Contatto referente',
-            'fsl_attivati_anni': 'FSL attivi',
-            'foto': 'Foto (URL o File)',
-            'video': 'Video (URL)',
+            'nome': 'Nome azienda:',
+            'referente_contatti': 'Contatto referente:',
+            'settore': 'Settore:',
+            'fsl_attivati_anno_in_corso': 'FSL attivati nell\'anno in corso:',
+            'fsl_attivati_totale': 'FSL attivati in totale:',
+            'note': 'Note:',
         }
+        
         widgets = {
-            'nome': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Es. Alfa S.r.l.'}),
-            'settore': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Es. Informatica'}),
-            'referente_contatti': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Nome, email, telefono'}),
-            'fsl_attivati_anni': forms.TextInput(attrs={'class': 'input'}),
-            'foto': forms.FileInput(attrs={'class': 'input'}),
-            'video': forms.URLInput(attrs={'class': 'input', 'placeholder': 'https://...'}),
+            'nome': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Alfa.srl'}),
+            'referente_contatti': forms.TextInput(attrs={'class': 'input', 'placeholder': 'nome, email, tel.'}),
+            'settore': forms.TextInput(attrs={'class': 'input', 'placeholder': 'informatica'}),
+            
+            # Числовые поля с минимальным значением 0
+            'fsl_attivati_anno_in_corso': forms.NumberInput(attrs={'class': 'input', 'min': 0, 'placeholder': 'num. modificabile manualmente (X)'}),
+            'fsl_attivati_totale': forms.NumberInput(attrs={'class': 'input', 'min': 0, 'placeholder': '(X + Y) = num. salvato in anni precedenti'}),
+            
+            # Текстовое поле для заметок (6 строк в высоту)
+            'note': forms.Textarea(attrs={'class': 'input', 'rows': 4, 'placeholder': 'es. num. scoperture, informazioni ecc.'}),
         }
 
 
@@ -70,6 +86,35 @@ class ScuolaForm(forms.ModelForm):
         widgets = {
             "nome": forms.TextInput(attrs={"class": "input"}),
             "codice_meccanografico": "Scuola" == forms.TextInput(attrs={"class": "input"}),
+            "email": forms.EmailInput(attrs={"class": "input"}),
+            "telefono": forms.TextInput(attrs={"class": "input"}),
+            "indirizzo": forms.TextInput(attrs={"class": "input"}),
+        }
+
+
+# --- SCUOLA: SITUAZIONE STUDENTI (СТРАНИЦА 16) ---
+class ScuolaForm(forms.ModelForm):
+    class Meta:
+        model = Scuola
+        # Выносим только основные редактируемые данные школы.
+        fields = [
+            "nome",
+            "codice_meccanografico",
+            "email",
+            "telefono",
+            "indirizzo",
+        ]
+        labels = {
+            "nome": "Nome scuola:",
+            "codice_meccanografico": "Codice meccanografico:",
+            "email": "Email:",
+            "telefono": "Telefono:",
+            "indirizzo": "Indirizzo:",
+        }
+        widgets = {
+            "nome": forms.TextInput(attrs={"class": "input"}),
+            # ИСПРАВЛЕНО: убрали ошибочное сравнение "Scuola" ==, теперь поле закруглится!
+            "codice_meccanografico": forms.TextInput(attrs={"class": "input"}),
             "email": forms.EmailInput(attrs={"class": "input"}),
             "telefono": forms.TextInput(attrs={"class": "input"}),
             "indirizzo": forms.TextInput(attrs={"class": "input"}),

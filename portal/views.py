@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse
 from accounts.decorators import login_required, role_required
+from django.core.mail import send_mail  # ДОБАВИЛИ ИМПОРТ ДЛЯ ОТПРАВКИ ПИСЕМ
 from .models import Scuola, Ente, Azienda
 # Имортируем новые чистые формы (убрали StudenteForm, добавили SituazioneStudentiForm)
 from .forms import ScuolaForm, EnteForm, AziendaForm, SituazioneStudentiForm
@@ -241,3 +242,47 @@ def ente_scheda_azienda(request):
     else:
         form = AziendaForm()
     return render(request, 'portal/ente_scheda_azienda.html', {'form': form})
+
+@login_required
+def azienda_chiudi_anno(request, pk):
+    """
+    Экшен для закрытия учебного года компании:
+    Y = X + Y, затем X = 0
+    """
+    azienda = get_object_or_404(Azienda, pk=pk)
+    azienda.fsl_attivati_totale += azienda.fsl_attivati_anno_in_corso
+    azienda.fsl_attivati_anno_in_corso = 0
+    azienda.save()
+    return redirect('ente_azienda_update', pk=azienda.pk)
+
+
+# ==========================================
+# --- СИСТЕМНЫЙ ЗАПРОС НА УДАЛЕНИЕ ПРОФИЛЯ ---
+# ==========================================
+@login_required
+def richiedi_cancellazione(request):
+    """Отправка уведомления администратору о запросе на удаление аккаунта"""
+    if request.method == 'POST':
+        user = request.user
+        
+        subject = f"ASSO: Richiesta cancellazione account - {user.username}"
+        message = (
+            f"L'utente '{user.username}' ha richiesto la cancellazione del proprio account dalla piattaforma ASSO.\n\n"
+            f"Dettagli profilo:\n"
+            f"- ID Utente: {user.pk}\n"
+            f"- Username: {user.username}\n"
+            f"- Email profilo: {user.email}\n"
+        )
+        from_email = 'noreply@asso.it'
+        recipient_list = ['admin@asso.it']  # Сюда можно вписать реальный email админа проекта
+        
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+            messages.success(request, "La tua richiesta è stata inviata all'amministratore. Riceverai una conferma via email.")
+        except Exception:
+            messages.error(request, "Si è verificato un errore durante l'invio della richiesta. Riprova più tardi.")
+        
+        # Перенаправляем пользователя обратно на тот хаб, откуда он пришел
+        return redirect(request.META.get('HTTP_REFERER', 'landing'))
+        
+    return redirect('landing')

@@ -1,8 +1,15 @@
 from pathlib import Path
 BASE_DIR=Path(__file__).resolve().parent.parent
-SECRET_KEY='dev-key'
-DEBUG=True
-ALLOWED_HOSTS=['*']
+import os
+
+# Если на сервере задан секретный ключ, берём его. Если нет — используем 'dev-key'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-key')
+
+# На сервере мы создадим переменную со значением False. По умолчанию для ПК будет True
+DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
+
+# На сервере пропишем реальный адрес, на ПК останется звёздочка
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
 INSTALLED_APPS=[
  'django.contrib.admin','django.contrib.auth','django.contrib.contenttypes','django.contrib.sessions',

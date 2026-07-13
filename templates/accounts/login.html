@@ -1,22 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>Accedi</h1>
-
-<div class="card form-card">
-<form method="post">{% csrf_token %}{{ form.as_p }}
+<div class="page-form">
   
-  <button class="btn back-btn">Entra</button>
-  <a href="{% url 'landing' %}" class="btn back-btn">Annulla</a>
-  <p class="small" style="margin-top: 8px;">
-    <a href="{% url 'password_reset' %}">Hai dimenticato la password?</a>
-  </p>
-</form>
-<p class="small" style="margin-top:8px">
-    Non hai un account?
-    <a href="/accounts/auth/choose/"><b>Registrati</b></a>
-    (demo con attivazione via link).
-  </p>
+  <h1>Accedi</h1>
+
+  {% if form.non_field_errors %}
+  <div class="alert alert-danger custom-form-errors">
+    {% for error in form.non_field_errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <form method="post" class="card form-card-custom">
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <div class="form-group-flex">
+      <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <div class="form-input-wrapper">
+        {{ field }}
+        {% if field.errors %}
+          <div class="field-error-text">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    
+    <div class="btn-row custom-form-buttons">
+      <button class="btn" type="submit">Entra</button>
+      <a href="{% url 'landing' %}" class="btn back-btn">Annulla</a>
+    </div>
+
+    <div class="login-footer-links">
+      <p class="small">
+        <a href="{% url 'password_reset' %}">Hai dimenticato la password?</a>
+      </p>
+      <p class="small">
+        Non hai un account? 
+        <a href="/accounts/auth/choose/"><b>Registrati</b></a> 
+        <span class="text-muted">(demo con attivazione via link).</span>
+      </p>
+    </div>
+
+  </form>
 </div>
-  
 {% endblock %}
