@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Controlla la posta</h1>
-<p>Ti abbiamo inviato un link di attivazione.</p>
+<div class="page-form text-center ">
+  <h1>Controlla la posta</h1>
+  <p>Ti abbiamo inviato un link di attivazione.</p>
 
-<div class="card" style="margin-top:12px">
-  <div class="small muted">DEMO: link di attivazione (clicca):</div>
-  <p><a class="btn" href="{{ activation_url }}">{{ activation_url }}</a></p>
+  <div class="demo-activation-card">
+    <div class="small muted">DEMO: link di attivazione (clicca):</div>
+    <p><a class="btn demo-link" href="{{ activation_url }}">{{ activation_url }}</a></p>
+  </div>
+
+  <div class="btn-row custom-form-buttons">
+    <a class="btn back-btn" href="/accounts/login/">Torna al login</a>
+  </div>
 </div>
-
-<p class="small"><a href="/accounts/login/">Torna al login</a></p>
 {% endblock %}
-
-<!--(показываем ссылку активации — только на DEMO; потом уберём и будем слать почтой) -->

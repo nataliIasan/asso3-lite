@@ -1,20 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="page-form">
-<h1>Registrazione SCUOLA</h1>
+  
+  <h1>Registrazione SCUOLA</h1>
 
-<form method="post" class="card form-card">
-  {% csrf_token %}
-  <table class="table">
-    {{ form.as_table }}
-  </table>
-  <div style="margin-top:12px; margin-left: 10px;">
-    <button class="btn" type="submit">Registrati</button>
-    <a class="btn" href="/accounts/login/">Annulla</a>
+  {% if form.errors %}
+  <div class="alert alert-danger custom-form-errors">
+    <strong>Per favore, correggi i seguenti errori:</strong>
   </div>
-</form>
+  {% endif %}
 
-
-<p class="small">Hai già un account? <a href="/accounts/login/">Accedi</a>.</p>
+  <form method="post">
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <div class="form-group-flex">
+      <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <div class="form-input-wrapper">
+        {{ field }}
+        {% if field.errors %}
+          <div class="field-error-text">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    
+    <div class="btn-row custom-form-buttons">
+      <button class="btn" type="submit">Registrati</button>
+      <a class="btn back-btn" href="/accounts/login/">Annulla</a>
+    </div>
+  </form>
+  
+  <p class="small signup-login-link">Hai già un account? <a href="/accounts/login/">Accedi</a>.</p>
 </div>
 {% endblock %}
