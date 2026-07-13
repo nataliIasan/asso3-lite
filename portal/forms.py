@@ -36,8 +36,7 @@ class EnteForm(forms.ModelForm):
 class AziendaForm(forms.ModelForm):
     class Meta:
         model = Azienda
-        # Выводим новые поля из макета. Старые поля (foto, video, scoperture) пока прячем, 
-        # так как в новых макетах их нет, либо они ушли в "Note".
+        # Выводим новые поля из макета.
         fields = ['nome', 'referente_contatti', 'settore', 'fsl_attivati_anno_in_corso', 'fsl_attivati_totale', 'note']
         
         labels = {   
@@ -56,11 +55,55 @@ class AziendaForm(forms.ModelForm):
             
             # Числовые поля с минимальным значением 0
             'fsl_attivati_anno_in_corso': forms.NumberInput(attrs={'class': 'input', 'min': 0, 'placeholder': 'num. modificabile manualmente (X)'}),
-            'fsl_attivati_totale': forms.NumberInput(attrs={'class': 'input', 'min': 0, 'placeholder': '(X + Y) = num. salvato in anni precedenti'}),
+            'fsl_attivati_totale': forms.NumberInput(attrs={'class': 'input', 'min': 0}), # placeholder переопределим ниже динамически
             
-            # Текстовое поле для заметок (6 строк в высоту)
+            # Текстовое поле для заметок (4 строки в высоту)
             'note': forms.Textarea(attrs={'class': 'input', 'rows': 4, 'placeholder': 'es. num. scoperture, informazioni ecc.'}),
         }
+
+    # ==========================================
+    # 1. ДИНАМИЧЕСКИЙ ВНЕШНИЙ ВИД (ВЫРАВНИВАНИЕ ОТСТУПОВ)
+    # ==========================================
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        if self.instance.pk:
+            # ЕСЛИ МОДИФИКАЦИЯ: намертво блокируем тотал, делаем его серым
+            self.fields['fsl_attivati_totale'].widget.attrs['readonly'] = 'readonly'
+            self.fields['fsl_attivati_totale'].widget.attrs['style'] = 'background-color: #f5f5f5; cursor: not-allowed;'
+            self.fields['fsl_attivati_totale'].widget.attrs['placeholder'] = 'Calcolato automaticamente'
+        else:
+            # ЕСЛИ РЕГИСТРАЦИЯ: поле открыто для ввода суммы прошлых лет (Y)
+            self.fields['fsl_attivati_totale'].widget.attrs['placeholder'] = 'Введи итог за прошлые года (если есть)'
+
+    # ==========================================
+    # 2. АВТОМАТИЧЕСКАЯ МАТЕМАТИКА ПРИ СОХРАНЕНИИ
+    # ==========================================
+    def save(self, commit=True):
+        azienda = super().save(commit=False)
+        
+        if self.instance.pk:
+            # ЛОГИКА ДЛЯ МОДИФИКАЦИИ: считаем разницу текущего года
+            old_instance = Azienda.objects.get(pk=self.instance.pk)
+            old_anno = old_instance.fsl_attivati_anno_in_corso or 0
+            old_totale = old_instance.fsl_attivati_totale or 0
+            new_anno = azienda.fsl_attivati_anno_in_corso or 0
+            
+            # Формула: Старый тотал + (Новый год - Старый год)
+            azienda.fsl_attivati_totale = old_totale + (new_anno - old_anno)
+        else:
+            # ЛОГИКА ДЛЯ РЕГИСТРАЦИИ НОВОЙ КОМПАНИИ:
+            # Если админ оставил тотал пустым, он равен текущему году
+            if not azienda.fsl_attivati_totale:
+                azienda.fsl_attivati_totale = azienda.fsl_attivati_anno_in_corso or 0
+            # Если админ ввел общее число руками (прошлые года + текущий), сохраняем его
+            elif azienda.fsl_attivati_totale < (azienda.fsl_attivati_anno_in_corso or 0):
+                # Защита от дурака: тотал не может быть меньше текущего года
+                azienda.fsl_attivati_totale = azienda.fsl_attivati_anno_in_corso or 0
+
+        if commit:
+            azienda.save()
+        return azienda
 
 
 # --- SCUOLA: SCHEDA SCUOLA (СТРАНИЦА 15) ---
