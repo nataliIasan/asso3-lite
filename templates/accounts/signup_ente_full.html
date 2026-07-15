@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="page-form">
   
@@ -10,7 +11,7 @@
   </div>
   {% endif %}
 
-  <form method="post">
+  <form method="post" class="card form-card-custom">
     {% csrf_token %}
     
     {% for field in form %}
@@ -18,6 +19,7 @@
       <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       <div class="form-input-wrapper">
         {{ field }}
+        
         {% if field.errors %}
           <div class="field-error-text">{{ field.errors|striptags }}</div>
         {% endif %}

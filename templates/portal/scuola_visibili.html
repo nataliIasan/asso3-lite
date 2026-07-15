@@ -1,26 +1,37 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="page-form">
   
+  <!-- Titolo della pagina e sottotitolo descrittivo corretti grammaticalmente -->
   <h1>Elenco enti</h1>
-  <p class="page-subtitle">Clicca sul ente per maggiori informazioni</p>
+  <p class="page-subtitle">Clicca sull'ente per maggiori informazioni</p>
 
+  <!-- Contenitore principale (Stile card personalizzato coerente con l'Hub) -->
   <div class="card form-card-custom">
     
+    <!-- Gruppo contenitore per l'elenco degli Enti partner -->
     <div class="custom-list-group">
       {% for e in enti %}
+        <!-- Elemento lista interattivo che rimanda alla scheda di dettaglio dell'Ente -->
         <a href="{% url 'ente_detail' e.pk %}" class="list-item-bar">
           <div class="list-item-title-wrapper">
             <span class="list-item-name">{{ e.nome }}</span>
-            {% if e.contatti %}<span class="list-item-info"> — {{ e.contatti }}</span>{% endif %}
+            {% if e.contatti %}
+              <!-- Informazioni di contatto rapide visualizzate solo se presenti -->
+              <span class="list-item-info"> — {{ e.contatti }}</span>
+            {% endif %}
           </div>
+          <!-- Icona direzionale per coerenza visiva con gli altri elenchi -->
           <span class="item-arrow">→</span>
         </a>
       {% empty %}
-        <p class="text-muted">Nessun ente disponibile.</p>
+        <!-- Stato vuoto centrato nel caso in cui non ci siano Enti registrati -->
+        <p class="text-muted text-center">Nessun ente disponibile.</p>
       {% endfor %}
     </div>
 
+    <!-- Pulsantiera di navigazione per tornare all'Hub della Scuola -->
     <div class="btn-row custom-form-buttons">
       <a class="btn back-btn" href="{% url 'scuola_hub' %}">← Torna indietro</a>
     </div>
@@ -28,4 +39,3 @@
   </div>
 </div>
 {% endblock %}
-

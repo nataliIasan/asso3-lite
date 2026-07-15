@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="page-form">
+  
+  <!-- Titolo della pagina con il nome dell'istituto scolastico -->
   <h1>{{ scuola.nome }}</h1>
 
+  <!-- Scheda di dettaglio della scuola (Modalità sola lettura) -->
   <div class="card form-card-custom">
     
+    <!-- Campo: Codice Meccanografico -->
     <div class="form-group-flex">
       <label class="form-label">Codice meccanografico:</label>
       <div class="form-input-wrapper">
@@ -12,6 +17,7 @@
       </div>
     </div>
 
+    <!-- Campo: Email di contatto -->
     <div class="form-group-flex">
       <label class="form-label">Email:</label>
       <div class="form-input-wrapper">
@@ -19,6 +25,7 @@
       </div>
     </div>
 
+    <!-- Campo: Telefono -->
     <div class="form-group-flex">
       <label class="form-label">Telefono:</label>
       <div class="form-input-wrapper">
@@ -26,6 +33,7 @@
       </div>
     </div>
 
+    <!-- Campo: Indirizzo della sede -->
     <div class="form-group-flex">
       <label class="form-label">Indirizzo:</label>
       <div class="form-input-wrapper">
@@ -33,29 +41,33 @@
       </div>
     </div>
 
+    <!-- Campo: Studenti con certificazione nell'Anno Scolastico in corso -->
     <div class="form-group-flex">
-      <label class="form-label">Numero studenti con certificazione nell'AS:</label>
+      <label class="form-label">Studenti certificati (A.S.):</label>
       <div class="form-input-wrapper">
         <input type="text" class="input" value="{{ scuola.numero_studenti_certificati }}" readonly>
       </div>
     </div>
 
+    <!-- Campo: Obiettivo FSL da attivare nell'Anno Scolastico corrente -->
     <div class="form-group-flex">
-      <label class="form-label">Numero FSL da attivare nell'AS:</label>
+      <label class="form-label">FSL da attivare (A.S.):</label>
       <div class="form-input-wrapper">
         <input type="text" class="input" value="{{ scuola.numero_fsl_da_attivare }}" readonly>
       </div>
     </div>
 
+    <!-- Campo: FSL effettivamente attivati nell'Anno Scolastico corrente -->
     <div class="form-group-flex">
-      <label class="form-label">Numero FSL attivati nell'AS:</label>
+      <label class="form-label">FSL attivati (A.S.):</label>
       <div class="form-input-wrapper">
         <input type="text" class="input" value="{{ scuola.numero_fsl_attivati }}" readonly>
       </div>
     </div>
     
+    <!-- Pulsante di navigazione (Ritorno sicuro alla schermata precedente) -->
     <div class="btn-row custom-form-buttons">
-      <a class="btn back-btn" href="{% url 'ente_hub' %}">← Torna indietro</a>
+      <a class="btn back-btn" href="javascript:history.back()">← Torna indietro</a>
     </div>
   </div>
 </div>

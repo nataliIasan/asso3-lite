@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-form">
+  <h1>Modifica scheda scuola</h1>
+
+  <!-- Blocco di notifica degli errori di validazione generali della forma -->
+  {% if form.errors %}
+  <div class="alert alert-danger custom-form-errors">
+    <strong>Per favore, correggi i seguenti errori:</strong>
+  </div>
+  {% endif %}
+
+  <!-- Modulo di modifica (Stile card personalizzato Canva/Capsula) -->
+  <form method="post" class="card form-card-custom">
+    {% csrf_token %}
+    
+    <!-- Campi modificabili del profilo gestiti dinamicamente da Django -->
+    {% for field in form %}
+    <div class="form-group-flex">
+      <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <div class="form-input-wrapper">
+        {{ field }}
+        
+        <!-- Messaggi di errore specifici per singolo campo -->
+        {% if field.errors %}
+          <div class="field-error-text">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- Campo statico (Sola lettura): Studenti con certificazione -->
+    <div class="form-group-flex">
+      <label class="form-label">Studenti certificati (A.S.):</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_studenti_certificati }}" readonly>
+      </div>
+    </div>
+
+    <!-- Campo statico (Sola lettura): Obiettivo FSL da attivare -->
+    <div class="form-group-flex">
+      <label class="form-label">FSL da attivare (A.S.):</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_fsl_da_attivare }}" readonly>
+      </div>
+    </div>
+
+    <!-- Campo statico (Sola lettura): FSL attualmente attivati -->
+    <div class="form-group-flex">
+      <label class="form-label">FSL attivati (A.S.):</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_fsl_attivati }}" readonly>
+      </div>
+    </div>
+    
+    <!-- Pulsanti di controllo (Salva le modifiche / Annulla e torna al dettaglio) -->
+    <div class="btn-row custom-form-buttons">
+      <button class="btn" type="submit">Salva</button>
+      <a class="btn back-btn" href="{% url 'scuola_scheda_scuola_detail' %}">Annulla</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

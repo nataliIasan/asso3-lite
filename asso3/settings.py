@@ -1,79 +1,101 @@
-from pathlib import Path
-BASE_DIR=Path(__file__).resolve().parent.parent
 import os
+from pathlib import Path
 
-# Если на сервере задан секретный ключ, берём его. Если нет — используем 'dev-key'
+# Percorso base del progetto
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# --- SICUREZZA & AMBIENTE ---
+# Se presente sul server, usa la chiave segreta reale. Altrimenti, usa 'dev-key' per lo sviluppo.
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-key')
 
-# На сервере мы создадим переменную со значением False. По умолчанию для ПК будет True
+# DEBUG: False in produzione (impostato sul server), True di default per lo sviluppo locale.
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
-# На сервере пропишем реальный адрес, на ПК останется звёздочка
+# Host consentiti: indirizzo reale in produzione, '*' di default per lo sviluppo locale.
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
-INSTALLED_APPS=[
- 'django.contrib.admin','django.contrib.auth','django.contrib.contenttypes','django.contrib.sessions',
- 'django.contrib.messages','django.contrib.staticfiles',
- 'accounts','portal'
+# --- APPLICAZIONI DEL PROGETTO ---
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    
+    # Applicazioni personalizzate
+    'accounts',
+    'portal',
 ]
 
-MIDDLEWARE=[
- 'django.middleware.security.SecurityMiddleware',
- 'django.contrib.sessions.middleware.SessionMiddleware',
- 'django.middleware.common.CommonMiddleware',
- 'django.middleware.csrf.CsrfViewMiddleware',
- 'django.contrib.auth.middleware.AuthenticationMiddleware',
- 'django.contrib.messages.middleware.MessageMiddleware',
- 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF='asso3.urls'
+ROOT_URLCONF = 'asso3.urls'
 
-TEMPLATES=[{
- 'BACKEND':'django.template.backends.django.DjangoTemplates',
- 'DIRS':[BASE_DIR/'templates'],
- 'APP_DIRS':True,
- 'OPTIONS':{'context_processors':[
-   'django.template.context_processors.debug',
-   'django.template.context_processors.request',
-   'django.contrib.auth.context_processors.auth',
-   'django.contrib.messages.context_processors.messages',
- ]}
-}]
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
-WSGI_APPLICATION='asso3.wsgi.application'
+WSGI_APPLICATION = 'asso3.wsgi.application'
 
-DATABASES={'default':{'ENGINE':'django.db.backends.sqlite3','NAME':BASE_DIR/'db.sqlite3'}}
+# --- DATABASE ---
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
-LANGUAGE_CODE='it-it'
-TIME_ZONE='Europe/Rome'
-USE_I18N=True
-USE_TZ=True
-
+# --- INTERNAZIONALIZZAZIONE & LOCALIZZAZIONE ---
+LANGUAGE_CODE = 'it-it'
+TIME_ZONE = 'Europe/Rome'
+USE_I18N = True
+USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# --- AUTENTICAZIONE ---
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/accounts/post-login'
 LOGOUT_REDIRECT_URL = '/'
 
-# Настройки почты для демо-режима (вывод в консоль)
+# --- CONFIGURAZIONE E-MAIL ---
+# Configurazione e-mail per la modalità demo (output nella console di Django)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "no-reply@example.com"
 
-# Настройки сессий
+# --- CONFIGURAZIONE DELLE SESSIONI ---
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 3600
 SESSION_SAVE_EVERY_REQUEST = True
 
-# --- ЕДИНЫЙ БЛОК НАСТРОЙКИ СТАТИКИ ---
+# --- FILE STATICI (CSS, JS, Immagini) ---
 STATIC_URL = 'static/'
 
-# Сюда сервер соберет все стили для работы сайта
+# Directory in cui verranno raccolti tutti i file statici per la produzione (collectstatic)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Здесь Django ищет твои кастомные стили портала
+# Directory in cui Django cerca i file statici personalizzati dell'applicazione portal
 STATICFILES_DIRS = [
     BASE_DIR / 'portal' / 'static',
 ]
-

@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h1>Home page scuola</h1>
+<div class="page-form">
+<h1>Ciao {{ user.scuola_profile.nome }}!</h1>
 
 <div class="grid grid2">
 
-  <a class="card_block" href="{% url 'scuola_scheda_scuola' %}">
+  <a class="card_block" href="{% url 'scuola_scheda_scuola_detail' %}">
     <div class="card">
       <h3>Scheda scuola</h3>
-      <div class="small muted">Inserisci o modifica</div>
+      <div class="small muted">Visualizza o modifica</div>
     </div>
   </a>
 
@@ -17,7 +19,7 @@
       <div class="small muted">Inserisci o modifica</div>
     </div>
   </a>
-
+  
   <a class="card_block" href="{% url 'scuola_visibili' %}">
     <div class="card">
       <h3>Gli enti</h3>
@@ -33,14 +35,13 @@
   </a>
 </div>
 
-<!-- Твой готовый класс для выравнивания кнопок в хабе школы -->
 <div class="btn-row custom-form-buttons">
   <a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
   <button type="button" class="btn" id="openModalBtn">Elimina account</button>
 </div>
+</div>
 
-<!-- КАСТОМНОЕ МОДАЛЬНОЕ ОКНО -->
-<div class="modal-overlay" id="deleteModal">
+<div class="modal-overlay" id="deleteModal" style="display: none;">
   <div class="modal-window">
     <h3>Richiesta di cancellazione</h3>
     <p>Sei sicuro di voler richiedere la cancellazione del tuo account? Verrà inviata una notifica all'amministratore del sistema per l'elaborazione della richiesta.</p>
@@ -55,14 +56,27 @@
   </div>
 </div>
 
+
 <script>
   const modal = document.getElementById('deleteModal');
   const openBtn = document.getElementById('openModalBtn');
   const closeBtn = document.getElementById('closeModalBtn');
 
-  openBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
-  closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-  window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-</script>
+  // Mostra la finestra modale attivando il layout flex dell'overlay
+  openBtn.addEventListener('click', () => { 
+    modal.style.display = 'flex'; 
+  });
 
+  // Nasconde la finestra modale cliccando su Annulla
+  closeBtn.addEventListener('click', () => { 
+    modal.style.display = 'none'; 
+  });
+
+  // Chiude la modale se l'utente clicca sullo sfondo scuro esterno alla finestra
+  window.addEventListener('click', (e) => { 
+    if (e.target === modal) {
+      modal.style.display = 'none'; 
+    }
+  });
+</script>
 {% endblock %}

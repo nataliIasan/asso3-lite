@@ -1,8 +1,14 @@
 from django.conf import settings
 from django.db import models
 
+
 class Scuola(models.Model):
-    # Привязка школы к аккаунту пользователя-SCUOLA
+    """
+    Modello che rappresenta il profilo di un Istituto Scolastico.
+    È associato in relazione One-to-One con l'utente di tipo 'SCUOLA'.
+    Contiene i dati anagrafici e i dati quantitativi degli studenti certificati.
+    """
+    # Associazione del profilo scuola all'account utente
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -16,29 +22,30 @@ class Scuola(models.Model):
     telefono = models.CharField(max_length=20, blank=True)
     indirizzo = models.CharField(max_length=255, blank=True)
     
-    # Поля из макапа "Situazione studenti con certificazione"
-    numero_studenti_quinto = models.PositiveIntegerField(default=0)   # пятый год
-    numero_studenti_quarto = models.PositiveIntegerField(default=0)   # четвертый год
-    numero_studenti_triennio = models.PositiveIntegerField(default=0) # первые три года
+    # Campi quantitativi derivanti dal mockup "Situazione studenti con certificazione"
+    numero_studenti_quinto = models.PositiveIntegerField(default=0)    # Quinto anno
+    numero_studenti_quarto = models.PositiveIntegerField(default=0)    # Quarto anno
+    numero_studenti_triennio = models.PositiveIntegerField(default=0)  # Primo triennio
     
-    # Поля для FSL из макапа "Situazione studenti con certificazione"
+    # Campi per la gestione dei tirocini (FSL - Formazione in Situazione di Lavoro)
     numero_fsl_da_attivare = models.PositiveIntegerField(default=0)
     numero_fsl_attivati = models.PositiveIntegerField(default=0)
 
-    # --- АВТОМАТИЧЕСКИЕ РАСЧЕТЫ И ДУБЛИРОВАНИЕ ДЛЯ МАКУПОВ ---
+    # --- CALCOLI AUTOMATICI E PROPRIETÀ (PROPERTY) ---
 
     @property
     def numero_studenti_certificati(self):
         """
-        = campo 1 + campo 2 + campo 3 (Макап Scheda scuola)
-        Суммирует студентов 5-го, 4-го и первых 3-х классов.
+        Calcola il totale complessivo degli studenti con certificazione.
+        Somma i valori del quinto anno, del quarto anno e del primo triennio.
         """
         return self.numero_studenti_quinto + self.numero_studenti_quarto + self.numero_studenti_triennio
 
     @property
     def numero_fsl_ancora_da_attivare(self):
         """
-        = n FSL da attivare - numero FSL attivate nell'AS (Макап Situazione studenti)
+        Calcola la differenza tra i tirocini pianificati (da attivare) e quelli già attivi.
+        Restituisce 0 se il numero di attivati supera quello pianificato.
         """
         return max(0, self.numero_fsl_da_attivare - self.numero_fsl_attivati)
 
@@ -47,7 +54,12 @@ class Scuola(models.Model):
 
 
 class Ente(models.Model):
-    # Привязка к аккаунту пользователя-ENTE
+    """
+    Modello che rappresenta il profilo dell'Ente partner del progetto ASSO.
+    È associato in relazione One-to-One con l'utente di tipo 'ENTE'.
+    Gestisce le doti di finanziamento disponibili e i servizi offerti.
+    """
+    # Associazione del profilo Ente all'account utente (campo obbligatorio)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -63,22 +75,26 @@ class Ente(models.Model):
     servizi_extra = models.TextField(blank=True, max_length=2000)
 
     def __str__(self): 
-        # Если имя есть — выводим его, если пусто — выводим красивую заглушку с ID
+        # Ritorna il nome dell'Ente, se vuoto usa un fallback sicuro con l'ID
         return self.nome if self.nome else f"Ente senza nome (ID: {self.pk})"
 
 
 class Azienda(models.Model):
+    """
+    Modello che rappresenta un'Azienda partner registrata all'interno della piattaforma.
+    Ogni azienda appartiene ad un Ente gestore principale (relazione ForeignKey).
+    """
     ente = models.ForeignKey(Ente, on_delete=models.CASCADE, related_name='aziende')
     nome = models.CharField(max_length=200)
     settore = models.CharField(max_length=120, blank=True)
     referente_contatti = models.CharField(max_length=255, blank=True)
     
-    # === НОВЫЕ ПОЛЯ ДЛЯ СЧЁТЧИКОВ ИЗ МАКЕТА ===
-    fsl_attivati_anno_in_corso = models.PositiveIntegerField(default=0)  # Наш счётчик "X"
-    fsl_attivati_totale = models.PositiveIntegerField(default=0)         # Наш архивный итог "Y"
-    note = models.TextField(blank=True, max_length=2000)                 # Большое поле для заметок (scoperture и др.)
-
-    # === СТАРЫЕ ПОЛЯ (Оставляем для сохранности текущей базы данных) ===
+    # === NUOVI CAMPI PER LA GESTIONE DEI CONTATORI DEL LAYOUT (CANVA) ===
+    fsl_attivati_anno_in_corso = models.PositiveIntegerField(default=0)  # Contatore 'X' dei tirocini correnti
+    fsl_attivati_totale = models.PositiveIntegerField(default=0)         # Totale storico d'archivio 'Y'
+    note = models.TextField(blank=True, max_length=2000)                 # Note interne per scoperture o contatti
+    
+    # === CAMPI PRECEDENTI (Mantenuti intatti per preservare l'integrità del database esistente) ===
     numero_scoperture = models.PositiveIntegerField(default=0)
     fsl_attivati_anni = models.CharField(max_length=120, blank=True) 
     foto = models.FileField(upload_to='aziende_foto/', blank=True, null=True)

@@ -1,187 +1,80 @@
-Le scuole Elenco dinamico 
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-
-labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-
-nisi ut aliquip ex ea commodo consequat. 
-
-Le aziende Elenco dinamico 
-
-Chi siamo Testo e loghi  FAQ Domande freqenti Log In Come Scuola Accedi come SCUOLA  Come Ente Accedi come ENTE 
-
-Registrati come Scuola Crea un nuovo account SCUOLA  Registrati come Ente Crea un nuovo account ENTE Log In Log In / Registrazione Registrati Log In Registrazione scuola Nome scuola: 
-
-Email: 
-
-sLiceo Newton Annulla 
-
-Password: 
-
-Conferma password: 
-
-Codice meccanografico: Registrati Log In Registrazione ente Nome ente: 
-
-Email: 
-
-sEnte Uno 
-
-Password: 
-
-Conferma password: Annulla 
-
-Codice Fiscale Invia link Log In Recupera password Inserisci la tua email per ricevere il link di reimpostazione. Annulla Liceo Newton 
-
-G. Marconi 
-
-Giordano Bruno 
-
-Marco Rossi 
-
-Scuola Tre Le scuole Torna indietro Log In Alfa.srl 
-
-Pierre.srl 
-
-Azienda uno 
-
-Azienda due 
-
-Azienda tre Le aziende Torna indietro 
-
-> Log In
-
-Log In Asso — demo testo. Chi siamo Torna indietro Log In Domande frequenti FAQ Torna indietro Log In Entra Log In sAccedi 
-
-Email: 
-
-Password: 
-
-scuola@example.it Annulla 
-
-Hai dimenticato la password? 
-
-Non hai un account?  Registrati Log In Scheda scuola Inserisci o modifica  Scheda studenti Inserisci o modifica 
-
-Contenuti visibili Elenco enti  Istruzioni Guida rapida La mia scuola Salva Log In Scheda scuola Nome scuola: 
-
-Codice fiscale: 
-
-sLiceo Newton Annulla 
-
-Indirizzo: 
-
-Numero studenti con 
-
-certificazione: 
-
-Numero PCTO 
-
-da attivare: Modifica Salva Numero studenti al quinto 
-
-anno : 
-
-Numero studenti al quarto 
-
-anno : 
-
-sAnnulla 
-
-Numero studenti dei 
-
-primi tre anni: 
-
-Numero PCTO da 
-
-attivare: Modifica Log In Situazione studenti con certificazione Torna indietro Log In Elenco Enti Consorzio SiR - Agenzia lavoro - via Valla 25, Milano 
-
-Ente Due 
-
-Ente Tre 
-
-Ente Quattro Clicca sul ente per maggiori informazioni Torna indietro Log In Ente Uno 3245678900 Telefono: 
-
-Doti disponibili:  5
-
-Servizi extra: 
-
-Email: 
-
-Nome referente: 
-
-consulenza, formazione Istruzioni per la scuola Istruzioni per la SCUOLA Torna indietro Log In Entra Log In sAccedi 
-
-Email: 
-
-Password: 
-
-ente@example.it Annulla 
-
-Hai dimenticato la password? 
-
-Non hai un account?  Registrati Log In Scheda ente Inserisci o modifica  Le mie aziende Elenco, inserisci o modifica 
-
-Contenuti visibili Schede scuola  Schede aziende  Istruzioni Guida rapida Il mio ente Salva Log In Scheda ente Nome ente: 
-
-Telefono: 
-
-sEnte Uno 
-
-Doti disponibili: 
-
-Servizi extra oltre a PCTO: Annulla Modifica 
-
-Email: Torna indietro Log In Nome Le mie aziende Inserisci azienda 
-
-Alfa.srl 
-
-Azienda  Uno 
-
-Clicca sulla azienda per maggiori informazioni Salva Log In Inserisci scheda azienda Nome azienda: 
-
-Contatto riferente: 
-
-sAlfa.srl 
-
-Settore: Annulla Modifica 
-
-PCTO attivi: Istruzioni per gli enti Istruzioni per gli ENTE Torna indietro Log In Torna indietro Log In Contenuti visibili Schede scuola Liceo  Newton 
-
-G. Marconi 
-
-Giordano Bruno 
-
-Marco Rossi 
-
-Scuola Tre Alfa.srl  video 
-
-Azienda Uno  foto  Schede aziende Torna indietro Log In G. Marconi RMIS02388G Codice meccanografico: 
-
-Email: 
-
-Indirizzo: 
-
-Telefono: 
-
-scuola@example.it 
-
-3245678900 Log In Azienda Uno Modifica Contatto riferente: 
-
-Settore: 
-
-PCTO attivi: 
-
-3245678900 
-
-video 
-
-5Torna indietro Elimina Log In Modifica azienda Salva Contatto riferente: 
-
-Settore: 
-
-PCTO attivi: 
-
-3245678900 
-
-video 
-
-5Annulla Log In Elimina azienda Conferma eliminazione Sei sicuro di voler eliminare l'azienda "Alfa.srl"? Annulla
+# RELAZIONE TECNICA: Piattaforma ASSO
+## Alternanza Scolastica e Sportello d'Orientamento (Versione 3)
+
+> **Nota:** Questo documento definisce l'architettura delle informazioni, i flussi utente e i modelli dati della piattaforma digitale ASSO.
+
+---
+
+## 1. Introduzione e Obiettivi del Sistema
+La piattaforma **ASSO** nasce con l'obiettivo di semplificare, digitalizzare e monitorare la collaborazione tra gli **Istituti Scolastici** (Scuole) e gli **Enti coordinatori** (Enti), facilitando l'attivazione dei percorsi formativi (**FSL / PCTO**) per gli studenti con certificazione.
+
+---
+
+## 2. Architettura dei Ruoli Utente
+Il sistema prevede tre livelli di accesso, ciascuno con permessi e visibilità differenti:
+
+| Ruolo | Permessi e Funzionalità Principali |
+| :--- | :--- |
+| **Ospite (Guest / Public)** | Navigazione sulla Landing Page, consultazione delle FAQ e visualizzazione degli elenchi pubblici delle Scuole e delle Aziende partner. |
+| **Scuola (Istituto)** | Gestione della scheda anagrafica della scuola, inserimento della situazione degli studenti certificati (suddivisi per anno), monitoraggio degli FSL attivati e consultazione dell'elenco degli Enti disponibili. |
+| **Ente (Organizzazione)** | Gestione del proprio profilo e del budget delle doti, gestione completa (inserimento, modifica, eliminazione, archiviazione anno) delle Aziende partner collegate, consultazione delle schede delle Scuole. |
+
+---
+
+## 3. Specifica dei Modelli Dati (Database Schema)
+In base ai form e ai template del portale, la base dati è strutturata su tre entità principali:
+
+### Modello: Scuola (Profilo Istituto)
+* **Nome Scuola** (Testo)
+* **Codice Meccanografico** (Testo, Unico)
+* **Email** (Email)
+* **Telefono** (Testo)
+* **Indirizzo** (Testo)
+* **Studenti 5° anno** (Numero)
+* **Studenti 4° anno** (Numero)
+* **Studenti Triennio** (Numero)
+* *Campi calcolati:*
+    * **Studenti certificati totali** (Somma degli studenti del 3°, 4° e 5° anno)
+    * **FSL da attivare** (Obiettivo dell'Anno Scolastico)
+    * **FSL attivati** (Tirocini effettivamente avviati)
+    * **FSL ancora da attivare** (Differenza tra obiettivo e attivati)
+
+### Modello: Ente (Profilo Ente)
+* **Nome Ente** (Testo)
+* **Codice Fiscale** (Testo, Unico)
+* **Telefono** (Testo)
+* **Email** (Email)
+* **Doti disponibili** (Numero / Budget)
+* **Servizi Extra** (Area di testo per consulenza, formazione, ecc.)
+
+### Modello: Azienda (Collegata all'Ente)
+* **Nome Azienda** (Testo)
+* **Referente e Contatti** (Testo)
+* **Settore Operativo** (Testo)
+* **FSL attivati nell'anno in corso** (Numero)
+* **FSL totali storici** (Numero, sola lettura)
+* **Note / Osservazioni** (Area di testo)
+
+---
+
+## 4. Mappa delle Schermate e Flussi di Navigazione (Sitemap)
+
+### Area Pubblica (Accesso Libero)
+* **Landing Page (`landing.html`):** Presentazione del progetto, sezione "Chi siamo", link rapidi ai servizi.
+* **FAQ (`faq.html`):** Fisarmonica interattiva per le risposte alle domande frequenti.
+* **Scuole Pubbliche (`scuole_public.html`):** Lista delle scuole registrate con indirizzo (senza dati sensibili degli studenti).
+* **Aziende Pubbliche (`aziende_public.html`):** Lista delle aziende partner sul territorio.
+* **Login Options (`login_options.html`):** Pagina di reindirizzamento per l'accesso o la registrazione mirata (Scuola o Ente).
+
+### Area Riservata: Scuola
+* **Hub Scuola (`scuola_hub.html`):** Pannello di controllo principale.
+* **Scheda Scuola (`scuola_scheda_scuola_detail.html` / `_form.html`):** Visualizzazione e modifica dei dati di contatto dell'istituto.
+* **Situazione Studenti (`scuola_situazione_studenti.html`):** Form di aggiornamento dei dati relativi alle certificazioni e agli FSL attivati.
+* **Visualizza Enti (`scuola_visibili.html`):** Elenco degli Enti partner con link ai dettagli dei contatti e delle doti disponibili (`ente_detail.html`).
+
+### Area Riservata: Ente
+* **Hub Ente (`ente_hub.html`):** Pannello di controllo principale.
+* **Scheda Ente (`ente_dati_detail.html` / `_form.html`):** Gestione del profilo dell'Ente e delle doti finanziarie.
+* **Le mie aziende (`ente_aziende_list.html`):** Tabella interattiva per la gestione delle aziende collegate, con modale dinamica per l'eliminazione rapida.
+* **Azienda Form (`azienda_form.html`):** Creazione e modifica dell'azienda, con la funzionalità speciale di **Chiusura Anno** (Modale di conferma per azzerare i tirocini correnti e sommarli allo storico totale).
+* **Visualizza Scuole (`ente_visibili.html`):** Elenco delle scuole registrate per monitorare le loro necessità.

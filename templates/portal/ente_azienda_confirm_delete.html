@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="page-form">
   
@@ -11,7 +12,7 @@
       Sei sicuro di voler eliminare l'azienda <br><strong>"{{ azienda.nome }}"</strong>?
     </p>
 
-    <div class="btn-row custom-form-buttons custom-form-buttons-center">
+    <div class="btn-row custom-form-buttons-center">
       <button type="submit" class="btn btn-danger-custom">Conferma eliminazione</button>
       <a href="{% url 'ente_aziende_list' %}" class="btn back-btn">Annulla</a>
     </div>

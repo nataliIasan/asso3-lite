@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% block content %}
 
+{% block content %}
 <div class="page-form">
   
   <h1>Chi siamo</h1>
@@ -8,7 +8,11 @@
 
   <div class="card form-card-custom">
     
-    <p>Asso — demo testo.</p>
+    <p>
+      Il progetto <strong>ASSO</strong> nasce con l'obiettivo di creare un ponte solido e sinergico 
+      tra il mondo dell'istruzione scolastica e il tessuto imprenditoriale locale, facilitando l'attivazione 
+      e il monitoraggio dei percorsi di Formazione in Situazione di Lavoro (FSL) per gli studenti.
+    </p>
 
     <div class="btn-row custom-form-buttons">
       <a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
@@ -16,5 +20,4 @@
 
   </div>
 </div>
-
 {% endblock %}

@@ -1,20 +1,91 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 
-<div class="page-form">
-  
+<div class="content-wrapper faq-page">
+
+  <!-- Titolo principale della pagina e sottotitolo -->
   <h1>FAQ</h1>
   <p class="page-subtitle">Domande frequenti e risposte utili</p>
 
+  <!-- Contenitore principale delle FAQ (Stile card coerente con il portale) -->
   <div class="card form-card-custom">
     
-    <p>Domande frequenti.</p>
+    <div class="faq-list">
+      
+      <!-- Domanda 1 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          Cos'è la piattaforma ASSO? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>ASSO (Alternanza Scolastica e Sportello d'Orientamento) è una piattaforma digitale nata per connettere in modo semplice e sicuro gli istituti scolastici con le aziende del territorio, facilitando la gestione e il monitoraggio dei percorsi formativi.</p>
+        </div>
+      </div>
 
-    <div class="btn-row custom-form-buttons">
+      <!-- Domanda 2 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          Chi può registrarsi sulla piattaforma? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Il servizio è rivolto a tutti gli istituti scolastici superiori e alle aziende, enti o professionisti che desiderano offrire opportunità di tirocinio, FSL o collaborazioni didattiche.</p>
+        </div>
+      </div>
+
+      <!-- Domanda 3 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          Come posso inserire o modificare la mia scheda (Scuola/Azienda)? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Una volta effettuato il login, accedendo alla tua area riservata (Hub), potrai gestire autonomamente tutti i dati, aggiornare le informazioni di contatto, i settori operativi e le note informative.</p>
+        </div>
+      </div>
+
+      <!-- Domanda 4 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          Cosa sono i "FSL attivi" menzionati nelle schede? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Indica il numero totale di percorsi formativi o convenzioni attualmente attive tra una scuola e un'azienda. Questo dato aiuta a monitorare le collaborazioni in corso in tempo reale.</p>
+        </div>
+      </div>
+
+      <!-- Domanda 5 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          Come posso richiedere la cancellazione del mio account? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Dall'interno del tuo Hub privato è presente un pulsante dedicato per richiedere la cancellazione. Verrà inviata una notifica immediata all'amministratore del sistema per l'elaborazione della richiesta.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pulsante di navigazione per tornare alla Landing Page -->
+    <div class="btn-row custom-form-buttons" style="margin-top: 30px;">
       <a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
     </div>
 
   </div>
 </div>
 
+<!-- Script per la gestione dinamica della fisarmonica (Accordion) delle FAQ -->
+<script>
+  function toggleFaq(button) {
+    const item = button.parentElement;
+    const isActive = item.classList.contains('active');
+    
+    // Chiude tutte le altre FAQ aperte per mantenere la pagina pulita e ordinata
+    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+    
+    // Se l'elemento cliccato non era già attivo, lo apre aggiungendo la classe
+    if (!isActive) {
+      item.classList.add('active');
+    }
+  }
+</script>
 {% endblock %}

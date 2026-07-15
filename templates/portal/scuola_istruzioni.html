@@ -1,20 +1,44 @@
 {% extends 'base.html' %}
-{% block content %}
 
+{% block content %}
 <div class="page-form">
   
+  <!-- Titolo della pagina e sottotitolo operativo -->
   <h1>Istruzioni per la Scuola</h1>
   <p class="page-subtitle">Guida all'utilizzo della piattaforma per gli Istituti Scolastici</p>
 
+  <!-- Contenitore delle istruzioni (Stile card personalizzato) -->
   <div class="card form-card-custom">
     
-    <p>Istruzioni per scuola</p>
+    <p>
+      Benvenuto nella guida rapida dedicata agli <strong>Istituti Scolastici</strong>. Questa piattaforma ti permette di gestire in modo efficiente i dati del tuo istituto e di monitorare i percorsi formativi dei tuoi studenti.
+    </p>
 
-    <div class="btn-row custom-form-buttons">
+    <hr style="border: 0; border-top: 1px solid var(--accent-light); margin: 20px 0;">
+
+    <!-- Elenco delle funzionalità principali e istruzioni operative -->
+    <div style="text-align: left; line-height: 1.6;">
+      <p style="margin-bottom: 15px;">
+        <strong>1. Gestione Profilo ("Scheda scuola")</strong><br>
+        In questa sezione puoi consultare e aggiornare i dati anagrafici del tuo istituto, come il Codice Meccanografico, i contatti telefonici, l'email e l'indirizzo della sede principale.
+      </p>
+
+      <p style="margin-bottom: 15px;">
+        <strong>2. Situazione Studenti ("Scheda studenti")</strong><br>
+        Tieni traccia dei numeri chiave dell'Anno Scolastico (A.S.) corrente. Puoi inserire e modificare il numero di studenti con certificazione, impostare l'obiettivo dei tirocini (FSL) da attivare e registrare quelli effettivamente avviati.
+      </p>
+
+      <p style="margin-bottom: 15px;">
+        <strong>3. Consultazione Enti ("Gli enti")</strong><br>
+        Esplora l'elenco degli Enti partner registrati sul portale. Cliccando sulle schede dei singoli Enti puoi visualizzare i loro contatti, le doti finanziarie disponibili e i servizi extra offerti per valutare nuove sinergie.
+      </p>
+    </div>
+
+    <!-- Pulsante per tornare indietro all'Hub principale della Scuola -->
+    <div class="btn-row custom-form-buttons" style="margin-top: 30px;">
       <a class="btn back-btn" href="{% url 'scuola_hub' %}">← Torna indietro</a>
     </div>
 
   </div>
 </div>
-
 {% endblock %}

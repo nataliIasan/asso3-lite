@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="content-wrapper aziende-list-page">
   
+  <!-- Intestazione della pagina con titolo e pulsante di creazione -->
   <div class="page-header-flex">
     <div class="header-spacer"></div> 
 
@@ -17,6 +19,7 @@
     </div>
   </div>
 
+  <!-- Tabella delle aziende collegate all'Ente -->
   <div class="table-container">
     <table class="custom-table">
       <thead>
@@ -28,18 +31,27 @@
       </thead>
       <tbody>
       {% for a in aziende %}
-        <tr>
+        <!-- Riga cliccabile per accedere al dettaglio dell'azienda -->
+        <tr data-href="{% url 'azienda_detail' a.pk %}" onclick="window.location=this.dataset.href;" style="cursor: pointer;">
           <td class="table-cell-name">
             <a href="{% url 'azienda_detail' a.pk %}">{{ a.nome }}</a>
           </td>
           <td class="table-cell-settore">
             {{ a.settore|default:"—" }}
           </td>
-          <td style="text-align: right; padding-right: 20px;">
-            <a href="{% url 'ente_azienda_delete' a.pk %}" class="btn-list-delete">Elimina</a>
+          <!-- Cella con pulsante elimina (impedisce la propagazione del click alla riga) -->
+          <td style="text-align: right; padding-right: 20px;" onclick="event.stopPropagation();">
+            <a href="#" 
+               class="btn-list-delete" 
+               data-url="{% url 'ente_azienda_delete' a.pk %}" 
+               data-nome="{{ a.nome }}" 
+               onclick="openDeleteModal(this.dataset.url, this.dataset.nome); return false;">
+              Elimina
+            </a>
           </td>
         </tr>
       {% empty %}
+        <!-- Stato vuoto se non ci sono aziende registrate -->
         <tr>
           <td colspan="3" class="table-empty">
             Ancora nessuna azienda.
@@ -50,6 +62,7 @@
     </table>
   </div>
 
+  <!-- Pulsante di ritorno all'Hub dell'Ente -->
   <div class="footer-actions">
     <a href="{% url 'ente_hub' %}" class="btn back-btn-round">
       ⬅ Torna indietro
@@ -57,5 +70,46 @@
   </div>
 
 </div>
-{% endblock %}
 
+<!-- Finestra Modale di conferma eliminazione -->
+<div class="modal-overlay" id="deleteModal" style="display: none;">
+  <div class="modal-window">
+    <h3>Richiesta di cancellazione</h3>
+    <p>Sei sicuro di voler eliminare l'azienda "<strong id="modalAziendaNome"></strong>"?</p>
+    
+    <div class="btn-row custom-form-buttons">
+      <!-- Modulo dinamico per l'invio della richiesta POST di eliminazione -->
+      <form id="deleteForm" action="" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-log">Sì, conferma</button>
+      </form>
+      <button type="button" class="btn back-btn" onclick="closeDeleteModal()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('deleteModal');
+  const deleteForm = document.getElementById('deleteForm');
+  const modalAziendaNome = document.getElementById('modalAziendaNome');
+
+  // Apre la modale e la popola con i dati della specifica azienda
+  function openDeleteModal(deleteUrl, name) {
+    deleteForm.action = deleteUrl; // Imposta l'URL specifico per l'eliminazione
+    modalAziendaNome.textContent = name; // Mostra il nome dell'azienda nel testo di conferma
+    modal.style.display = 'flex'; // Mostra la modale a schermo
+  }
+
+  // Chiude la modale nascondendo l'overlay
+  function closeDeleteModal() {
+    modal.style.display = 'none';
+  }
+
+  // Chiude la modale se l'utente clicca sullo sfondo scuro esterno alla finestra
+  window.addEventListener('click', (e) => { 
+    if (e.target === modal) {
+      closeDeleteModal(); 
+    }
+  });
+</script>
+{% endblock %}

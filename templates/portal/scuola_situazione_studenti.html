@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="page-form">
   
+  <!-- Titolo della pagina relativo ai dati di monitoraggio degli studenti -->
   <h1>Situazione studenti con certificazione</h1>
 
+  <!-- Notifica generale in presenza di errori di validazione nel form -->
   {% if form.errors %}
   <div class="alert alert-danger custom-form-errors">
     <strong>Per favore, correggi gli errori nei campi sottostanti.</strong>
   </div>
   {% endif %}
 
+  <!-- Modulo principale per l'aggiornamento dei dati (Stile card personalizzato) -->
   <form method="post" class="card form-card-custom">
     {% csrf_token %}
     
+    <!-- Campo: Studenti del quinto anno con certificazione -->
     <div class="form-group-flex">
       <label class="form-label" for="{{ form.numero_studenti_quinto.id_for_label }}">
         {{ form.numero_studenti_quinto.label }}
@@ -25,6 +30,7 @@
       </div>
     </div>
     
+    <!-- Campo: Studenti del quarto anno con certificazione -->
     <div class="form-group-flex">
       <label class="form-label" for="{{ form.numero_studenti_quarto.id_for_label }}">
         {{ form.numero_studenti_quarto.label }}
@@ -37,6 +43,7 @@
       </div>
     </div>
     
+    <!-- Campo: Studenti del triennio con certificazione -->
     <div class="form-group-flex">
       <label class="form-label" for="{{ form.numero_studenti_triennio.id_for_label }}">
         {{ form.numero_studenti_triennio.label }}
@@ -49,6 +56,7 @@
       </div>
     </div>
     
+    <!-- Campo Sola Lettura: FSL ancora da attivare calcolati dal sistema -->
     <div class="form-group-flex">
       <label class="form-label">Numero FSL ancora da attivare:</label>
       <div class="form-input-wrapper">
@@ -56,6 +64,7 @@
       </div>
     </div>
 
+    <!-- Campo: Obiettivo FSL totali da attivare per l'anno scolastico -->
     <div class="form-group-flex">
       <label class="form-label" for="{{ form.numero_fsl_da_attivare.id_for_label }}">
         {{ form.numero_fsl_da_attivare.label }}
@@ -68,6 +77,7 @@
       </div>
     </div>
     
+    <!-- Campo: FSL effettivamente avviati/attivati -->
     <div class="form-group-flex">
       <label class="form-label" for="{{ form.numero_fsl_attivati.id_for_label }}">
         {{ form.numero_fsl_attivati.label }}
@@ -80,6 +90,7 @@
       </div>
     </div>
 
+    <!-- Pulsantiera finale di controllo (Salva / Annulla e torna all'Hub) -->
     <div class="btn-row custom-form-buttons">
       <button class="btn" type="submit">Salva</button>
       <a class="btn back-btn" href="{% url 'scuola_hub' %}">Annulla</a>

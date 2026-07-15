@@ -23,3 +23,4 @@ admin / *****
 scuola_user / ********  (SCUOLA)
 ente_user / ********     (ENTE)
 Passwords are provided separatel
+.\.venv\Scripts\Activate.ps1

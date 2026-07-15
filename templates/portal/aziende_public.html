@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% block content %}
 
+{% block content %}
 <div class="page-form">
   
   <h1>Le aziende</h1>
@@ -11,14 +11,14 @@
     <div class="custom-list-group">
       {% for a in items %}
         {% if a.nome %}
-          <div class="list-item-bar">
+          <a href="{% url 'azienda_detail' a.pk %}" class="list-item-bar">
             <div class="list-item-title-wrapper">
               <span class="list-item-name">{{ a.nome }}</span>
             </div>
-          </div>
+          </a>
         {% endif %}
       {% empty %}
-        <p class="text-muted">Nessuna azienda disponibile.</p>
+        <p class="text-muted text-center">Nessuna azienda disponibile.</p>
       {% endfor %}
     </div>
 
@@ -28,5 +28,4 @@
 
   </div>
 </div>
-
 {% endblock %}

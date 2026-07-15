@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="page-form">
   
@@ -20,6 +21,7 @@
       <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       <div class="form-input-wrapper">
         {{ field }}
+        
         {% if field.errors %}
           <div class="field-error-text">{{ field.errors|striptags }}</div>
         {% endif %}
@@ -38,7 +40,7 @@
       </p>
       <p class="small">
         Non hai un account? 
-        <a href="/accounts/auth/choose/"><b>Registrati</b></a> 
+        <a href="{% url 'login_options' %}"><b>Registrati</b></a> 
         <span class="text-muted">(demo con attivazione via link).</span>
       </p>
     </div>

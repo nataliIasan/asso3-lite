@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% block content %}
 
+{% block content %}
 <div class="page-form">
   
   <h1>Istruzioni</h1>
@@ -8,13 +8,34 @@
 
   <div class="card form-card-custom">
     
-    <p>Qui ci saranno le istruzioni per gli utenti di tipo ENTE.</p>
+    <p>
+      Benvenuto nella guida rapida dedicata agli <strong>Enti</strong>. Questa piattaforma ti permette di coordinare in modo semplice e centralizzato il collegamento tra le scuole e le aziende partner.
+    </p>
 
-    <div class="btn-row custom-form-buttons">
+    <hr style="border: 0; border-top: 1px solid var(--accent-light); margin: 20px 0;">
+
+    <div style="text-align: left; line-height: 1.6;">
+      <p style="margin-bottom: 15px;">
+        <strong>1. Gestione Profilo ("Scheda ente")</strong><br>
+        In questa sezione puoi visualizzare e modificare le informazioni di contatto del tuo Ente e tenere aggiornato il budget delle doti finanziarie disponibili.
+      </p>
+
+      <p style="margin-bottom: 15px;">
+        <strong>2. Gestione Aziende ("Le mie aziende")</strong><br>
+        Puoi registrare nuove aziende partner, modificarne le schede informative e monitorare il numero di tirocini (FSL) attivati. 
+        Al termine dell'anno scolastico, utilizza la funzione <em>"Salva e chiudi anno"</em> all'interno della modifica dell'azienda per storicizzare i tirocini correnti.
+      </p>
+
+      <p style="margin-bottom: 15px;">
+        <strong>3. Consultazione Scuole ("Le scuole")</strong><br>
+        Esplora l'elenco delle scuole registrate sulla piattaforma per esaminare la loro situazione degli studenti e valutare nuove opportunità di collaborazione.
+      </p>
+    </div>
+
+    <div class="btn-row custom-form-buttons" style="margin-top: 30px;">
       <a href="{% url 'ente_hub' %}" class="btn back-btn">← Torna indietro</a>
     </div>
 
   </div>
 </div>
-
 {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-form">
+  
+  <!-- Titolo della pagina con il nome dell'Ente corrente -->
+  <h1>I dati del ente</h1>
+
+  <!-- Scheda dei dati del profilo (Stile card personalizzato Canva/Capsula) -->
+  <div class="card form-card-custom">
+    
+    <!-- Iterazione dinamica dei campi del profilo dell'Ente -->
+    {% for field in form %}
+    <div class="form-group-flex">
+      <label class="form-label">{{ field.label }}</label>
+      <div class="form-input-wrapper">
+        {{ field }}
+      </div>
+    </div>
+    {% endfor %}
+    
+    <!-- Pulsantiera di navigazione (Torna all'Hub / Modifica i dati) -->
+    <div class="btn-row custom-form-buttons">
+      <a class="btn back-btn" href="{% url 'ente_hub' %}">← Torna indietro</a>
+      <a class="btn" href="{% url 'ente_dati_edit' %}">Modifica</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

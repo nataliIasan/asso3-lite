@@ -3,13 +3,13 @@ from django.urls import path, include
 from django.shortcuts import redirect
 
 urlpatterns = [
-    # Панель администратора
+    # Pannello di amministrazione Django
     path('admin/', admin.site.urls),
     
-    # Подключаем маршруты наших приложений
+    # Rotte delle applicazioni del progetto
     path('', include('portal.urls')),
     path('accounts/', include('accounts.urls')),
     
-    # Системный редирект после успешного входа
-    path('post-login', lambda request: redirect('/accounts/post-login', permanent=False)),
+    # Reindirizzamento di sistema dopo un login con successo
+    path('post-login/', lambda request: redirect('/accounts/post-login', permanent=False)),
 ]

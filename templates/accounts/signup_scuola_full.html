@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="page-form">
   
@@ -10,7 +11,7 @@
   </div>
   {% endif %}
 
-  <form method="post">
+  <form method="post" class="card form-card-custom">
     {% csrf_token %}
     
     {% for field in form %}
@@ -18,6 +19,7 @@
       <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       <div class="form-input-wrapper">
         {{ field }}
+        
         {% if field.errors %}
           <div class="field-error-text">{{ field.errors|striptags }}</div>
         {% endif %}
@@ -27,10 +29,10 @@
     
     <div class="btn-row custom-form-buttons">
       <button class="btn" type="submit">Registrati</button>
-      <a class="btn back-btn" href="/accounts/login/">Annulla</a>
+      <a class="btn back-btn" href="{% url 'login' %}">Annulla</a>
     </div>
   </form>
   
-  <p class="small signup-login-link">Hai già un account? <a href="/accounts/login/">Accedi</a>.</p>
+  <p class="small signup-login-link">Hai già un account? <a href="{% url 'login' %}">Accedi</a>.</p>
 </div>
 {% endblock %}

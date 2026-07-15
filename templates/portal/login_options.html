@@ -1,33 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
-
 {% load static %}
-<h1>Log In / Registrazione</h1>
 
-<!-- 2 карточки входа -->
-<div class="landing-grid">
-  <a class="card" href="{% url 'login' %}?next=/accounts/post-login">
-    <h3>Come Scuola</h3>
-    <p class="small">Accedi come SCUOLA</p>
-  </a>
+<div class="page-form">
+  
+  <h1>Log In / Registrazione</h1>
+  <p class="page-subtitle" style="margin-bottom: 30px;">Seleziona come desideri accedere o registrarti alla piattaforma</p>
 
-  <a class="card" href="{% url 'login' %}?next=/accounts/post-login">
-    <h3>Come Ente</h3>
-    <p class="small">Accedi come ENTE</p>
-  </a>
+  <div class="grid grid2">
 
-  <a class="card" href="{% url 'signup_scuola_full' %}">
-    <h3>Registrati come Scuola</h3>
-    <p class="small">Crea un nuovo account SCUOLA</p>
-  </a>
+    <a class="card_block" href="{% url 'login' %}?next=/accounts/post-login">
+      <div class="card">
+        <h3>Come Scuola</h3>
+        <div class="small muted">Accedi al pannello della tua scuola</div>
+      </div>
+    </a>
 
-  <a class="card" href="{% url 'signup_ente_full' %}">
-    <h3>Registrati come Ente</h3>
-    <p class="small">Crea un nuovo account ENTE</p>
-  </a>
+    <a class="card_block" href="{% url 'login' %}?next=/accounts/post-login">
+      <div class="card">
+        <h3>Come Ente</h3>
+        <div class="small muted">Accedi all'area riservata del tuo Ente</div>
+      </div>
+    </a>
+
+    <a class="card_block" href="{% url 'signup_scuola_full' %}">
+      <div class="card">
+        <h3>Registrati come Scuola</h3>
+        <div class="small muted">Crea un nuovo account Scuola</div>
+      </div>
+    </a>
+
+    <a class="card_block" href="{% url 'signup_ente_full' %}">
+      <div class="card">
+        <h3>Registrati come Ente</h3>
+        <div class="small muted">Crea un nuovo account Ente</div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="btn-row custom-form-buttons" style="margin-top: 30px;">
+    <a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
+  </div>
+
 </div>
-
-<a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
 {% endblock %}
 
 

@@ -1,40 +1,80 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<div class="landing-header">
 
-  <div class="logo">
-      <img src="{% static 'assets/img/logo_asso_testo.png' %}" alt="ASSO">
+<div class="editorial-container">
+
+  <!-- 1. LOGO (Ottimizzato e ingrandito per maggiore impatto visivo) -->
+  <div class="editorial-logo">
+    <img src="{% static 'assets/img/logo_asso_testo.png' %}" alt="ASSO">
   </div>
 
-  <p class="intro-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  </p>
+  <!-- 2. SEZIONE "CHI SIAMO" / INTRODUZIONE -->
+  <section class="editorial-section intro">
+    <!-- Titolo principale con evidenziazione bordeaux sulle parole chiave -->
+    <h1 class="editorial-title">Uniamo la <span class="accent-brand">scuola</span> e il <span class="accent-brand">lavoro</span></h1>
+    
+    <p class="editorial-lead">
+      La piattaforma <strong>ASSO</strong> (Alternanza Scolastica e Sportello d'Orientamento) è lo strumento digitale 
+      progettato per connettere in modo semplice, sicuro e trasparente gli istituti scolastici con le aziende del territorio.
+    </p>
+    
+    <p class="editorial-text">
+      Semplifichiamo la burocrazia, facilitiamo la gestione dei progetti formativi e offriamo a studenti e imprese 
+      un luogo d'incontro sicuro per far nascere nuove opportunità di crescita professionale.
+    </p>
+    
+    <div class="link-wrapper">
+      <a href="{% url 'chisiamo' %}" class="editorial-link">Scopri di più sulla nostra visione →</a>
+    </div>
 
-</div>
+    <!-- Distanziatore decorativo a forma di rombo nello stile del brand -->
+    <div class="editorial-badge">♦</div>
+  </section>
 
-<div class="landing-grid">
+  <hr class="editorial-divider">
 
-  <a class="card" href="{% url 'scuole_public' %}">
-    <h3>Le scuole</h3>
-    <p class="small">Elenco dinamico</p>
-  </a>
+  <!-- 3. GRIGLIA EDITORIALE (Colonne informative per Scuole e Imprese) -->
+  <section class="editorial-grid">
+    
+    <!-- Colonna dedicata agli Istituti Scolastici -->
+    <div class="editorial-col">
+      <h2 class="col-title">Per gli Istituti</h2>
+      <p class="editorial-text">
+        Accedi all'elenco pubblico delle scuole partner, consulta i percorsi di studio attivi 
+        e scopri come avviare nuove collaborazioni per i tuoi studenti.
+      </p>
+      <div class="link-wrapper">
+        <a href="{% url 'scuole_public' %}" class="editorial-link">Vedi l'elenco delle scuole →</a>
+      </div>
+    </div>
 
-  <a class="card" href="{% url 'aziende_public' %}">
-    <h3>Le aziende</h3>
-    <p class="small">Elenco dinamico</p>
-  </a>
+    <!-- Colonna dedicata alle Imprese/Aziende -->
+    <div class="editorial-col">
+      <h2 class="col-title">Per le Imprese</h2>
+      <p class="editorial-text">
+        Entra a far parte della nostra rete commerciale, promuovi la tua realtà aziendale 
+        e accogli giovani talenti in formazione per percorsi di tirocinio.
+      </p>
+      <div class="link-wrapper">
+        <a href="{% url 'aziende_public' %}" class="editorial-link">Esplora le aziende partner →</a>
+      </div>
+    </div>
 
-  <a class="card" href="{% url 'chisiamo' %}">
-    <h3>Chi siamo</h3>
-    <p class="small">Testo e loghi</p>
-  </a>
+  </section>
 
-  <a class="card" href="{% url 'faq' %}">
-    <h3>FAQ</h3>
-    <p class="small">Domande frequenti</p>
-  </a>
+  <hr class="editorial-divider">
+
+  <!-- 4. SEZIONE DI ANTEPRIMA FAQ -->
+  <section class="editorial-section faq-preview">
+    <h2 class="col-title">Hai dubbi o domande?</h2>
+    <p class="editorial-text">
+      Abbiamo raccolto tutte le informazioni e le risposte rapide per aiutarti a navigare al meglio all'interno della piattaforma.
+    </p>
+    <div class="link-wrapper">
+      <a href="{% url 'faq' %}" class="editorial-link">Leggi le FAQ (Domande Frequenti) →</a>
+    </div>
+  </section>
+
 </div>
 {% endblock %}
-

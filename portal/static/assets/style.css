@@ -1,6 +1,38 @@
 :root {
+  /* --- COLORI PALETTE PRINCIPALE (Colori del Brand) --- */
   --main-red: #D6272D;
+  --slate-gray: #455a64;
   --dark-bg: #212842;
+
+  /* --- TIPOGRAFIA / TESTI (Sfumature dei testi) --- */
+  --text-black: #000000;
+  --text-dark: #333333;
+  --text-muted: #555555;
+  --text-light: #666666;
+  --text-gray-777: #777777;
+  --text-editorial-dark: #1a1a1a;
+  --text-editorial-lead: #4a5568;
+
+  /* --- SFONDI E BORDI (Sfondi, bordi e linee) --- */
+  --bg-white: #ffffff;
+  --bg-light-gray: #f9f9f9;
+  --bg-hover-slate: #f8fafc;
+  
+  --border-dark: #000000;
+  --border-input: #b5b5b5;
+  --border-light: #eeeeee;
+  --border-divider: #e2e8f0;
+
+  /* --- STATI SPECIALI (Errori, readonly, notifiche) --- */
+  --bg-error: #ffebee;
+  --bg-readonly: #ededed;
+  --bg-pwd-blue: #e8f0fd;
+  
+  --bg-highlight-blue: #2c3554;
+  --bg-highlight-pink: #42283b;
+  
+  --msg-success-text: #1e7e34;
+  --msg-success-bg: #f4f4f4;
 }
 
 * {
@@ -11,18 +43,18 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-  color: #000000;
-  background: #ffffff;
+  color: var(--text-black);
+  background: var(--bg-white);
 }
 
-/* --- ТИПОГРАФИКА --- */
+/* --- TIPOGRAFIA --- */
 h1 {
   text-align: center;
   margin-bottom: 40px;
   font-size: 32px;
-  font-weight: 500;            /* Более элегантная толщина букв */
-  color: #000000;              /* Благородный сланцевый цвет вместо черного */
-  letter-spacing: -0.02em;     /* Элегантное микро-сужение букв как в Canva */
+  font-weight: 500;            
+  color: var(--text-black);              
+  letter-spacing: -0.02em;     
 }
 
 h2 {
@@ -43,22 +75,23 @@ strong {
 .description {
   text-align: center !important;
   margin-bottom: 40px;
-  color: #555555;
+  color: var(--text-muted);
 }
 
 a {
-  color: #000000;
+  color: var(--text-black);
   text-decoration: none;
   transition: 0.2s ease;
 }
 
+/* --- NAVIGAZIONE (NAVBAR) --- */
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  border-bottom: 2px solid #000000; /* Тонкая и деликатная линия */
-  background: #ffffff;
+  border-bottom: 2px solid var(--border-dark);
+  background: var(--bg-white);
 }
 
 .brand {
@@ -73,7 +106,32 @@ a {
   display: block;
 }
 
-/* --- СТРУКТУРА И СЕТКИ (GRIDS) --- */
+.nav-profile-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text-dark);
+}
+
+.user-avatar-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.user-nav-name {
+  white-space: nowrap;
+}
+
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 25px;           
+}
+
+/* --- STRUTTURA E GRIGLIE (GRIDS) --- */
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -92,14 +150,12 @@ a {
   gap: 20px;
 }
 
-/* ДОБАВЛЕНО: Правильная сетка для главной страницы (2х2) */
 .landing-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
-/* Лендинг (Главная) */
 .landing-header {
   text-align: center;
   margin: 40px 0;
@@ -120,11 +176,11 @@ a {
   text-align: center;
 }
 
-/* --- КАРТОЧКИ ХАБОВ (ОСНОВНЫЕ КНОПКИ) --- */
+/* --- CARD DEGLI HUB (PULSANTI PRINCIPALI) --- */
 .card {
   border: 3px solid var(--main-red);
   border-radius: 18px;
-  background: #ffffff;
+  background: var(--bg-white);
   padding: 20px;
   min-height: 110px;
   display: flex;
@@ -147,10 +203,21 @@ a {
 
 .small {
   font-size: 14px;
-  color: #666666;
+  color: var(--text-light);
 }
 
-/* --- КНОПКИ (BUTTONS) --- */
+/* --- PULSANTI (BUTTONS) --- */
+
+button, 
+input, 
+select, 
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
 .btn {
   display: inline-flex;          
   align-items: center;
@@ -158,31 +225,32 @@ a {
   gap: 8px;
   padding: 10px 18px;
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--bg-white);
   margin: 8px 0;
-  color: #000000;
+  color: var(--text-black);
   font-weight: 500;
   cursor: pointer;
-  border: 2px solid #000000;
+  border: 2px solid var(--border-dark);
   transition: all 0.2s ease;
 }
 
 .btn:hover {
-  background: #000000;
-  color: #ffffff;
+  background: var(--border-dark);
+  color: var(--bg-white);
 }
 
 .btn-log {
-  border: 2px solid var(--main-red);
-  color: var(--main-red);
+  border: 2px solid var(--border-dark);
+  color: var(--text-black);
 }
 
 .btn-log:hover {
-  background: var(--main-red);
-  color: #ffffff;
+  border: 2px solid var(--border-dark);
+  background: var(--border-dark);
+  color: var(--bg-white);
 }
 
-/* --- ФОРМЫ И ПОЛЯ ВВОДА (INPUTS) --- */
+/* --- MODULI E CAMPI DI INPUT (INPUTS) --- */
 .page-form {
   max-width: 700px;
   margin: 0 auto;
@@ -194,7 +262,7 @@ a {
   max-width: 700px;
   margin: 0 auto;
   padding: 30px;
-  background: #ffffff;
+  background: var(--bg-white);
   border: 3px solid #e0e0e0;
   border-radius: 18px;
 }
@@ -209,7 +277,7 @@ a {
   text-align: left;
   width: 40%;
   padding-right: 15px;
-  color: #333333;
+  color: var(--text-dark);
   font-weight: 500;
   vertical-align: middle;
 }
@@ -222,9 +290,9 @@ a {
   width: 100%;
   padding: 11px 15px;
   border-radius: 10px;
-  border: 2px solid #b5b5b5;
-  background: #ffffff !important;
-  color: #000000;
+  border: 2px solid var(--border-input);
+  background: var(--bg-white) !important;
+  color: var(--text-black);
   font-size: 15px;
   transition: border-color 0.2s;
 }
@@ -234,79 +302,16 @@ a {
   outline: none;
 }
 
-input[readonly] {
-  background-color: #f9ebeb !important;
-  color: #444444;
-  border-color: #e6b2b4;
-  cursor: not-allowed;
-  font-weight: 500;
-}
-
-.card.form-card .btn-row {
-  margin-top: 20px;
-  display: flex;
-  gap: 14px;
-  justify-content: flex-start;
-}
-
-/* --- СТРАНИЦА ПРОСМОТРА ШКОЛЫ ДЛЯ ENTE --- */
-.scuola-detail-card {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 30px;
-  border-radius: 12px;
-  background: var(--dark-bg);
-  color: #ececec;
-  border: none;
-}
-
-.scuola-detail-card .scuola-title {
-  text-align: center;
-  margin-bottom: 25px;
-  color: #ffffff;
-}
-
-.scuola-detail-card .info-row {
-  padding: 12px 5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  font-size: 16px;
-}
-
-.scuola-detail-card .indent-left {
-  padding-left: 25px;
-}
-
-.scuola-detail-card .highlight-blue {
-  background: #2c3554;
-  border-radius: 6px;
-  margin-top: 15px;
-  border-bottom: none;
-}
-
-.scuola-detail-card .highlight-pink {
-  background: #42283b;
-  border-radius: 6px;
-  margin-top: 15px;
-  border: 1px solid var(--main-red);
-  border-bottom: none;
-}
-
-.scuola-detail-card .btn-container {
-  margin-top: 30px;
-  text-align: center;
-}
-
-/* Системные сообщения Django */
+/* --- MESSAGGI DI SISTEMA E NOTIFICHE --- */
 .msg {
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid #ffeeba;
   margin: 15px 0;
-  background: #fff3cd;
-  color: #856404;
+  background-color: var(--msg-success-bg); 
+  color: var(--msg-success-text);            
+  border: 1px solid #dcdcdc; 
 }
 
-/* --- СТИЛИ ДЛЯ СПИСКА ДОСТУПНЫХ ШКОЛ --- */
 .visibili-list {
   list-style-type: none;
   padding-left: 0;
@@ -315,7 +320,7 @@ input[readonly] {
 
 .visibili-item {
   padding: 10px 0;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .visibili-item:last-child {
@@ -334,18 +339,16 @@ input[readonly] {
 }
 
 .visibili-item.text-muted {
-  color: #777777;
+  color: var(--text-gray-777);
   font-style: italic;
 }
 
-/* Контейнер для выравнивания текста и кнопки в шапке */
 .header-user-zone {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-/* Ссылка на имя пользователя (убираем подчеркивание, делаем жирным) */
 .user-hub-link {
   text-decoration: none;
   font-weight: bold;
@@ -353,36 +356,23 @@ input[readonly] {
 }
 
 .user-hub-link:hover {
-  text-decoration: underline; /* Подчеркивание только при наведении */
+  text-decoration: underline;
 }
 
-/* Цветовые акценты для кнопок при наведении */
-.btn-logout:hover {
-  background-color: #D6272D !important;
-  color: #ffffff !important;
-  border-color: #D6272D !important;
-}
-
+.btn-logout:hover,
 .btn-login:hover {
-  background-color: #D6272D !important;
-  color: #ffffff !important;
-  border-color: #D6272D !important;
+  background-color: var(--main-red) !important;
+  color: var(--bg-white) !important;
+  border-color: var(--main-red) !important;
 }
 
-.nav-auth {
-  display: flex;
-  align-items: center; 
-  gap: 25px;           
-}
-
-/* Контейнер страницы */
+/* --- PAGINA ELENCO AZIENDE (AZIENDE LIST) --- */
 .aziende-list-page {
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Флекс-шапка с идеальным центрированием */
 .page-header-flex {
   display: flex;
   align-items: center;
@@ -392,40 +382,29 @@ input[readonly] {
   padding-bottom: 15px;
 }
 
-.header-spacer {
-  flex: 1;
-}
+.header-spacer { flex: 1; }
+.header-titles { flex: 2; text-align: center; }
 
-.header-titles {
-  flex: 2;
-  text-align: center;
-}
-
-/* Стало: */
 .header-titles h1 {
   margin: 0 0 30px 0;       
   font-size: 2rem;
-  color: #000000;
+  color: var(--text-black);
   font-weight: 500;          
   letter-spacing: -0.02em;
 }
 
 .header-titles .text-muted {
   margin: 5px 0 0 0;
-  color: #666;
+  color: var(--text-light);
   font-size: 0.95rem;
 }
 
-.header-action {
-  flex: 1;
-  text-align: right;
-}
+.header-action { flex: 1; text-align: right; }
 
-/* Красная кнопка "+ Inserisci azienda" */
 .btn-outline-red {
   background-color: transparent;
-  border: 2px solid #D6272D;
-  color: #D6272D;
+  border: 2px solid var(--border-dark);
+  color: var(--text-black);
   padding: 8px 16px;
   border-radius: 10px;
   text-decoration: none;
@@ -437,14 +416,14 @@ input[readonly] {
 }
 
 .btn-outline-red:hover {
-  background-color: #D6272D;
-  color: #fff;
+  background-color: var(--border-dark);
+  color: var(--bg-white);
 }
 
-/* Оформление таблицы */
+/* Struttura della tabella dei dati */
 .table-container {
   margin-top: 25px;
-  background: #fff;
+  background: var(--bg-white);
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   overflow: hidden;
@@ -458,7 +437,7 @@ input[readonly] {
 
 .custom-table thead tr {
   border-bottom: 2px solid #eee;
-  background-color: #f9f9f9;
+  background-color: var(--bg-light-gray);
 }
 
 .custom-table th {
@@ -467,23 +446,31 @@ input[readonly] {
   font-weight: 600;
 }
 
+/* PULITO: Regole tr duplicate unite in un unico blocco con transizione fluida */
 .custom-table tbody tr {
-  border-bottom: 1px solid #eee;
-  transition: background 0.2s ease;
+  border-bottom: 1px solid var(--border-light);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+  display: table-row; 
 }
 
 .custom-table tbody tr:hover {
-  background-color: #fcfcfc;
+  background-color: var(--bg-light-gray) !important; 
+  transform: translateX(6px); /* Spostamento ideale di 6px per il bilanciamento visivo */          
 }
 
-/* Ячейки таблицы */
+.custom-table tbody a,
+.custom-table tbody tr:hover a,
+.custom-table tbody a:hover {
+  text-decoration: none !important;
+}
+
 .custom-table td {
   padding: 15px;
   vertical-align: middle;
 }
 
 .table-cell-name a {
-  color: #333;
+  color: var(--text-dark);
   text-decoration: none;
   font-weight: 500;
   font-size: 1.05rem;
@@ -493,22 +480,10 @@ input[readonly] {
   text-decoration: underline;
 }
 
-.table-cell-settore {
-  color: #555;
-}
+.table-cell-settore { color: var(--text-muted); }
+.table-cell-actions { text-align: right; white-space: nowrap; }
+.table-empty { padding: 30px; text-align: center; color: #999; }
 
-.table-cell-actions {
-  text-align: right;
-  white-space: nowrap;
-}
-
-.table-empty {
-  padding: 30px;
-  text-align: center;
-  color: #999;
-}
-
-/* Кнопки внутри таблицы */
 .table-cell-actions .btn {
   padding: 5px 12px;
   font-size: 0.85rem;
@@ -520,47 +495,38 @@ input[readonly] {
 .btn-edit {
   margin-right: 5px;
   border: 1px solid #ccc;
-  color: #333;
-  background: #fff;
+  color: var(--text-dark);
+  background: var(--bg-white);
 }
 
-.btn-edit:hover {
-  background: #f5f5f5;
-}
+.btn-edit:hover { background: #f5f5f5; }
 
 .btn-delete {
-  border: 1px solid #D6272D;
-  color: #D6272D;
-  background: #fff;
+  border: 1px solid var(--main-red);
+  color: var(--main-red);
+  background: var(--bg-white);
 }
 
-.btn-delete:hover {
-  background: #ffebee;
-}
+.btn-delete:hover { background: var(--bg-error); }
 
-/* Нижняя кнопка возврата */
-.footer-actions {
-  margin-top: 30px;
-}
+.footer-actions { margin-top: 30px; }
 
 .btn-back-btn-round {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   padding: 10px 20px;
-  border: 1px solid #333;
+  border: 1px solid var(--text-dark);
   border-radius: 20px;
-  color: #333;
+  color: var(--text-dark);
   font-weight: 500;
   background: transparent;
   transition: background 0.2s;
 }
 
-.btn-back-btn-round:hover {
-  background: #f5f5f5;
-}
+.btn-back-btn-round:hover { background: #f5f5f5; }
 
-/* Стили для легкой страницы деталей (копия старого дизайна) */
+/* DETTAGLI AZIENDA (CLEAN DESIGN) */
 .azienda-detail-clean {
   max-width: 800px;
   margin: 0 auto;
@@ -571,463 +537,274 @@ input[readonly] {
   text-align: center;
   margin-bottom: 25px;
   font-size: 2rem;
-  color: #333;
+  color: var(--text-dark);
 }
 
-.azienda-info-list {
-  margin-bottom: 30px;
-}
+.azienda-info-list { margin-bottom: 30px; }
 
-/* Точные отступы и тонкая линия, как были в инлайн-стилях */
 .info-row {
   padding: 12px;
   border-bottom: 1px solid #ccc;
   font-size: 1.05rem;
-  color: #333;
+  color: var(--text-dark);
 }
 
-.info-row strong {
-  color: #000;
-}
-
-/* Выстраиваем кнопки ровно в ряд с небольшим отступом сверху */
-.detail-buttons-row {
-  margin-top: 25px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+.info-row strong { color: var(--text-black); }
+.detail-buttons-row { margin-top: 25px; display: flex; gap: 10px; flex-wrap: wrap; }
 
 /* ==========================================================================
-   Раздел: Компании (Azienda) — Сетка и Поля по макетам Canva
+   Sezione: Aziende — Griglia e Campi secondo i layout Canva
    ========================================================================== */
-
-/* Сброс ограничений стандартной карточки проекта для бесшовного вида */
 .form-card-custom {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
 
-/* Итальянский блок ошибок */
 .custom-form-errors {
-  background-color: #ffebee;
-  border: 1px solid #D6272D;
-  color: #D6272D;
+  background-color: var(--bg-error);
+  border: 1px solid var(--main-red);
+  color: var(--main-red);
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
 }
 
-.custom-form-errors ul {
-  margin: 5px 0 0 20px;
-  padding: 0;
-}
-
-/* Горизонтальные строки сетки формы */
-.form-group-flex {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%;
-}
+.custom-form-errors ul { margin: 5px 0 0 20px; padding: 0; }
+.form-group-flex { display: flex; align-items: center; margin-bottom: 20px; width: 100%; }
 
 .form-label {
   width: 30%;
   font-weight: 500;
-  color: #333;
+  color: var(--text-dark);
   padding-right: 15px;
   text-align: left;
 }
 
-.form-input-wrapper {
-  width: 70%;
-  display: flex;
-  align-items: center;
-}
+.form-input-wrapper { width: 70%; display: flex; align-items: center; }
 
-/* Фирменные закруглённые инпуты (Canva Style) */
+/* Campi di input arrotondati stile brand (Canva Style) */
 .form-input-wrapper input.input, 
 .form-input-wrapper textarea.input,
 .form-input-wrapper select.input {
   width: 100%;
   padding: 12px 20px;
-  border: 2px solid #455a64; 
+  border: 2px solid var(--slate-gray); 
   border-radius: 25px;       
   font-size: 1rem;
   outline: none;
-  background-color: #fff;
+  background-color: var(--bg-white);
   transition: border-color 0.2s ease;
 }
 
-/* Изменение радиуса для многострочных полей */
-.form-input-wrapper textarea.input {
-  border-radius: 15px;       
-}
+.form-input-wrapper textarea.input { border-radius: 15px; background-color: var(--bg-white); }
+.field-with-action { display: flex; gap: 15px; align-items: center; }
 
-/* Поля со встроенным экшеном справа */
-.field-with-action {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-/* Закруглённая кнопка "Salva e chiudi" */
 .btn-inline-archive {
   white-space: nowrap;
   background: transparent;
-  border: 2px solid #455a64;
-  color: #455a64;
+  border: 2px solid var(--slate-gray);
+  color: var(--slate-gray);
   padding: 10px 20px;
   border-radius: 20px;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .btn-inline-archive:hover {
-  background: #455a64;
-  color: #fff;
+  background: var(--slate-gray);
+  color: var(--bg-white);
 }
 
-/* Оформление полей в режиме Readonly (только для чтения) */
+/* Stile dei campi in modalità Readonly e Disabled */
 .form-input-wrapper input[readonly],
-.form-input-wrapper textarea[readonly] {
-  background-color: #f5f5f5;
-  color: #666;
-  border-color: #ccc;
-  cursor: not-allowed;
+.form-input-wrapper textarea[readonly],
+.form-input-wrapper input[disabled],
+.form-input-wrapper textarea[disabled],
+.form-input-wrapper select[disabled],
+.form-input-wrapper .input[readonly],
+.form-input-wrapper .input[disabled] {
+  background-color: var(--bg-readonly) !important; 
+  color: var(--text-light) !important;            
+  border-color: var(--slate-gray) !important;     
+  cursor: not-allowed !important;       
 }
 
-/* Корректировка отступа для нижнего ряда кнопок */
-.custom-form-buttons {
-  margin-top: 30px;
-}
+.custom-form-buttons { margin-top: 30px; }
 
-/* Нормализация кнопок управления в формах */
 .custom-form-buttons .btn {
-  display: inline-flex;      /* Включаем флекс для идеального выравнивания текста */
-  align-items: center;       /* Центрируем текст по вертикали */
-  justify-content: center;    /* Центрируем текст по горизонтали */
-  
-  height: 45px;              /* Жестко задаем одинаковую высоту для всех тегов */
-  min-width: 110px;          /* Задаем минимальную ширину, чтобы кнопки были симметричными */
-  padding: 0 20px;           /* Одинаковые отступы по бокам */
-  
-  box-sizing: border-box;    /* Запрещаем браузеру ломать высоту из-за рамок */
+  display: inline-flex;      
+  align-items: center;       
+  justify-content: center;    
+  height: 45px;              
+  min-width: 110px;          
+  padding: 0 20px;           
+  box-sizing: border-box;    
   font-size: 1rem;
   vertical-align: middle;
 }
 
 /* ==========================================================================
-   Компонент: Кастомное Модальное Окно (Custom Beautiful Modal)
+   Componente: Finestra Modale Personalizzata (Custom Beautiful Modal)
    ========================================================================== */
-
-/* Задний фон (затемнение и размытие) */
 .modal-backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   background-color: rgba(0, 0, 0, 0.4); 
-  backdrop-filter: blur(3px);            /* Эффект стильного размытия заднего плана */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
+  backdrop-filter: blur(3px);            
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
   transition: opacity 0.25s ease;
-  z-index: 9999;                         /* Всегда поверх всего на сайте */
+  z-index: 9999;                         
 }
 
-/* Состояние, когда окно открыто */
-.modal-backdrop.is-active {
-  opacity: 1;
-  pointer-events: auto;
-}
+.modal-backdrop.is-active { opacity: 1; pointer-events: auto; }
 
-/* Само белое окошко */
 .modal-window {
-  background: #ffffff;
+  background: var(--bg-white);
   padding: 35px;
-  border-radius: 20px;                   /* Фирменное закругление проекта */
-  max-width: 480px;
-  width: 90%;
+  border-radius: 20px;                   
+  max-width: 480px; width: 90%;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
   text-align: center;
-  transform: scale(0.9) translateY(-20px); /* Легкий эффект вылета */
+  transform: scale(0.9) translateY(-20px); 
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.modal-backdrop.is-active .modal-window {
-  transform: scale(1) translateY(0);
-}
+.modal-backdrop.is-active .modal-window { transform: scale(1) translateY(0); }
+.modal-window h3 { margin: 0 0 15px 0; font-size: 1.4rem; color: var(--text-dark); font-weight: 600; }
+.modal-window p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0 0 30px 0; }
+.modal-buttons-row { display: flex; justify-content: center; gap: 12px; }
 
-/* Заголовок внутри окна */
-.modal-window h3 {
-  margin: 0 0 15px 0;
-  font-size: 1.4rem;
-  color: #333333;
-  font-weight: 600;
-}
-
-/* Текст предупреждения */
-.modal-window p {
-  color: #555555;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin: 0 0 30px 0;
-}
-
-/* Контейнер для кнопок внутри модалки */
-.modal-buttons-row {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-/* Общие базовые стили кнопок в окне */
 .modal-buttons-row .btn-modal-action-red,
 .modal-buttons-row .btn-modal-action-gray {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 42px;
-  padding: 0 22px;
-  border-radius: 21px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;
-  box-sizing: border-box;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 42px; padding: 0 22px; border-radius: 21px;
+  font-size: 0.95rem; font-weight: 500; text-decoration: none;
+  box-sizing: border-box; cursor: pointer; transition: all 0.2s ease;
 }
 
-/* Красная кнопка подтверждения "Да, закрыть" */
-.btn-modal-action-red {
-  background-color: #D6272D;
-  color: #ffffff;
-  border: none;
-}
+.btn-modal-action-red { background-color: var(--main-red); color: var(--bg-white); border: none; }
+.btn-modal-action-red:hover { background-color: var(--main-red); box-shadow: 0 4px 10px rgba(198, 40, 40, 0.2); }
 
-.btn-modal-action-red:hover {
-  background-color: #D6272D;
-  box-shadow: 0 4px 10px rgba(198, 40, 40, 0.2);
-}
-
-/* Серая кнопка отмены "Annulla" */
-.btn-modal-action-gray {
-  background-color: #ffffff;
-  border: 2px solid #455a64;
-  color: #455a64;
-}
-
-.btn-modal-action-gray:hover {
-  background-color: #455a64;
-  color: #ffffff;
-}
-
-/* Дополнительный фикс для кнопки вызова (чтобы вела себя как ссылка) */
-.btn-inline-archive {
-  cursor: pointer;
-}
-
+.btn-modal-action-gray { background-color: var(--bg-white); border: 2px solid var(--slate-gray); color: var(--slate-gray); }
+.btn-modal-action-gray:hover { background-color: var(--slate-gray); color: var(--bg-white); }
 
 /* ==========================================================================
-   Раздел: Авторизация (Login — подхват стандартной формы Django)
+   Sezione: Autenticazione (Login — gestione del modulo standard Django)
    ========================================================================== */
-
-/* Магия автоматического закругления стандартных полей Django Auth */
 .form-input-wrapper input[type="text"],
 .form-input-wrapper input[type="password"],
 .form-input-wrapper input.input,
 .form-input-wrapper textarea.input {
     width: 100%;
     padding: 12px 20px;
-    border: 2px solid #455a64;
+    border: 2px solid var(--slate-gray);
     border-radius: 25px;
     font-size: 1rem;
     outline: none;
-    background-color: #fff;
+    background-color: var(--bg-white);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
 }
 
-/* ИСПРАВЛЕНО: Фокус при клике на поле — убираем голубой цвет и свечение */
 .form-input-wrapper input[type="text"]:focus,
 .form-input-wrapper input[type="password"]:focus,
 .form-input-wrapper input.input:focus,
 .form-input-wrapper textarea.input:focus {
-    border-color: #455a64 !important; /* Наш фирменный благородный цвет */
-    outline: none !important;         /* Полностью вырезаем синий контур Chrome */
-    box-shadow: 0 0 8px rgba(69, 90, 100, 0.25); /* Едва заметная мягкая серая тень */
+    border-color: var(--slate-gray) !important; 
+    outline: none !important;         
+    box-shadow: 0 0 8px rgba(69, 90, 100, 0.25); 
 }
 
-/* Ошибки конкретных полей */
-.field-error-text {
-    color: #D6272D;
-    font-size: 0.85rem;
-    margin-top: 5px;
-    display: block;
-}
-
-/* ИСПРАВЛЕНО: Нижние строчки теперь строго ПОД КНОПКАМИ (убран сдвиг 30%) */
-.login-footer-links {
-    margin-top: 20px;
-    padding-left: 0;                  /* Ссылки встанут идеально ровно по левому краю */
-    text-align: left;
-}
-
-.login-footer-links p {
-    margin: 6px 0;
-}
-
-.login-footer-links a {
-    text-decoration: none;
-    color: #455a64;
-    transition: color 0.2s ease;
-}
-
-.login-footer-links a:hover {
-    text-decoration: underline;
-}
+.field-error-text { color: var(--main-red); font-size: 0.85rem; margin-top: 5px; display: block; }
+.login-footer-links { margin-top: 20px; padding-left: 0; text-align: left; }
+.login-footer-links p { margin: 6px 0; }
+.login-footer-links a { text-decoration: none; color: var(--slate-gray); transition: color 0.2s ease; }
+.login-footer-links a:hover { text-decoration: underline; }
 
 /* ==========================================================================
-   Раздел: Списки (Elenco) — Минималистичный строчный стиль для длинных списков
+   Sezione: Elenchi (Elenco) — Stile minimale a righe per liste lunghe
    ========================================================================== */
-
-/* Подзаголовок страницы */
 .page-subtitle {
   text-align: center !important;
-  color: #666666 !important;
+  color: var(--text-light) !important;
   margin-top: -10px !important;
   margin-bottom: 35px !important;
   font-size: 1rem !important;
   display: block !important;
 }
 
-/* Контейнер для списка плашек */
 .custom-list-group {
   display: flex !important;
   flex-direction: column !important;
   width: 100% !important;
   margin: 20px 0 !important;
   padding: 0 !important;
-  border-top: 1px solid #e2e8f0 !important; /* Тонкая начальная линия сверху списка */
+  border-top: 1px solid var(--border-divider) !important; 
 }
 
-/* Чистая строка списка БЕЗ рамок */
 .list-item-bar {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  padding: 14px 16px !important;            /* Аккуратные, компактные отступы */
-  background-color: transparent !important;  /* Полностью прозрачный фон */
-  border: none !important;                   /* Никаких рамок вокруг элемента */
-  border-bottom: 1px solid #e2e8f0 !important; /* Тонкая легкая линия-разделитель снизу */
-  color: #333333 !important;
+  padding: 14px 16px !important;            
+  background-color: transparent !important;  
+  border: none !important;                   
+  border-bottom: 1px solid var(--border-divider) !important; 
+  color: var(--text-dark) !important;
   text-decoration: none !important;
   font-weight: 500 !important;
   transition: all 0.2s ease !important;
   box-sizing: border-box !important;
 }
 
-/* Мягкая, дорогая подсветка всей строки при наведении мышки */
 .list-item-bar:hover {
-  background-color: #f8fafc !important;     /* Мягкий нейтральный светлый ховер */
-  padding-left: 22px !important;            /* Элегантный микро-сдвиг текста вправо */
-  color: #455a64 !important;                 /* Текст становится чуть акцентнее */
+  background-color: var(--bg-hover-slate) !important;     
+  padding-left: 22px !important;            
+  color: var(--slate-gray) !important;                 
 }
 
-.list-item-title-wrapper {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-}
+.list-item-title-wrapper { display: flex !important; align-items: center !important; gap: 8px !important; }
+.list-item-name { font-size: 1rem !important; }
+.list-item-info { color: #78909c !important; font-size: 0.95rem !important; font-weight: 400 !important; }
+.item-arrow { color: #cbd5e1 !important; font-size: 1.1rem !important; transition: all 0.2s ease !important; }
 
-.list-item-name {
-  font-size: 1rem !important;
-}
-
-/* Дополнительная инфо-строка (контакты) */
-.list-item-info {
-  color: #78909c !important;
-  font-size: 0.95rem !important;
-  font-weight: 400 !important;
-}
-
-/* Тонкая стрелочка справа */
-.item-arrow {
-  color: #cbd5e1 !important;                 /* В обычном состоянии стрелка полупрозрачная */
-  font-size: 1.1rem !important;
-  transition: all 0.2s ease !important;
-}
-
-/* При ховере стрелка становится ярче и плавно смещается */
 .list-item-bar:hover .item-arrow {
-  color: #455a64 !important;
+  color: var(--slate-gray) !important;
   transform: translateX(4px) !important;
 }
 
-/* 1. В обычном состоянии кнопка полностью невидима, чтобы длинный список был чистым */
+/* Pulsante Elimina nascosto e visibile solo al passaggio del mouse sulla riga */
 .custom-table tbody tr .btn-list-delete {
   opacity: 0;
   visibility: hidden;
-  color: #D6272D !important;         /* Сразу благородный красный цвет */
+  color: var(--main-red) !important;         
   text-decoration: none !important;
   font-size: 0.9rem !important;
   font-weight: 600 !important;
   transition: opacity 0.2s ease, visibility 0.2s ease !important;
 }
 
-/* 2. МАГИЯ: Кнопка плавно проявляется ТОЛЬКО при наведении на саму СТРОКУ (tr) */
-.custom-table tbody tr:hover .btn-list-delete {
-  opacity: 0.7;                      /* Появляется в полупрозрачном виде, чтобы не бить по глазам */
-  visibility: visible;
-}
-
-/* 3. При наведении курсора прямо на кнопку — делаем её максимально яркой */
-.custom-table tbody tr .btn-list-delete:hover {
-  opacity: 1 !important;
-  text-decoration: underline !important;
-}
-
-.confirm-text {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 1.05rem;
-  color: #333333;
-  line-height: 1.5;
-}
-
-/* Полностью независимое центрирование кнопок */
-.custom-form-buttons-center {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 15px !important;
-  width: 100% !important;
-  margin-top: 25px !important;
-}
+.custom-table tbody tr:hover .btn-list-delete { opacity: 0.7; visibility: visible; }
+.custom-table tbody tr .btn-list-delete:hover { opacity: 1 !important; text-decoration: underline !important; }
 
 /* ==========================================================================
-   Чистое центрирование для страниц восстановления пароля
+   Centratura pulita per le pagine di recupero password
    ========================================================================== */
-
-/* 1. Центрируем текст вопроса/инструкции */
 .confirm-text {
   width: 100% !important;
   text-align: center !important;
   margin-bottom: 25px !important;
   font-size: 1.05rem !important;
-  color: #333333 !important;
+  color: var(--text-dark) !important;
   line-height: 1.5 !important;
 }
 
-/* 2. Центрируем само поле ввода (инпут) */
 .form-input-sole-wrapper {
   width: 100% !important;
   display: flex !important;
@@ -1035,71 +812,40 @@ input[readonly] {
   margin-bottom: 20px !important;
 }
 
-/* 3. ТОЛЬКО центрирование ряда кнопок (форму, скругления и бордеры берём из родного стиля проекта) */
 .custom-form-buttons-center {
   display: flex !important;
-  justify-content: center !important; /* Смещает кнопки строго по центру */
+  justify-content: center !important; 
   align-items: center !important;
-  gap: 12px !important;               /* Аккуратное расстояние между кнопками */
+  gap: 12px !important;               
   width: 100% !important;
   margin-top: 25px !important;
 }
 
-/* ==========================================================================
-   Возвращаем четверговый стиль для окошек ввода (капсула + голубой фон)
-   ========================================================================== */
-
-   .form-input-sole-wrapper input {
+/* Campo di input stile capsula con sfondo azzurro chiaro */
+.form-input-sole-wrapper input {
     width: 100% !important;
     max-width: 360px !important;
     height: 44px !important;
-    background-color: #e8f0fd !important; /* Тот самый нежно-голубой фон из четверга */
-    border: 2px solid #455a64 !important;   /* Аккуратный тёмный контур */
-    border-radius: 25px !important;        /* Округлая форма капсулы как на логине */
+    background-color: var(--bg-pwd-blue) !important; 
+    border: 2px solid var(--slate-gray) !important;   
+    border-radius: 25px !important;        
     padding: 10px 20px !important;
     box-sizing: border-box !important;
     font-size: 1rem !important;
     outline: none !important;
 }
 
-/* Затемняющий фон для кастомного окна */
+/* --- FINESTRE MODALI VECCHIA CATEGORIA --- */
 .modal-overlay {
   display: none; 
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.4); 
   backdrop-filter: blur(2px); 
   z-index: 9999;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; align-items: center;
 }
 
-/* Кастомное модальное окошко */
-.modal-window {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 450px;
-  width: 90%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-.modal-window h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-size: 1.25rem;
-  color: #000000;
-}
-.modal-window p {
-  color: #555555;
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 25px;
-}
-
-/* Окультуриваем стандартные подсказки Django под полями */
 .helptext {
   display: block;
   font-size: 11px;
@@ -1109,33 +855,153 @@ input[readonly] {
   line-height: 1.3;
 }
 
-.text-center {
-  text-align: center;
+.text-center { text-align: center; }
+.text-center .demo-activation-card { margin: 20px auto; max-width: 550px; display: inline-block; width: 100%; text-align: left; box-sizing: border-box; }
+
+.list-item-title-wrapper {
+  display: flex;
+  flex-direction: row;       
+  align-items: baseline;     
+  flex-wrap: wrap;           
+  gap: 12px;                 
 }
 
-/* Центрируем демо-карточку по горизонтали и ограничиваем её ширину, чтобы не растягивалась */
-.text-center .demo-activation-card {
+.list-item-sub {
+  font-size: 0.85rem !important; 
+  color: var(--text-gray-777) !important;     
+  font-weight: normal !important; 
+}
+
+/* --- PAGINA DETTAGLI SCUOLA PER ENTE --- */
+.scuola-detail-card {
+  max-width: 700px;
   margin: 20px auto;
-  max-width: 550px;
+  padding: 30px;
+  border-radius: 12px;
+  background: var(--dark-bg);
+  color: #ececec;
+  border: none;
+}
+
+.scuola-detail-card .scuola-title { text-align: center; margin-bottom: 25px; color: var(--bg-white); }
+.scuola-detail-card .info-row { padding: 12px 5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); font-size: 16px; }
+.scuola-detail-card .indent-left { padding-left: 25px; }
+.scuola-detail-card .highlight-blue { background: var(--bg-highlight-blue); border-radius: 6px; margin-top: 15px; border-bottom: none; }
+.scuola-detail-card .highlight-pink { background: var(--bg-highlight-pink); border-radius: 6px; margin-top: 15px; border: 1px solid var(--main-red); border-bottom: none; }
+.scuola-detail-card .btn-container { margin-top: 30px; text-align: center; }
+
+
+/* --- ELEGANTE STILE EDITORIALE DELLA LANDING --- */
+.editorial-container { max-width: 850px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+.editorial-logo { margin-bottom: 50px; }
+.editorial-logo img { max-width: 260px; height: auto; transition: transform 0.3s ease; }
+.editorial-logo img:hover { transform: scale(1.02); }
+.editorial-section { margin-bottom: 30px; }
+
+.editorial-title {
+  font-size: 2.6rem;
+  font-weight: 850;
+  color: var(--text-editorial-dark);
+  margin-bottom: 25px;
+  letter-spacing: -0.8px;
+}
+
+.accent-brand { color: var(--main-red); position: relative; }
+.editorial-badge { font-size: 1.4rem; color: var(--main-red); margin-top: 35px; margin-bottom: 10px; opacity: 0.7; }
+
+.editorial-lead {
+  font-size: 1.2rem;
+  color: var(--text-editorial-lead);
+  line-height: 1.7;
+  max-width: 750px;
+  margin: 0 auto 20px auto;
+}
+
+.editorial-text { font-size: 0.98rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
+.editorial-divider { border: 0; border-top: 1px solid var(--border-divider); margin: 40px 0; }
+.editorial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; text-align: left; }
+
+.editorial-col {
+  border-left: 2px solid var(--main-red); 
+  padding-left: 24px;              
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.col-title { font-size: 1.45rem; font-weight: 750; color: var(--text-editorial-dark); margin-top: 0; margin-bottom: 12px; }
+
+.editorial-link {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--main-red) !important;
+  text-decoration: none !important;
   display: inline-block;
+  position: relative;
+  padding-bottom: 2px;
+  transition: all 0.25s ease;
+}
+
+.editorial-link::after {
+  content: '';
+  position: absolute;
   width: 100%;
-  text-align: left; /* Внутри самой карточки текст оставим привычным левым */
-  box-sizing: border-box;
+  transform: scaleX(0);
+  height: 1.5px;
+  bottom: 0; left: 0;
+  background-color: var(--main-red);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
 }
 
+.editorial-link:hover { transform: translateX(5px); }
+.editorial-link:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+.link-wrapper { margin-top: auto; }
+.faq-preview { text-align: center; max-width: 600px; margin: 0 auto; }
 
+/* --- ACCORDION INTERATTIVO FAQ --- */
+.faq-list { border-top: 1px solid var(--border-divider); margin-bottom: 20px; }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-    .login-footer-links {
-        text-align: center;
-    }
+.faq-item {
+  border-bottom: 1px solid var(--border-divider);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+  padding: 0 15px;       
+  border-radius: 10px;   
 }
 
+.faq-item:hover {
+  background-color: var(--bg-light-gray) !important; 
+  transform: translateX(6px);           
+}
 
-/* --- (RESPONSIVE) --- */
+.faq-question {
+  width: 100%;
+  background: none; border: none;
+  padding: 18px 0;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--slate-gray); 
+  text-align: left; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: color 0.2s ease;
+}
+
+.faq-question:hover { color: var(--main-red); }
+.faq-question span { font-size: 1.2rem; color: var(--main-red); transition: transform 0.25s ease; }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.faq-answer p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0; padding-bottom: 18px; }
+.faq-item.active .faq-answer { max-height: 150px; }
+.faq-item.active .faq-question span { transform: rotate(45deg); }
+
+
+/* --- ADATTIVITÀ (RESPONSIVE) --- */
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  .editorial-grid { grid-template-columns: 1fr; gap: 40px; }
+  .editorial-col { border-left: none; border-top: 2px solid var(--main-red); padding-left: 0; padding-top: 20px; }
+  .login-footer-links { text-align: center; }
 }
 
 @media (max-width: 700px) {

@@ -2,24 +2,27 @@
 
 {% block content %}
 <div class="page-form">
-  
-  <h1>Inserisci scheda azienda</h1>
+  <h1>Modifica dati del ente</h1>
 
+  <!-- Messaggio di errore generale se la validazione del modulo fallisce -->
   {% if form.errors %}
   <div class="alert alert-danger custom-form-errors">
     <strong>Per favore, correggi i seguenti errori:</strong>
   </div>
   {% endif %}
 
-  <form method="post" class="card form-card-custom" enctype="multipart/form-data">
+  <!-- Modulo di modifica (Stile card personalizzato Canva/Capsula) -->
+  <form method="post" class="card form-card-custom">
     {% csrf_token %}
     
+    <!-- Iterazione dinamica dei campi del profilo modificabili -->
     {% for field in form %}
     <div class="form-group-flex">
       <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       <div class="form-input-wrapper">
         {{ field }}
         
+        <!-- Errori di validazione specifici per ogni singolo campo -->
         {% if field.errors %}
           <div class="field-error-text">{{ field.errors|striptags }}</div>
         {% endif %}
@@ -27,9 +30,10 @@
     </div>
     {% endfor %}
     
+    <!-- Pulsanti di controllo (Salva le modifiche / Annulla e torna al dettaglio) -->
     <div class="btn-row custom-form-buttons">
       <button class="btn" type="submit">Salva</button>
-      <a class="btn back-btn" href="{% url 'ente_aziende_list' %}">Annulla</a>
+      <a class="btn back-btn" href="{% url 'ente_dati_detail' %}">Annulla</a>
     </div>
   </form>
 </div>
