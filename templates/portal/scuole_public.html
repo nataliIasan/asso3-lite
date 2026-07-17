@@ -1,38 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 
 <div class="page-form">
-  
-  <!-- Titolo della pagina e sottotitolo descrittivo per l'elenco pubblico -->
   <h1>Le scuole</h1>
   <p class="page-subtitle">Schede Scuola</p>
-
-  <!-- Contenitore principale (Stile card coerente con il design system del portale) -->
+  
   <div class="card form-card-custom">
-    
-    <!-- Gruppo contenitore per l'elenco delle scuole partner -->
     <div class="custom-list-group">
       {% for scuola in items %}
         {% if scuola.nome %}
-          <!-- Riga informativa della singola scuola (In modalità visualizzazione) -->
           <div class="list-item-bar">
             <div class="list-item-title-wrapper">
+              
+              <!-- Nome principale della scuola -->
               <span class="list-item-name">{{ scuola.nome }}</span>
               
+              <!-- Tipologia posizionata dopo il nome come etichetta descrittiva -->
+              {% if scuola.tipologia %}
+                <span class="school-type-tag"> {{ scuola.tipologia }}</span>
+              {% endif %}
+              
+              <!-- Indirizzo della scuola -->
               {% if scuola.indirizzo %}
-                <!-- Indirizzo della sede mostrato come informazione secondaria -->
                 <span class="list-item-sub">— {{ scuola.indirizzo }}</span>
               {% endif %}
+              
             </div>
           </div>
         {% endif %}
       {% empty %}
-        <!-- Stato vuoto centrato se non sono presenti scuole nel sistema -->
         <p class="text-muted text-center">Nessuna scuola disponibile.</p>
       {% endfor %}
     </div>
-
-    <!-- Pulsantiera inferiore per il rientro alla Landing Page -->
+    
     <div class="btn-row custom-form-buttons">
       <a href="{% url 'landing' %}" class="btn back-btn">← Torna indietro</a>
     </div>

@@ -1,41 +1,120 @@
 {% extends 'base.html' %}
-
 {% block content %}
+{% load static %}
+
 <div class="page-form">
   
+  <!-- Titolo della pagina e sottotitolo operativo -->
   <h1>Istruzioni</h1>
   <p class="page-subtitle">Guida all'utilizzo della piattaforma per gli Enti</p>
 
-  <div class="card form-card-custom">
-    
-    <p>
+  <!-- PARTE SUPERIORE: Istruzioni operative in stile FAQ Accordion -->
+  <div class="card form-card-custom instruction-card">
+    <p class="instruction-intro">
       Benvenuto nella guida rapida dedicata agli <strong>Enti</strong>. Questa piattaforma ti permette di coordinare in modo semplice e centralizzato il collegamento tra le scuole e le aziende partner.
     </p>
 
-    <hr style="border: 0; border-top: 1px solid var(--accent-light); margin: 20px 0;">
+    <hr class="instruction-hr">
 
-    <div style="text-align: left; line-height: 1.6;">
-      <p style="margin-bottom: 15px;">
-        <strong>1. Gestione Profilo ("Scheda ente")</strong><br>
-        In questa sezione puoi visualizzare e modificare le informazioni di contatto del tuo Ente e tenere aggiornato il budget delle doti finanziarie disponibili.
-      </p>
+    <div class="faq-list">
+      
+      <!-- Voce 1 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          1. Gestione Profilo ("Scheda ente") <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>In questa sezione puoi visualizzare e modificare le informazioni di contatto del tuo Ente e tenere aggiornato il budget delle doti finanziarie disponibili.</p>
+        </div>
+      </div>
 
-      <p style="margin-bottom: 15px;">
-        <strong>2. Gestione Aziende ("Le mie aziende")</strong><br>
-        Puoi registrare nuove aziende partner, modificarne le schede informative e monitorare il numero di tirocini (FSL) attivati. 
-        Al termine dell'anno scolastico, utilizza la funzione <em>"Salva e chiudi anno"</em> all'interno della modifica dell'azienda per storicizzare i tirocini correnti.
-      </p>
+      <!-- Voce 2 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          2. Gestione Aziende ("Le mie aziende") <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Puoi registrare nuove aziende partner, modificarne le schede informative e monitorare il numero di tirocini (FSL) attivati. Al termine dell'anno scolastico, utilizza la funzione <em>"Salva e chiudi anno"</em> all'interno della modifica dell'azienda per storicizzare i tirocini correnti.</p>
+        </div>
+      </div>
 
-      <p style="margin-bottom: 15px;">
-        <strong>3. Consultazione Scuole ("Le scuole")</strong><br>
-        Esplora l'elenco delle scuole registrate sulla piattaforma per esaminare la loro situazione degli studenti e valutare nuove opportunità di collaborazione.
-      </p>
+      <!-- Voce 3 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          3. Consultazione Scuole ("Le scuole") <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Esplora l'elenco delle scuole registrate sulla piattaforma per esaminare la loro situazione degli studenti e valutare nuove opportunità di collaborazione.</p>
+        </div>
+      </div>
+
     </div>
-
-    <div class="btn-row custom-form-buttons" style="margin-top: 30px;">
-      <a href="{% url 'ente_hub' %}" class="btn back-btn">← Torna indietro</a>
-    </div>
-
   </div>
+
+  <!-- PARTE INFERIORE: Blocco Note Condiviso / Commenti dell'Ente -->
+  <div class="card form-card-custom">
+    <h3 class="note-title">📝 Blocco Note Condiviso</h3>
+    <p class="small text-muted">
+      Questo spazio è visibile a tutti gli operatori abilitati di questo ente. Ogni nota salvata mostrerà automaticamente ora, data e autore.
+    </p>
+
+    <!-- Form per l'inserimento di una nuova nota con firmatario opzionale -->
+    <form method="POST" class="note-form">
+      {% csrf_token %}
+      <div class="note-form-group">
+        <label class="note-form-label">Messaggio:</label>
+        {{ form.testo }}
+      </div>
+      <div class="note-form-group-last">
+        <label class="note-form-label">Operatore / Sede (Opzionale):</label>
+        {{ form.operatore }}
+      </div>
+      <button type="submit" class="btn note-submit-btn">Salva nota nel registro</button>
+    </form>
+
+    <hr class="note-hr">
+
+    <!-- Registro storico dei commenti dell'Ente con scorrimento controllato da CSS -->
+    <div class="notes-scroll-box">
+      {% for nota in note %}
+        <div class="note-log-item">
+          <div class="note-item-header">
+            <span>🕒 {{ nota.data_creazione|date:"H:i d/m/Y" }}</span>
+            <span>
+              👤 {{ nota.autore.username }}
+              {% if nota.operatore %}
+                <span class="note-operator-badge">({{ nota.operatore }})</span>
+              {% endif %}
+            </span>
+          </div>
+          <div class="note-item-body">
+            {{ nota.testo|linebreaksbr }}
+          </div>
+        </div>
+      {% empty %}
+        <p class="note-empty-text text-muted text-center">
+          Il blocco note è vuoto. Scrivi il primo messaggio!
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Pulsante inferiore per tornare all'Hub dell'Ente -->
+  <div class="btn-row custom-form-buttons note-back-row">
+    <a href="{% url 'ente_hub' %}" class="btn back-btn">← Torna indietro</a>
+  </div>
+
 </div>
+
+<!-- Script integrato per la gestione dinamica dell'accordion delle istruzioni -->
+<script>
+  function toggleFaq(button) {
+    const item = button.parentElement;
+    const isActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+    if (!isActive) {
+      item.classList.add('active');
+    }
+  }
+</script>
 {% endblock %}

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Ente, Azienda, Scuola
+from .models import NotaScuola, NotaEnte
 
 
 # --- SEZIONE ENTE ---
@@ -102,6 +103,7 @@ class ScuolaForm(forms.ModelForm):
         model = Scuola
         fields = [
             "nome",
+            "tipologia",
             "codice_meccanografico",
             "email",
             "telefono",
@@ -109,6 +111,7 @@ class ScuolaForm(forms.ModelForm):
         ]
         labels = {
             "nome": "Nome scuola:",
+            "tipologia": "Tipologia di istituto",
             "codice_meccanografico": "Codice meccanografico:",
             "email": "Email:",
             "telefono": "Telefono:",
@@ -116,6 +119,7 @@ class ScuolaForm(forms.ModelForm):
         }
         widgets = {
             "nome": forms.TextInput(attrs={"class": "input"}),
+            "tipologia": forms.TextInput(attrs={"class": "input", "placeholder": "es. Liceo Scientifico, Istituto Tecnico..."}),
             "codice_meccanografico": forms.TextInput(attrs={"class": "input"}),
             "email": forms.EmailInput(attrs={"class": "input"}),
             "telefono": forms.TextInput(attrs={"class": "input"}),
@@ -152,4 +156,40 @@ class SituazioneStudentiForm(forms.ModelForm):
             "numero_studenti_triennio": forms.NumberInput(attrs={"class": "input", "min": 0}),
             "numero_fsl_da_attivare": forms.NumberInput(attrs={"class": "input", "min": 0}),
             "numero_fsl_attivati": forms.NumberInput(attrs={"class": "input", "min": 0}),
+        }
+
+
+class NotaScuolaForm(forms.ModelForm):
+    """
+    Formulario per l'inserimento di una nuova nota 
+    da parte degli operatori della Scuola.
+    """
+    class Meta:
+        model = NotaScuola
+        fields = ['testo', 'operatore']
+        widgets = {
+            'testo': forms.Textarea(attrs={
+                'class': 'form-input-wrapper', 
+                'placeholder': 'Scrivi una nota o un commento per i colleghi della scuola...',
+                'rows': 3,
+                'style': 'width: 100%; resize: vertical;'
+            })
+        }
+
+class NotaEnteForm(forms.ModelForm):
+    """
+    Formulario per l'inserimento di una nuova nota 
+    da parte degli operatori dell'Ente.
+    """
+    class Meta:
+        model = NotaEnte
+        fields = ['testo', 'operatore']
+        widgets = {
+            'testo': forms.Textarea(attrs={
+                'class': 'form-input-wrapper', 
+                # Usiamo le doppie virgolette per evitare conflitti con l'apostrofo italiano
+                'placeholder': "Scrivi una nota o un commento per i colleghi dell'ente...",
+                'rows': 3,
+                'style': 'width: 100%; resize: vertical;'
+            })
         }

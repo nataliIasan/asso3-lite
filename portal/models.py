@@ -17,6 +17,17 @@ class Scuola(models.Model):
         blank=True
     )
     nome = models.CharField(max_length=200)
+    # OPZIONI PER LA TIPOLOGIA DI SCUOLA
+    TIPOLOGIA_CHOICES = [
+        ('LICEO', 'Liceo'),
+        ('TECNICO', 'Istituto Tecnico'),
+        ('PROFESSIONALE', 'Istituto Professionale'),
+    ]
+    tipologia = models.CharField(
+        max_length=50,  
+        blank=True,
+        verbose_name="Tipologia"
+    )
     codice_meccanografico = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
     telefono = models.CharField(max_length=20, blank=True)
@@ -102,3 +113,39 @@ class Azienda(models.Model):
 
     def __str__(self): 
         return self.nome
+
+
+# =====================================================================
+# --- NUOVI MODELLI PER LA GESTIONE DEL BLOCCO NOTE CONDIVISO ---
+# =====================================================================
+
+class NotaScuola(models.Model):
+    """
+    Modello per gestire il Blocco Note condiviso (commenti interni) 
+    tra gli operatori associati allo stesso Istituto Scolastico.
+    """
+    scuola = models.ForeignKey(Scuola, on_delete=models.CASCADE, related_name='note_scuola')
+    # Utilizza la configurazione globale dell'utente per preservare l'integrità del database
+    autore = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    testo = models.TextField()
+    operatore = models.CharField(max_length=100, blank=True, null=True)
+    data_creazione = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-data_creazione']  # Ordina i messaggi mostrando prima i più recenti
+
+
+class NotaEnte(models.Model):
+    """
+    Modello per gestire il Blocco Note condiviso (commenti interni) 
+    tra gli operatori associati allo stesso Ente partner.
+    """
+    ente = models.ForeignKey(Ente, on_delete=models.CASCADE, related_name='note_ente')
+    # Utilizza la configurazione globale dell'utente per preservare l'integrità del database
+    autore = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    testo = models.TextField()
+    operatore = models.CharField(max_length=100, blank=True, null=True)
+    data_creazione = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-data_creazione']  # Ordina i messaggi mostrando prima i più recenti

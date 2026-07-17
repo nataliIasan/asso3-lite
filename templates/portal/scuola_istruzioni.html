@@ -1,44 +1,120 @@
 {% extends 'base.html' %}
-
 {% block content %}
+{% load static %}
+
 <div class="page-form">
   
-  <!-- Titolo della pagina e sottotitolo operativo -->
+  <!-- Titolo della pagina e sottotitolo operativo originali -->
   <h1>Istruzioni per la Scuola</h1>
   <p class="page-subtitle">Guida all'utilizzo della piattaforma per gli Istituti Scolastici</p>
 
-  <!-- Contenitore delle istruzioni (Stile card personalizzato) -->
-  <div class="card form-card-custom">
-    
-    <p>
+  <!-- PARTE SUPERIORE: Istruzioni operative in stile FAQ Accordion -->
+  <div class="card form-card-custom instruction-card">
+    <p class="instruction-intro">
       Benvenuto nella guida rapida dedicata agli <strong>Istituti Scolastici</strong>. Questa piattaforma ti permette di gestire in modo efficiente i dati del tuo istituto e di monitorare i percorsi formativi dei tuoi studenti.
     </p>
 
-    <hr style="border: 0; border-top: 1px solid var(--accent-light); margin: 20px 0;">
+    <hr class="instruction-hr">
 
-    <!-- Elenco delle funzionalità principali e istruzioni operative -->
-    <div style="text-align: left; line-height: 1.6;">
-      <p style="margin-bottom: 15px;">
-        <strong>1. Gestione Profilo ("Scheda scuola")</strong><br>
-        In questa sezione puoi consultare e aggiornare i dati anagrafici del tuo istituto, come il Codice Meccanografico, i contatti telefonici, l'email e l'indirizzo della sede principale.
-      </p>
+    <div class="faq-list">
+      
+      <!-- Voce 1 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          1. Gestione Profilo ("Scheda scuola") <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>In questa sezione puoi consultare e aggiornare i dati anagrafici del tuo istituto, come il Codice Meccanografico, i contatti telefonici, l'email e l'indirizzo della sede principale.</p>
+        </div>
+      </div>
 
-      <p style="margin-bottom: 15px;">
-        <strong>2. Situazione Studenti ("Scheda studenti")</strong><br>
-        Tieni traccia dei numeri chiave dell'Anno Scolastico (A.S.) corrente. Puoi inserire e modificare il numero di studenti con certificazione, impostare l'obiettivo dei tirocini (FSL) da attivare e registrare quelli effettivamente avviati.
-      </p>
+      <!-- Voce 2 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          2. Situazione Studenti ("Scheda studenti") <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Tieni traccia dei numeri chiave dell'Anno Scolastico (A.S.) corrente. Puoi inserire e modificare il numero di studenti con certificazione, impostare l'obiettivo dei tirocini (FSL) da attivare e registrare quelli effettivamente avviati.</p>
+        </div>
+      </div>
 
-      <p style="margin-bottom: 15px;">
-        <strong>3. Consultazione Enti ("Gli enti")</strong><br>
-        Esplora l'elenco degli Enti partner registrati sul portale. Cliccando sulle schede dei singoli Enti puoi visualizzare i loro contatti, le doti finanziarie disponibili e i servizi extra offerti per valutare nuove sinergie.
-      </p>
+      <!-- Voce 3 -->
+      <div class="faq-item">
+        <button type="button" class="faq-question" onclick="toggleFaq(this)">
+          3. Consultazione Enti ("Gli enti") <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Esplora l'elenco degli Enti partner registrati sul portale. Cliccando sulle schede dei singoli Enti puoi visualizzare i loro contatti, le doti finanziarie disponibili e i servizi extra offerti per valutare nuove sinergie.</p>
+        </div>
+      </div>
+
     </div>
-
-    <!-- Pulsante per tornare indietro all'Hub principale della Scuola -->
-    <div class="btn-row custom-form-buttons" style="margin-top: 30px;">
-      <a class="btn back-btn" href="{% url 'scuola_hub' %}">← Torna indietro</a>
-    </div>
-
   </div>
+
+  <!-- PARTE INFERIORE: Blocco Note Condiviso / Commenti della Scuola -->
+  <div class="card form-card-custom">
+    <h3 class="note-title">📝 Blocco Note Condiviso</h3>
+    <p class="small text-muted">
+      Questo spazio è visibile a tutti gli operatori abilitati di questa scuola. Ogni nota salvata mostrerà automaticamente ora, data e autore.
+    </p>
+
+    <!-- Form per l'inserimento di una nuova nota con firmatario opzionale -->
+    <form method="POST" class="note-form">
+      {% csrf_token %}
+      <div class="note-form-group">
+        <label class="note-form-label">Messaggio:</label>
+        {{ form.testo }}
+      </div>
+      <div class="note-form-group-last">
+        <label class="note-form-label">Referente:</label>
+        {{ form.operatore }}
+      </div>
+      <button type="submit" class="btn note-submit-btn">Salva nota nel registro</button>
+    </form>
+
+    <hr class="note-hr">
+
+    <!-- Registro storico dei commenti della Scuola con scorrimento controllato da CSS -->
+    <div class="notes-scroll-box">
+      {% for nota in note %}
+        <div class="note-log-item">
+          <div class="note-item-header">
+            <span>🕒 {{ nota.data_creazione|date:"H:i d/m/Y" }}</span>
+            <span>
+              👤 {{ nota.autore.username }}
+              {% if nota.operatore %}
+                <span class="note-operator-badge">({{ nota.operatore }})</span>
+              {% endif %}
+            </span>
+          </div>
+          <div class="note-item-body">
+            {{ nota.testo|linebreaksbr }}
+          </div>
+        </div>
+      {% empty %}
+        <p class="note-empty-text text-muted text-center">
+          Il blocco note è vuoto. Scrivi il primo messaggio!
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Pulsante inferiore per tornare all'Hub della Scuola -->
+  <div class="btn-row custom-form-buttons note-back-row">
+    <a href="{% url 'scuola_hub' %}" class="btn back-btn">← Torna indietro</a>
+  </div>
+
 </div>
+
+<!-- Script integrato per la gestione dinamica dell'accordion delle istruzioni -->
+<script>
+  function toggleFaq(button) {
+    const item = button.parentElement;
+    const isActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+    if (!isActive) {
+      item.classList.add('active');
+    }
+  }
+</script>
 {% endblock %}

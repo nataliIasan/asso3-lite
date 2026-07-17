@@ -34,14 +34,14 @@
 
   <hr class="editorial-divider">
 
-  <!-- 3. GRIGLIA EDITORIALE (Colonne informative per Scuole e Imprese) -->
+  <!-- 3. GRIGLIA EDITORIALE (Colonne informative per Scuole, Imprese ed Enti) -->
   <section class="editorial-grid">
     
     <!-- Colonna dedicata agli Istituti Scolastici -->
     <div class="editorial-col">
-      <h2 class="col-title">Per gli Istituti</h2>
+      <h2 class="col-title">Le Scuole</h2>
       <p class="editorial-text">
-        Accedi all'elenco pubblico delle scuole partner, consulta i percorsi di studio attivi 
+        Accedi all'elenco delle scuole, consulta i percorsi di studio attivi 
         e scopri come avviare nuove collaborazioni per i tuoi studenti.
       </p>
       <div class="link-wrapper">
@@ -51,13 +51,25 @@
 
     <!-- Colonna dedicata alle Imprese/Aziende -->
     <div class="editorial-col">
-      <h2 class="col-title">Per le Imprese</h2>
+      <h2 class="col-title">Le Aziende</h2>
       <p class="editorial-text">
-        Entra a far parte della nostra rete commerciale, promuovi la tua realtà aziendale 
-        e accogli giovani talenti in formazione per percorsi di tirocinio.
+        Consulta l'elenco delle aziende che accolgono studenti
+        in percorsi di Formazione Scuola Lavoro.
       </p>
       <div class="link-wrapper">
         <a href="{% url 'aziende_public' %}" class="editorial-link">Esplora le aziende partner →</a>
+      </div>
+    </div>
+
+    <!-- Colonna dedicata agli Enti Pubblici -->
+    <div class="editorial-col">
+      <h2 class="col-title">Gli Enti</h2>
+      <p class="editorial-text">
+        Consulta l'elenco degli enti accreditati che offrono opportunità 
+        e progetti di orientamento sul territorio.
+      </p>
+      <div class="link-wrapper">
+        <a href="{% url 'enti_public' %}" class="editorial-link">Esplora gli enti partner →</a>
       </div>
     </div>
 

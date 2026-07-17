@@ -5,8 +5,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from accounts.decorators import login_required, role_required
-from .forms import AziendaForm, EnteForm, ScuolaForm, SituazioneStudentiForm
-from .models import Azienda, Ente, Scuola
+# AGGIORNATO: Importazione dei nuovi moduli per la gestione del blocco note
+from .forms import AziendaForm, EnteForm, ScuolaForm, SituazioneStudentiForm, NotaScuolaForm, NotaEnteForm
+from .models import Azienda, Ente, Scuola, NotaScuola, NotaEnte
 
 
 # --- VISTE PUBBLICHE ---
@@ -61,6 +62,12 @@ def aziende_public(request):
     """Rende l'elenco delle aziende accessibile pubblicamente (senza login)."""
     aziende_list = Azienda.objects.all()
     return render(request, 'portal/aziende_public.html', {'items': aziende_list})
+
+
+def enti_public(request):
+    """Rende l'elenco degli enti accessibile pubblicamente (senza login)."""
+    enti_list = Ente.objects.all()
+    return render(request, 'portal/enti_public.html', {'items': enti_list})
 
 
 # --- DASHBOARD / HUB UTENTI (ACCESSO LIMITATO) ---
@@ -161,7 +168,7 @@ def scuola_scheda_scuola_edit(request):
 def scuola_situazione_studenti(request):
     """
     Pagina 16 (Gestione studenti): Consente alla Scuola di aggiornare la distribuzione 
-    degli studenti certificati e la pianificazione dei tirocini (FSL).
+    degstudi certificati e la pianificazione dei tirocini (FSL).
     """
     scuola, _ = Scuola.objects.get_or_create(user=request.user)
 
@@ -183,8 +190,30 @@ def scuola_situazione_studenti(request):
 @login_required
 @role_required('SCUOLA')
 def scuola_istruzioni(request):
-    """Pagina 19: Rende le istruzioni operative destinate alle Scuole."""
-    return render(request, 'portal/scuola_istruzioni.html')
+    """
+    Pagina 19: Gestisce la visualizzazione delle istruzioni operative (FAQ)
+    e l'inserimento di nuove note/commenti nel Blocco Note condiviso della Scuola.
+    """
+    scuola, _ = Scuola.objects.get_or_create(user=request.user)
+    note = scuola.note_scuola.all()
+    
+    if request.method == 'POST':
+        form = NotaScuolaForm(request.POST)
+        if form.is_valid():
+            nuova_nota = form.save(commit=False)
+            nuova_nota.scuola = scuola
+            nuova_nota.autore = request.user
+            nuova_nota.save()
+            messages.success(request, 'Nota aggiunta con successo al blocco note.')
+            return redirect('scuola_istruzioni')
+    else:
+        form = NotaScuolaForm()
+
+    return render(request, 'portal/scuola_istruzioni.html', {
+        'scuola': scuola,
+        'note': note,
+        'form': form
+    })
 
 
 # =====================================================================
@@ -290,8 +319,30 @@ def ente_azienda_delete(request, pk):
 @login_required
 @role_required('ENTE')
 def ente_istruzioni(request):
-    """Pagina 26: Rende le istruzioni operative destinate agli Enti."""
-    return render(request, 'portal/ente_istruzioni.html')
+    """
+    Pagina 26: Gestisce la visualizzazione delle istruzioni operative (FAQ)
+    e l'inserimento di nuove note/commenti nel Blocco Note condiviso dell'Ente.
+    """
+    ente, _ = Ente.objects.get_or_create(user=request.user)
+    note = ente.note_ente.all()
+    
+    if request.method == 'POST':
+        form = NotaEnteForm(request.POST)
+        if form.is_valid():
+            nuova_nota = form.save(commit=False)
+            nuova_nota.ente = ente
+            nuova_nota.autore = request.user
+            nuova_nota.save()
+            messages.success(request, 'Nota aggiunta con successo al blocco note.')
+            return redirect('ente_istruzioni')
+    else:
+        form = NotaEnteForm()
+
+    return render(request, 'portal/ente_istruzioni.html', {
+        'ente': ente,
+        'note': note,
+        'form': form
+    })
 
 
 @login_required
@@ -320,7 +371,6 @@ def azienda_chiudi_anno(request, pk):
     Formula di calcolo: Y (totale storico) = X (anno corrente) + Y, dopodiché X = 0.
     """
     ente = get_object_or_404(Ente, user=request.user)
-    # SICUREZZA: Verifica rigorosamente che l'azienda appartenga all'Ente autenticato
     azienda = get_object_or_404(Azienda, pk=pk, ente=ente)
     
     azienda.fsl_attivati_totale += azienda.fsl_attivati_anno_in_corso
