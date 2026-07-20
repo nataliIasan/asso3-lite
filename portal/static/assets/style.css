@@ -1133,6 +1133,43 @@ input[type="button"],
   margin-top: 30px;
 }
 
+/* ==========================================
+   FIX IOS/SAFARI E GESTIONE HOVER PULSANTI
+   ========================================== */
+
+/* 1. Rimuove lo stile grigio nativo di Safari e imposta la transizione fluida */
+button, 
+input[type="submit"], 
+input[type="button"],
+.btn,
+.back-btn,
+.btn-back {
+  -webkit-appearance: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* 2. Effetto HOVER: Sfondo nero e testo bianco al passaggio del mouse */
+button:hover, 
+input[type="submit"]:hover, 
+input[type="button"]:hover, 
+.btn:hover, 
+.back-btn:hover,
+.btn-back:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+/* 3. Testo nitido e leggibile sui campi readonly/disabled (iOS Safari) */
+.form-input-wrapper input[readonly],
+.form-input-wrapper textarea[readonly],
+.form-input-wrapper input[disabled],
+.form-input-wrapper textarea[disabled] {
+  color: var(--text-dark, #333333) !important;
+  -webkit-text-fill-color: var(--text-dark, #333333) !important;
+  opacity: 1 !important;
+}
+
 
 /* --- ADATTIVITÀ (RESPONSIVE) --- */
 
@@ -1162,24 +1199,41 @@ input[type="button"],
 
    @media (max-width: 768px) {
 
-    /* 1. INTESTAZIONE (HEADER E NAVBAR) - Flessibile con wrap dinamico */
+    /* 1. INTESTAZIONE (HEADER E NAVBAR) */
   .nav {
     display: flex !important;
     flex-direction: row !important;
-    flex-wrap: wrap !important;               /* Va a capo solo se gli elementi non entrano in una riga */
-    justify-content: space-between !important;  /* Mantiene i bordi distribuiti */
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
     align-items: center !important;
-    gap: 10px !important;
     padding: 10px 15px !important;
   }
 
+  /* STATO 1: OSPITE / LANDING (Logo a sinistra, Log In a destra in un'unica riga) */
   .nav-auth {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: center !important;
     gap: 8px !important;
-    flex-wrap: wrap !important;
+    width: auto !important;
+  }
+
+  /* STATO 2: UTENTE LOGGATO */
+
+  /* Riga 1: Icona + Nome utente centrati perfettamente al centro della prima riga */
+  .nav-profile-block {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* Riga 2: I 3 pulsanti (Menu, Info, Log Out) centrati sotto il nome */
+  .nav-profile-block + .nav-auth {
+    width: 100% !important;
+    justify-content: center !important;
   }
 
   .nav-auth .btn,
@@ -1189,7 +1243,6 @@ input[type="button"],
     padding: 6px 12px !important;
     font-size: 14px !important;
   }
-  
   
     /* 2. INTESTAZIONI PAGINA E PULSANTI D'AZIONE (ES. "LE MIE AZIENDE") */
     /* Forziamo la disposizione verticale del contenitore per non schiacciare gli elementi */
@@ -1222,75 +1275,64 @@ input[type="button"],
       margin-bottom: 16px !important;
     }
   
-    /* Disposizione e formato del pulsante per evitare deformazioni o restringimenti */
-    .btn-outline-red,
-    .header-with-btn .btn,
-    .btn-add {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      white-space: nowrap !important; /* Impedisce al testo di andare a capo */
-      width: auto !important;
-      max-width: 100% !important;
-      padding: 10px 18px !important;
-      text-align: center !important;
-    }
-  
-  
-    /* 3. PULSANTI NEI FORM DI LOGIN E REGISTRAZIONE */
-    .btn-row.custom-form-buttons {
-      display: flex !important;
-      flex-direction: row !important;
-      justify-content: center !important;
-      align-items: center !important;
-      gap: 12px !important;
-      width: 100% !important;
-      grid-column: 1 / -1 !important;
-      margin-top: 24px !important;
-      margin-bottom: 20px !important;
-    }
-  
-    .btn-row.custom-form-buttons .btn,
-    .btn-row.custom-form-buttons .back-btn {
-      width: auto !important;
-      min-width: 110px !important;
-      text-align: center !important;
-      margin: 0 !important;
-    }
-  
-    .login-footer-links {
-      grid-column: 1 / -1 !important;
-      text-align: center !important;
-      margin-top: 16px !important;
-    }
-  
-    .login-footer-links p {
-      margin-bottom: 6px !important;
-    }
-  
-  
-    /* 4. SEZIONE IN BASSO (TORNA INDIETRO ED ELIMINA ACCOUNT) */
-    .footer-actions,
-    .btn-row {
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
-      width: 100% !important;
-      margin-top: 25px !important;
-      text-align: center !important;
-    }
-  
-    .back-btn,
-    .btn-back {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      white-space: nowrap !important;
-      width: auto !important;
-      margin: 5px !important;
-      text-align: center !important;
-    }
-  
+    /* 2. INTESTAZIONI PAGINA E PULSANTI D'AZIONE */
+.btn-outline-red,
+.header-with-btn .btn,
+.btn-add {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  width: auto !important;
+  max-width: 100% !important;
+  padding: 8px 14px !important;
+  font-size: 13px !important;
+  text-align: center !important;
+}
+
+
+/* 3 & 4. PULSANTI NEI FORM E SEZIONE IN BASSO (SALVA, ANNULLA, TORNA INDIETRO, ELIMINA ACCOUNT) */
+.footer-actions,
+.btn-row,
+.btn-row.custom-form-buttons {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  grid-column: 1 / -1 !important;
+  margin-top: 20px !important;
+  margin-bottom: 15px !important;
+}
+
+/* Applichiamo lo stile compatto a TUTTI i tipi di pulsanti inferiori */
+.back-btn,
+.btn-back,
+.footer-actions .btn,
+.footer-actions a,
+.footer-actions button,
+.btn-row .btn,
+.btn-row button,
+.btn-row a {
+  font-size: 14px !important;         /* Font ridotto per far entrare il testo lungo in una riga */
+  padding: 8px 10px !important;        /* Padding compatto */
+  white-space: nowrap !important;      /* Blocca il testo su un'unica riga */
+  width: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+.login-footer-links {
+  grid-column: 1 / -1 !important;
+  text-align: center !important;
+  margin-top: 16px !important;
+}
+
+.login-footer-links p {
+  margin-bottom: 6px !important;
+}
     /* ==========================================
        GESTIONE FORM E CAMPI D'INSERIMENTO SU MOBILE
        ========================================== */
@@ -1388,25 +1430,6 @@ input[type="button"],
       padding-top: 2rem;
     }
 
-    /* ==========================================
-   FIX DELICATI PER IOS / SAFARI (SENZA 'IMPORTANT' AGGRESSIVI)
-   ========================================== */
 
-/* 1. Rimuove il grigio nativo di Safari dai pulsanti (mantiene intatti :hover e colori) */
-button, 
-input[type="submit"], 
-input[type="button"] {
-  -webkit-appearance: none;
-}
-
-/* 2. Rende il testo nitido e scuro nei campi readonly/disabled su Safari iOS */
-.form-input-wrapper input[readonly],
-.form-input-wrapper textarea[readonly],
-.form-input-wrapper input[disabled],
-.form-input-wrapper textarea[disabled] {
-  color: var(--text-dark, #333333) !important;
-  -webkit-text-fill-color: var(--text-dark, #333333) !important;
-  opacity: 1 !important;
-}
   
   }
