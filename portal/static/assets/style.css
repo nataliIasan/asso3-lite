@@ -1355,4 +1355,24 @@ textarea {
     box-sizing: border-box !important;
   }
 
+  /* Layout verticale per la griglia su schermi mobili */
+  .editorial-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Rimuoviamo la linea rossa superiore dalla prima colonna ("Le Scuole") 
+     per evitare il doppio bordo con la linea grigia (.editorial-divider) */
+  .editorial-grid .editorial-col:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  /* Applichiamo la linea rossa divisoria e lo spazio solo tra le colonne successive */
+  .editorial-col + .editorial-col {
+    border-top: 2px solid #D6272D; /* Sostituisci con il tuo codice colore rosso/bordeaux */
+    margin-top: 2rem;
+    padding-top: 2rem;
+  }
+
 }
