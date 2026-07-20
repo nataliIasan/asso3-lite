@@ -1162,33 +1162,33 @@ input[type="button"],
 
    @media (max-width: 768px) {
 
-    /* 1. INTESTAZIONE (HEADER E NAVBAR) */
-    .nav {
-      flex-direction: column !important;
-      align-items: center !important;
-      gap: 10px !important;
-      padding: 10px 15px !important;
-    }
-  
-    .nav-auth {
-      display: flex !important;
-      flex-direction: row !important;
-      justify-content: center !important;
-      align-items: center !important;
-      gap: 8px !important;
-      width: 100% !important;
-    }
-  
-    .nav-auth .btn,
-    .nav-auth .btn-log,
-    .nav-auth a {
-      white-space: nowrap !important;
-      padding: 8px 14px !important;
-      font-size: 14px !important;
-      width: auto !important;
-      min-width: 75px !important;
-      text-align: center !important;
-    }
+    /* 1. INTESTAZIONE (HEADER E NAVBAR) - Flessibile con wrap dinamico */
+  .nav {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;               /* Va a capo solo se gli elementi non entrano in una riga */
+    justify-content: space-between !important;  /* Mantiene i bordi distribuiti */
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px 15px !important;
+  }
+
+  .nav-auth {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .nav-auth .btn,
+  .nav-auth .btn-log,
+  .nav-auth a {
+    white-space: nowrap !important;
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+  }
   
   
     /* 2. INTESTAZIONI PAGINA E PULSANTI D'AZIONE (ES. "LE MIE AZIENDE") */
