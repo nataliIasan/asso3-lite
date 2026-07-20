@@ -641,20 +641,6 @@ input[type="button"],
   box-sizing: border-box !important;
 }
 
-button, 
-input[type="submit"], 
-input[type="button"], 
-.btn, 
-.back-btn {
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  appearance: none !important;
-  background-color: var(--bg-white) !important;
-  color: var(--text-dark) !important;
-  border: 1.5px solid var(--border-dark) !important;
-  box-shadow: none !important;
-}
-
 /* Stile dei campi in modalità Readonly e Disabled (Fix iOS e contrasto) */
 .form-input-wrapper input[readonly],
 .form-input-wrapper textarea[readonly],
@@ -1171,37 +1157,42 @@ input[type="button"],
 
 
 /* ==========================================
-   ADATTIVITÀ MOBILE GENERALE (SCHERMI <= 768px)
+  ADATTIVITÀ MOBILE GENERALE (SCHERMI <= 768px)
    ========================================== */
 
    @media (max-width: 768px) {
 
-    /* 1. INTESTAZIONE (HEADER E NAVBAR) - Manteniamo la riga orizzontale pulita */
+    /* 1. INTESTAZIONE (HEADER E NAVBAR) */
     .nav {
-      display: flex !important;
-      flex-direction: row !important;
-      justify-content: space-between !important;
+      flex-direction: column !important;
       align-items: center !important;
+      gap: 10px !important;
       padding: 10px 15px !important;
     }
   
     .nav-auth {
       display: flex !important;
       flex-direction: row !important;
+      justify-content: center !important;
       align-items: center !important;
       gap: 8px !important;
+      width: 100% !important;
     }
   
     .nav-auth .btn,
     .nav-auth .btn-log,
     .nav-auth a {
       white-space: nowrap !important;
-      padding: 6px 12px !important;
+      padding: 8px 14px !important;
       font-size: 14px !important;
+      width: auto !important;
+      min-width: 75px !important;
+      text-align: center !important;
     }
   
   
-    /* 2. INTESTAZIONI PAGINA E PULSANTI D'AZIONE */
+    /* 2. INTESTAZIONI PAGINA E PULSANTI D'AZIONE (ES. "LE MIE AZIENDE") */
+    /* Forziamo la disposizione verticale del contenitore per non schiacciare gli elementi */
     .header-with-btn,
     .page-header,
     .top-bar-azienda {
@@ -1231,13 +1222,14 @@ input[type="button"],
       margin-bottom: 16px !important;
     }
   
+    /* Disposizione e formato del pulsante per evitare deformazioni o restringimenti */
     .btn-outline-red,
     .header-with-btn .btn,
     .btn-add {
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      white-space: nowrap !important;
+      white-space: nowrap !important; /* Impedisce al testo di andare a capo */
       width: auto !important;
       max-width: 100% !important;
       padding: 10px 18px !important;
@@ -1248,7 +1240,7 @@ input[type="button"],
     /* 3. PULSANTI NEI FORM DI LOGIN E REGISTRAZIONE */
     .btn-row.custom-form-buttons {
       display: flex !important;
-      flex-direction: column !important;
+      flex-direction: row !important;
       justify-content: center !important;
       align-items: center !important;
       gap: 12px !important;
@@ -1260,7 +1252,8 @@ input[type="button"],
   
     .btn-row.custom-form-buttons .btn,
     .btn-row.custom-form-buttons .back-btn {
-      width: 100% !important;
+      width: auto !important;
+      min-width: 110px !important;
       text-align: center !important;
       margin: 0 !important;
     }
@@ -1276,35 +1269,33 @@ input[type="button"],
     }
   
   
-    /* 4. SEZIONE IN BASSO (CORRETTO: PULSANTI COMPATTI AFFIANCATI) */
+    /* 4. SEZIONE IN BASSO (TORNA INDIETRO ED ELIMINA ACCOUNT) */
     .footer-actions,
     .btn-row {
       display: flex !important;
-      flex-direction: row !important;
       justify-content: center !important;
       align-items: center !important;
-      gap: 10px !important;
-      flex-wrap: wrap !important;
       width: 100% !important;
-      margin-top: 20px !important;
+      margin-top: 25px !important;
+      text-align: center !important;
     }
   
     .back-btn,
-    .btn-back,
-    .footer-actions .btn,
-    .btn-row .btn,
-    .btn-row button,
-    .btn-row a {
-      width: auto !important;
-      min-width: 110px !important;
-      max-width: 100% !important;
-      padding: 8px 16px !important;
-      text-align: center !important;
+    .btn-back {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
       white-space: nowrap !important;
+      width: auto !important;
+      margin: 5px !important;
+      text-align: center !important;
     }
   
+    /* ==========================================
+       GESTIONE FORM E CAMPI D'INSERIMENTO SU MOBILE
+       ========================================== */
   
-    /* 5. GESTIONE FORM E CAMPI D'INSERIMENTO SU MOBILE */
+    /* 1. Disposizione verticale per tutte le righe del form (Label sopra, Input sotto) */
     .form-group-flex {
       display: flex !important;
       flex-direction: column !important;
@@ -1325,15 +1316,18 @@ input[type="button"],
       width: 100% !important;
     }
   
+  
+    /* 2. Campo numerico FSL con pulsante "Salva e chiudi anno" affiancato */
     .field-with-action {
       display: flex !important;
       flex-direction: row !important;
       align-items: center !important;
       gap: 10px !important;
       width: 100% !important;
-      flex-wrap: wrap !important;
+      flex-wrap: wrap !important; /* Va a capo in modo fluido se lo schermo è molto stretto */
     }
   
+    /* Protezione del campo di input numerico per evitare che si schiacci a pallino */
     .field-with-action input,
     .field-with-action input[type="number"],
     .field-with-action input[type="text"] {
@@ -1344,9 +1338,10 @@ input[type="button"],
       border-radius: 20px !important;
       padding: 4px 8px !important;
       box-sizing: border-box !important;
-      flex-shrink: 0 !important;
+      flex-shrink: 0 !important; /* Impedisce al pulsante di comprimere l'input */
     }
   
+    /* Formattazione del pulsante d'archivio affiancato */
     .btn-inline-archive {
       display: inline-flex !important;
       align-items: center !important;
@@ -1356,12 +1351,14 @@ input[type="button"],
       font-size: 13px !important;
       height: 42px !important;
       width: auto !important;
-      flex: 1 !important;
+      flex: 1 !important; /* Occupa lo spazio rimanente nella riga */
       min-width: 140px !important;
       text-align: center !important;
       border-radius: 20px !important;
     }
   
+  
+    /* 3. Campo in sola lettura (FSL attivati in totale) */
     .readonly-input-styled,
     .readonly-input-styled input {
       width: 100% !important;
@@ -1371,22 +1368,45 @@ input[type="button"],
       box-sizing: border-box !important;
     }
   
-  
-    /* 6. GRIGLIA EDITORIALE */
+    /* Layout verticale per la griglia su schermi mobili */
     .editorial-grid {
       display: flex;
       flex-direction: column;
     }
   
+    /* Rimuoviamo la linea rossa superiore dalla prima colonna ("Le Scuole") 
+       per evitare il doppio bordo con la linea grigia (.editorial-divider) */
     .editorial-grid .editorial-col:first-child {
       border-top: none;
       padding-top: 0;
     }
   
+    /* Applichiamo la linea rossa divisoria e lo spazio solo tra le colonne successive */
     .editorial-col + .editorial-col {
-      border-top: 2px solid var(--main-red);
+      border-top: 2px solid #D6272D; /* Sostituisci con il tuo codice colore rosso/bordeaux */
       margin-top: 2rem;
       padding-top: 2rem;
     }
+
+    /* ==========================================
+   FIX DELICATI PER IOS / SAFARI (SENZA 'IMPORTANT' AGGRESSIVI)
+   ========================================== */
+
+/* 1. Rimuove il grigio nativo di Safari dai pulsanti (mantiene intatti :hover e colori) */
+button, 
+input[type="submit"], 
+input[type="button"] {
+  -webkit-appearance: none;
+}
+
+/* 2. Rende il testo nitido e scuro nei campi readonly/disabled su Safari iOS */
+.form-input-wrapper input[readonly],
+.form-input-wrapper textarea[readonly],
+.form-input-wrapper input[disabled],
+.form-input-wrapper textarea[disabled] {
+  color: var(--text-dark, #333333) !important;
+  -webkit-text-fill-color: var(--text-dark, #333333) !important;
+  opacity: 1 !important;
+}
   
   }
