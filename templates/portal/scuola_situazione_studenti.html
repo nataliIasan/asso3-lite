@@ -55,14 +55,6 @@
         {% endif %}
       </div>
     </div>
-    
-    <!-- Campo Sola Lettura: FSL ancora da attivare calcolati dal sistema -->
-    <div class="form-group-flex">
-      <label class="form-label">Numero FSL ancora da attivare:</label>
-      <div class="form-input-wrapper">
-        <input type="text" class="input" value="{{ scuola.numero_fsl_ancora_da_attivare }}" readonly>
-      </div>
-    </div>
 
     <!-- Campo: Obiettivo FSL totali da attivare per l'anno scolastico -->
     <div class="form-group-flex">
@@ -87,6 +79,14 @@
         {% if form.numero_fsl_attivati.errors %}
           <div class="field-error-text">{{ form.numero_fsl_attivati.errors|striptags }}</div>
         {% endif %}
+      </div>
+    </div>
+
+    <!-- Campo Sola Lettura: FSL ancora da attivare calcolati dal sistema (Spostato in fondo) -->
+    <div class="form-group-flex">
+      <label class="form-label">Numero FSL ancora da attivare:</label>
+      <div class="form-input-wrapper">
+        <input type="text" class="input" value="{{ scuola.numero_fsl_ancora_da_attivare }}" readonly>
       </div>
     </div>
 
