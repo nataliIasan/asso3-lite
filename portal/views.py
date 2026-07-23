@@ -123,7 +123,17 @@ def scuola_scheda_scuola_detail(request):
     Pagina 15 (Visualizzazione): Consente alla Scuola di visualizzare i propri dati.
     Tutti i campi del modulo sono forzati in modalità sola lettura (Read-only).
     """
-    scuola, _ = Scuola.objects.get_or_create(user=request.user)
+    # Recupera o crea la scuola popolando automaticamente l'email dall'utente
+    scuola, created = Scuola.objects.get_or_create(
+        user=request.user,
+        defaults={'email': request.user.email}
+    )
+    
+    # Se la scheda esisteva già ma l'email era vuota, la aggiorna automaticamente
+    if not scuola.email and request.user.email:
+        scuola.email = request.user.email
+        scuola.save()
+
     form = ScuolaForm(instance=scuola)
     
     # Blocca tutti i campi per impedire modifiche accidentali nella vista di dettaglio
@@ -144,7 +154,14 @@ def scuola_scheda_scuola_edit(request):
     Pagina 15 (Modifica): Consente alla Scuola di aggiornare i propri dati anagrafici.
     Al termine del salvataggio, reindirizza alla vista di dettaglio (Read-only).
     """
-    scuola, _ = Scuola.objects.get_or_create(user=request.user)
+    scuola, created = Scuola.objects.get_or_create(
+        user=request.user,
+        defaults={'email': request.user.email}
+    )
+
+    if not scuola.email and request.user.email:
+        scuola.email = request.user.email
+        scuola.save()
 
     if request.method == 'POST':
         form = ScuolaForm(request.POST, instance=scuola)
@@ -227,7 +244,15 @@ def ente_dati_detail(request):
     Pagina 23 (Visualizzazione): Consente all'Ente di visualizzare il proprio profilo.
     I campi del modulo sono bloccati in modalità sola lettura.
     """
-    ente, _ = Ente.objects.get_or_create(user=request.user)
+    ente, created = Ente.objects.get_or_create(
+        user=request.user,
+        defaults={'email': request.user.email}
+    )
+
+    if not ente.email and request.user.email:
+        ente.email = request.user.email
+        ente.save()
+
     form = EnteForm(instance=ente)
     
     for field in form.fields.values():
@@ -243,7 +268,14 @@ def ente_dati_edit(request):
     """
     Pagina 23 (Modifica): Consente all'Ente di modificare i propri dati e le doti disponibili.
     """
-    ente, _ = Ente.objects.get_or_create(user=request.user)
+    ente, created = Ente.objects.get_or_create(
+        user=request.user,
+        defaults={'email': request.user.email}
+    )
+
+    if not ente.email and request.user.email:
+        ente.email = request.user.email
+        ente.save()
 
     if request.method == 'POST':
         form = EnteForm(request.POST, instance=ente)
@@ -257,7 +289,6 @@ def ente_dati_edit(request):
         form = EnteForm(instance=ente)
 
     return render(request, 'portal/ente_dati_edit.html', {'form': form, 'ente': ente})
-
 
 @login_required
 @role_required('ENTE')

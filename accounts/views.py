@@ -167,7 +167,7 @@ def activate(request, token):
     if getattr(user, 'role', '') == 'SCUOLA':
         target = 'scuola_hub'
     elif getattr(user, 'role', '') == 'ENTE':
-        target = 'ente_dati'
+        target = 'ente_hub'
     else:
         target = 'landing'  # Fallback sicuro sulla landing page
 
